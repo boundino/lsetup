@@ -3,8 +3,10 @@
 ;; Color themee
 (add-to-list 'load-path "~/.emacs.d/lisp/")
 (require 'color-theme)
+(require 'color-theme-boundin)
+(setq color-theme-is-global t)
 (color-theme-initialize)
-(color-theme-clarity)
+(color-theme-boundin)
 
 ;; Highlight parenthese
 (show-paren-mode t)
