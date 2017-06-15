@@ -1,0 +1,9 @@
+[http]
+	sslVerify = false
+[user]
+	name = boundino
+	email = boundino@gmail.com
+	github = boundino
+	name = Jing
+[core]
+        askPass =
