@@ -28,6 +28,7 @@ then
     alias condor_q='condor_q -pool submit.mit.edu:9615 -name submit.mit.edu'
     alias condor_rm='condor_rm -pool submit.mit.edu:9615 -name submit.mit.edu'
     alias condor_transfer='condor_transfer_data -pool submit.mit.edu:9615 -name submit.mit.edu'
+    alias condor_anonymous='condor_q -pool submit.mit.edu:9615 -name submit.mit.edu anonymous | grep -v C'
 fi
 
 # User specific aliases and functions
