@@ -2,8 +2,9 @@
 
 ;; Color themee
 (add-to-list 'load-path "~/.emacs.d/lisp/")
-(require 'color-theme)
 (require 'color-theme-boundin)
+;(require 'fun-boundin)
+
 (setq color-theme-is-global t)
 (color-theme-initialize)
 (color-theme-boundin)
@@ -19,6 +20,9 @@
 (global-set-key (kbd "C-h") 'delete-backward-char)
 (global-set-key [home] 'beginning-of-buffer)
 (global-set-key [end] 'end-of-buffer)
+
+;; auto-mode
+(add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
 
 ;; uncomment this line to disable loading of "default.el" at startup
 ;(setq inhibit-default-init t)
@@ -55,3 +59,15 @@
 
 ;; 
 (setq tags-table-list '"~/.emacs.d/git/tags-view/tags-view.el")
+
+(defun comment-or-uncomment-region-or-line ()
+  "Comments or uncomments the region or the current line if there's no active region."
+  (interactive)
+  (let (beg end)
+    (if (region-active-p)
+        (setq beg (region-beginning) end (region-end))
+      (setq beg (line-beginning-position) end (line-end-position)))
+    (comment-or-uncomment-region beg end)))
+(provide 'comment-or-uncomment-region-or-line)
+
+(global-set-key "\M-;" 'comment-or-uncomment-region-or-line)
