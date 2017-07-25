@@ -37,6 +37,7 @@ fi
 
 LS_COLORS=$LS_COLORS:'di=0;36:ex=38;5;214:*.h=38;5;247:*.pdf=38;2;214;229;255:*.png=38;2;228;255;242:*.backup=38;2;93;0;30' ; export LS_COLORS
 PS1='${debian_chroot:+($debian_chroot)}\[\033[01;33m\]\u\[\033[01;30m\]:~ \[\033[01;34m\]\h\[\033[00m\]:\[\033[01;35m\]\w\[\033[00m\]\$ '
+PS4='\[\033[38;5;118m\]L${LINENO} + \[\033[0m\]'
 
 alias hidsk1='ssh -X hidsk0001'
 alias hidsk2='ssh -X hidsk0002'
@@ -54,6 +55,8 @@ alias ld='du -h --max-depth=1 .'
 alias lu='du -sh '
 alias ctf='ls -l | grep "^-" | wc -l'
 alias clearfolder='rm *.so; rm *.d; rm *.pcm; rm *~'
+# alias cpp='rsync --info=progress2'
+alias cpp='rsync --progress'
 
 #export scratch=/export/d00/scratch/jwang/
 #export hadoopjw=/mnt/hadoop/cms/store/user/jwang/
