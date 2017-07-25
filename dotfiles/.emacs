@@ -3,7 +3,7 @@
 ;; Color themee
 (add-to-list 'load-path "~/.emacs.d/lisp/")
 (require 'color-theme-boundin)
-;(require 'fun-boundin)
+;;(require 'fun-boundin)
 
 (setq color-theme-is-global t)
 (color-theme-initialize)
@@ -25,14 +25,14 @@
 (add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
 
 ;; uncomment this line to disable loading of "default.el" at startup
-;(setq inhibit-default-init t)
+;;(setq inhibit-default-init t)
 
 ;; turn on font-lock mode
 (when (fboundp 'global-font-lock-mode)
   (global-font-lock-mode t))
 
 ;; enable visual feedback on selections
-;(setq transient-mark-mode t)
+;;(setq transient-mark-mode t)
 
 ;; default to better frame titles
 (setq frame-title-format
@@ -42,7 +42,7 @@
 (setq diff-switches "-u")
 
 ;; always end a file with a newline
-;(setq require-final-newline 'query)
+;;(setq require-final-newline 'query)
 
 (put 'upcase-region 'disabled nil)
 
@@ -71,3 +71,10 @@
 (provide 'comment-or-uncomment-region-or-line)
 
 (global-set-key "\M-;" 'comment-or-uncomment-region-or-line)
+
+(defun indent-whole-buffer ()
+  (interactive)
+  (save-excursion
+    (indent-region (point-min) (point-max) nil)))
+(provide 'indent-whole-buffer)
+(global-set-key "\C-x\C-a" 'indent-whole-buffer)
