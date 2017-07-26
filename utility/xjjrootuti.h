@@ -1,6 +1,8 @@
 #ifndef _XJJROOTUTI_H_
 #define _XJJROOTUTI_H_
 
+/* xjjrootuti.h */
+
 #include "rootheaders.h"
 
 namespace xjjrootuti
@@ -10,18 +12,25 @@ namespace xjjrootuti
   const float dy_tex_left_top = 0.06;
 
   void setgstyle();
-  void sethempty(TH2F* hempty, float xoffset=0, float yoffset=0);
+  void sethempty(TH2F* hempty, Float_t xoffset=0, Float_t yoffset=0);
   template <class T>
-  void setthgr(T* hempty, float xoffset=0, float yoffset=0);
+  void setthgr(T* hempty, Float_t xoffset=0, Float_t yoffset=0);
   template <class T>
   void setthgrstyle(T* h, Color_t mlcolor, Style_t mstyle=-1, Size_t msize=-1, Style_t lstyle=-1, Width_t lwidth=-1);
-  void drawCMS(TString collision);
-  void settex(TLatex* tex, Float_t size=0.04, Int_t align=12);
-  void settexndraw(TLatex* tex, Float_t size=0.04, Int_t align=12);
-  void setleg(TLegend* leg, Float_t size=0.04);
-  void setlegndraw(TLegend* leg, Float_t size=0.04);
+  void drawCMS(TString collision, TString snn="5.02");
+  void settex(TLatex* tex, Float_t tsize=0.04, Short_t align=12);
+  void settexndraw(TLatex* tex, Float_t tsize=0.04, Short_t align=12);
+  void drawtex(Double_t x, Double_t y, const char *text, Float_t tsize=0.04, Short_t align=12);
+  void setleg(TLegend* leg, Float_t tsize=0.04);
+  void setlegndraw(TLegend* leg, Float_t tsize=0.04);
+  void setline(TLine* l, Color_t lcolor=kBlack, Style_t lstyle=1, Width_t lwidth=2);
+  void setlinendraw(TLine* l, Color_t lcolor=kBlack, Style_t lstyle=1, Width_t lwidth=2);
+  void drawline(Double_t x1, Double_t y1, Double_t x2, Double_t y2, Color_t lcolor=kBlack, Style_t lstyle=1, Width_t lwidth=2);
+
   void setbranchaddress(TTree* nt, const char* bname, void* addr);
 }
+
+/* ---------- */
 
 void xjjrootuti::setgstyle()
 {
@@ -37,7 +46,7 @@ void xjjrootuti::setgstyle()
   gStyle->SetTitleX(.0f);
 }
 
-void xjjrootuti::sethempty(TH2F* hempty, float xoffset/*=0*/, float yoffset/*=0*/)
+void xjjrootuti::sethempty(TH2F* hempty, Float_t xoffset/*=0*/, Float_t yoffset/*=0*/)
 {
   hempty->GetXaxis()->CenterTitle();
   hempty->GetYaxis()->CenterTitle();
@@ -55,7 +64,7 @@ void xjjrootuti::sethempty(TH2F* hempty, float xoffset/*=0*/, float yoffset/*=0*
 }
 
 template <class T>
-void xjjrootuti::setthgr(T* hempty, float xoffset/*=0*/, float yoffset/*=0*/)
+void xjjrootuti::setthgr(T* hempty, Float_t xoffset/*=0*/, Float_t yoffset/*=0*/)
 {
   hempty->GetXaxis()->CenterTitle();
   hempty->GetYaxis()->CenterTitle();
@@ -87,7 +96,7 @@ void xjjrootuti::setthgrstyle(T* h, Color_t mlcolor, Style_t mstyle/*=-1*/, Size
   if(lwidth>=0) h->SetLineWidth(lwidth);
 }
 
-void xjjrootuti::drawCMS(TString collision)
+void xjjrootuti::drawCMS(TString collision, TString snn/*="5.02"*/)
 {
   TLatex* texCms = new TLatex(0.18,0.93, "#scale[1.25]{CMS} Preliminary");
   texCms->SetNDC();
@@ -95,7 +104,7 @@ void xjjrootuti::drawCMS(TString collision)
   texCms->SetTextSize(0.04);
   texCms->SetTextFont(42);
   texCms->Draw();
-  TLatex* texCol = new TLatex(0.96,0.93, Form("%s #sqrt{s_{NN}} = 5.02 TeV",collision.Data()));
+  TLatex* texCol = new TLatex(0.96,0.93, Form("%s #sqrt{s_{NN}} = %s TeV", collision.Data(), snn.Data()));
   texCol->SetNDC();
   texCol->SetTextAlign(32);
   texCol->SetTextSize(0.04);
@@ -103,7 +112,7 @@ void xjjrootuti::drawCMS(TString collision)
   texCol->Draw();
 }
 
-void xjjrootuti::settex(TLatex* tex, Float_t size/*=0.04*/, Int_t align/*=12*/)
+void xjjrootuti::settex(TLatex* tex, Float_t tsize/*=0.04*/, Short_t align/*=12*/)
 {
   tex->SetNDC();
   tex->SetTextFont(42);
@@ -111,13 +120,19 @@ void xjjrootuti::settex(TLatex* tex, Float_t size/*=0.04*/, Int_t align/*=12*/)
   tex->SetTextSize(size);
 }
 
-void xjjrootuti::settexndraw(TLatex* tex, Float_t size/*=0.04*/, Int_t align/*=12*/)
+void xjjrootuti::settexndraw(TLatex* tex, Float_t tsize/*=0.04*/, Short_t align/*=12*/)
 {
   xjjrootuti::settex(tex, size, align);
   tex->Draw();
 }
 
-void xjjrootuti::setleg(TLegend* leg, Float_t size/*=0.04*/)
+void xjjrootuti::drawtex(Double_t x, Double_t y, const char* text, Float_t tsize/*=0.04*/, Short_t align/*=12*/)
+{
+  TLatex* tex = new TLatex(x, y, text);
+  xjjrootuti::settexndraw(tex, size, align);
+}
+
+void xjjrootuti::setleg(TLegend* leg, Float_t tsize/*=0.04*/)
 {
   leg->SetBorderSize(0);
   leg->SetFillStyle(0);
@@ -125,11 +140,32 @@ void xjjrootuti::setleg(TLegend* leg, Float_t size/*=0.04*/)
   leg->SetTextSize(size);
 }
 
-void xjjrootuti::setlegndraw(TLegend* leg, Float_t size/*=0.04*/)
+void xjjrootuti::setlegndraw(TLegend* leg, Float_t tsize/*=0.04*/)
 {
   xjjrootuti::setleg(leg, size);
   leg->Draw();
 }
+
+void xjjrootuti::setline(TLine* l, Color_t lcolor/*=kBlack*/, Style_t lstyle/*=1*/, Width_t lwidth/*=2*/)
+{
+  l->SetLineColor(lcolor);
+  l->SetLineStyle(lstyle);
+  l->SetLineWidth(lwidth);
+}
+
+void xjjrootuti::setlinendraw(TLine* l, Color_t lcolor/*=kBlack*/, Style_t lstyle/*=1*/, Width_t lwidth/*=2*/)
+{
+  xjjrootuti::setline(l, lcolor, lstyle, lwidth);
+  l->Draw();
+}
+
+void xjjrootuti::drawline(Double_t x1, Double_t y1, Double_t x2, Double_t y2, Color_t lcolor/*=kBlack*/, Style_t lstyle/*=1*/, Width_t lwidth/*=2*/)
+{
+  TLine* l = new TLine(x1, y1, x2, y2);
+  xjjrootuti::setlinendraw(l, lcolor, lstyle, lwidth);
+}
+
+/* ----- */
 
 void xjjrootuti::setbranchaddress(TTree* nt, const char* bname, void* addr)
 {
@@ -137,46 +173,6 @@ void xjjrootuti::setbranchaddress(TTree* nt, const char* bname, void* addr)
   nt->SetBranchAddress(bname, addr);
 }
 
-/*
-void removeError(TH1F* h)
-{
-  for(int i=1;i<=h->GetNbinsX();i++)
-    {
-      h->SetBinError(i,0);
-    }	
-}
-
-// divide by bin width
-void divideBinWidth(TH1* h)
-{
-  //h->Sumw2();
-  for(int i=1;i<=h->GetNbinsX();i++)
-    {
-      Float_t val = h->GetBinContent(i);
-      Float_t valErr = h->GetBinError(i);
-      val/=h->GetBinWidth(i);
-      valErr/=h->GetBinWidth(i);
-      h->SetBinContent(i,val);
-      h->SetBinError(i,valErr);
-    }
-  h->GetXaxis()->CenterTitle();
-  h->GetYaxis()->CenterTitle();
-}
-
-// make a histogram from TF1 function
-TH1F* functionHist(TF1* f, TH1F* h, TString fHistname)
-{
-  TH1F* hF = (TH1F*)h->Clone(fHistname);
-  for (int i=1;i<=h->GetNbinsX();i++)
-    {
-      Double_t var = f->Integral(h->GetBinLowEdge(i),h->GetBinLowEdge(i+1))/h->GetBinWidth(i);
-      hF->SetBinContent(i,var);
-      hF->SetBinError(i,0);
-    }
-  return hF;
-}
-
-*/
 
 
 #endif
