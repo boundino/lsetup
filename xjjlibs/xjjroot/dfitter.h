@@ -35,11 +35,11 @@ namespace xjjroot
     Double_t GetY() const {return yield;}
     Double_t GetYE() const {return yieldErr;}
 
-    TF1* GetFun_f() const {if(!fparamfuns){return 0;} return fun_f;}
-    TF1* GetFun_mass() const {if(!fparamfuns){return 0;} return fun_mass;}
-    TF1* GetFun_swap() const {if(!fparamfuns){return 0;} return fun_swap;}
-    TF1* GetFun_background() const {if(!fparamfuns){return 0;} return fun_background;}
-    TF1* GetFun_not_mass() const {if(!fparamfuns){return 0;} return fun_not_mass;}
+    TF1* GetFun_f() const {if(!fparamfuns){return 0;} return clonefun(*fun_f,"Fun_f");}
+    TF1* GetFun_mass() const {if(!fparamfuns){return 0;} return clonefun(*fun_mass, "Fun_mass");}
+    TF1* GetFun_swap() const {if(!fparamfuns){return 0;} return clonefun(*fun_swap, "Fun_swap");}
+    TF1* GetFun_background() const {if(!fparamfuns){return 0;} return clonefun(*fun_background, "Fun_background");}
+    TF1* GetFun_not_mass() const {if(!fparamfuns){return 0;} return clonefun(*fun_not_mass, "Fun_not_mass");}
 
     void setoption(Option_t* option="") {foption = option; resolveoption();}
     void set_mass_signal(Double_t d_mass_signal_) {d_mass_signal =  d_mass_signal_; calvar();}
@@ -105,12 +105,14 @@ namespace xjjroot
     void resolveoption();
     void setfunparameters();
     void setfunstyle();
-    void sethist(TH1* h);
-    void drawCMS(TString collision, TString snn="5.02");
-    void drawtex(Double_t x, Double_t y, const char* text, Float_t tsize=0.04, Short_t align=12);
-    void drawleg(TH1* h);
-    void drawline(Double_t x1, Double_t y1, Double_t x2, Double_t y2, Color_t lcolor=kBlack, Style_t lstyle=1, Width_t lwidth=2);
-    void setgstyle();
+
+    TF1* clonefun(const TF1 &fun, TString fun_name) const;
+    void sethist(TH1* h) const;
+    void drawCMS(TString collision, TString snn="5.02") const;
+    void drawtex(Double_t x, Double_t y, const char* text, Float_t tsize=0.04, Short_t align=12) const;
+    void drawleg(TH1* h) const;
+    void drawline(Double_t x1, Double_t y1, Double_t x2, Double_t y2, Color_t lcolor=kBlack, Style_t lstyle=1, Width_t lwidth=2) const;
+    void setgstyle() const;
   };
 }
 
@@ -239,7 +241,7 @@ TF1* xjjroot::dfitter::fit(TH1* h, TH1* hMCSignal, TH1* hMCSwapped, TString outp
   c->SaveAs(Form("%s.pdf",outputname.Data()));
 
   delete c;  
-  return fun_mass;
+  return clonefun(*fun_mass, "Fun_mass");
 }
 
 void xjjroot::dfitter::resolveoption()
@@ -347,33 +349,6 @@ void xjjroot::dfitter::setfunstyle()
 
 }
 
-void xjjroot::dfitter::sethist(TH1* h)
-{
-  h->SetMaximum(-1111);
-  h->SetXTitle("m_{#piK} (GeV/c^{2})");
-  h->SetYTitle(Form("Entries / (%.0f MeV/c^{2})", binwid_hist_dzero*1.e+3));
-  h->GetXaxis()->CenterTitle();
-  h->GetYaxis()->CenterTitle();
-  h->SetAxisRange(0,h->GetMaximum()*1.4*1.2,"Y");
-  h->GetXaxis()->SetTitleOffset(1.3);
-  h->GetYaxis()->SetTitleOffset(1.8);
-  h->GetXaxis()->SetLabelOffset(0.007);
-  h->GetYaxis()->SetLabelOffset(0.007);
-  h->GetXaxis()->SetTitleSize(0.045);
-  h->GetYaxis()->SetTitleSize(0.045);
-  h->GetXaxis()->SetTitleFont(42);
-  h->GetYaxis()->SetTitleFont(42);
-  h->GetXaxis()->SetLabelFont(42);
-  h->GetYaxis()->SetLabelFont(42);
-  h->GetXaxis()->SetLabelSize(0.04);
-  h->GetYaxis()->SetLabelSize(0.04);
-  h->SetMarkerSize(0.8);
-  h->SetMarkerStyle(20);
-  h->SetStats(0);
-
-  if(fpapermode) {return;}
-}
-
 void xjjroot::dfitter::setfunparameters()
 {
   fun_background->SetParameters(fun_f->GetParameter(3), fun_f->GetParameter(4), fun_f->GetParameter(5), fun_f->GetParameter(6));
@@ -413,7 +388,41 @@ void xjjroot::dfitter::setfunparameters()
   fparamfuns = true;
 }
 
-void xjjroot::dfitter::drawleg(TH1* h)
+TF1* xjjroot::dfitter::clonefun(const TF1 &fun, TString fun_name) const
+{
+  TF1* newfun = new TF1(fun);
+  newfun->SetName(fun_name);
+  return newfun;
+}
+
+void xjjroot::dfitter::sethist(TH1* h) const
+{
+  h->SetMaximum(-1111);
+  h->SetXTitle("m_{#piK} (GeV/c^{2})");
+  h->SetYTitle(Form("Entries / (%.0f MeV/c^{2})", binwid_hist_dzero*1.e+3));
+  h->GetXaxis()->CenterTitle();
+  h->GetYaxis()->CenterTitle();
+  h->SetAxisRange(0,h->GetMaximum()*1.4*1.2,"Y");
+  h->GetXaxis()->SetTitleOffset(1.3);
+  h->GetYaxis()->SetTitleOffset(1.8);
+  h->GetXaxis()->SetLabelOffset(0.007);
+  h->GetYaxis()->SetLabelOffset(0.007);
+  h->GetXaxis()->SetTitleSize(0.045);
+  h->GetYaxis()->SetTitleSize(0.045);
+  h->GetXaxis()->SetTitleFont(42);
+  h->GetYaxis()->SetTitleFont(42);
+  h->GetXaxis()->SetLabelFont(42);
+  h->GetYaxis()->SetLabelFont(42);
+  h->GetXaxis()->SetLabelSize(0.04);
+  h->GetYaxis()->SetLabelSize(0.04);
+  h->SetMarkerSize(0.8);
+  h->SetMarkerStyle(20);
+  h->SetStats(0);
+
+  if(fpapermode) {return;}
+}
+
+void xjjroot::dfitter::drawleg(TH1* h) const
 {
   TLegend* leg = new TLegend(0.65, 0.58, 0.85, 0.88, NULL,"brNDC");
   leg->SetBorderSize(0);
@@ -431,7 +440,7 @@ void xjjroot::dfitter::drawleg(TH1* h)
   leg->Draw("same");
 }
 
-void xjjroot::dfitter::drawCMS(TString collision, TString snn/*="5.02"*/)
+void xjjroot::dfitter::drawCMS(TString collision, TString snn/*="5.02"*/) const
 {
   TLatex* texCms = new TLatex(0.18,0.93, "#scale[1.25]{CMS} Preliminary");
   texCms->SetNDC();
@@ -449,7 +458,7 @@ void xjjroot::dfitter::drawCMS(TString collision, TString snn/*="5.02"*/)
   texCol->Draw();
 }
 
-void xjjroot::dfitter::drawtex(Double_t x, Double_t y, const char* text, Float_t tsize/*=0.04*/, Short_t align/*=12*/)
+void xjjroot::dfitter::drawtex(Double_t x, Double_t y, const char* text, Float_t tsize/*=0.04*/, Short_t align/*=12*/) const
 {
   TLatex* tex = new TLatex(x, y, text);
   tex->SetNDC();
@@ -459,7 +468,7 @@ void xjjroot::dfitter::drawtex(Double_t x, Double_t y, const char* text, Float_t
   tex->Draw();
 }
 
-void xjjroot::dfitter::drawline(Double_t x1, Double_t y1, Double_t x2, Double_t y2, Color_t lcolor/*=kBlack*/, Style_t lstyle/*=1*/, Width_t lwidth/*=2*/)
+void xjjroot::dfitter::drawline(Double_t x1, Double_t y1, Double_t x2, Double_t y2, Color_t lcolor/*=kBlack*/, Style_t lstyle/*=1*/, Width_t lwidth/*=2*/) const
 {
   TLine* l = new TLine(x1, y1, x2, y2);
   l->SetLineColor(lcolor);
@@ -468,7 +477,7 @@ void xjjroot::dfitter::drawline(Double_t x1, Double_t y1, Double_t x2, Double_t 
   l->Draw();
 }
 
-void xjjroot::dfitter::setgstyle()
+void xjjroot::dfitter::setgstyle() const
 {
   gStyle->SetOptTitle(0);
   gStyle->SetOptStat(0);
