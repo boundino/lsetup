@@ -15,6 +15,8 @@ namespace xjjroot
   const float y_tex_left_top = 0.91;
   const float dy_tex_left_top = 0.06;
 
+  const TString tper = "%";
+
   void setgstyle();
   template <class T>
   void sethempty(T* hempty, Float_t xoffset=0, Float_t yoffset=0);
