@@ -26,7 +26,7 @@ namespace xjjroot
     }
     ~dfitter() {};
 
-    TF1* fit(const TH1* hmass, const TH1* hmassMCSignal, const TH1* hmassMCSwapped, TString outputname, TString collisionsyst, const std::vector<TString>& vtex);
+    TF1* fit(const TH1* hmass, const TH1* hmassMCSignal, const TH1* hmassMCSwapped, TString outputname, TString collisionsyst, const std::vector<TString>& vtex=std::vector<TString>());
     Bool_t isFitted() const {return fparamfuns;}
 
     Double_t GetS() const {return S;}
@@ -116,7 +116,7 @@ namespace xjjroot
   };
 }
 
-TF1* xjjroot::dfitter::fit(const TH1* hmass, const TH1* hmassMCSignal, const TH1* hmassMCSwapped, TString outputname, TString collisionsyst, const std::vector<TString> &vtex)
+TF1* xjjroot::dfitter::fit(const TH1* hmass, const TH1* hmassMCSignal, const TH1* hmassMCSwapped, TString outputname, TString collisionsyst, const std::vector<TString> &vtex/*=std::vector<TString>()*/)
 {
   reset();
   init();
@@ -226,9 +226,10 @@ TF1* xjjroot::dfitter::fit(const TH1* hmass, const TH1* hmassMCSignal, const TH1
   drawCMS(collisionsyst);
 
   Float_t texxpos = 0.22, texypos = 0.90, texdypos = 0.055;
-  for(std::vector<TString>::const_iterator it=vtex.begin(); it!=vtex.end(); it++)
+  if(!vtex.empty())
     {
-      drawtex(texxpos, texypos=(texypos-texdypos), *it);
+      for(std::vector<TString>::const_iterator it=vtex.begin(); it!=vtex.end(); it++) 
+        drawtex(texxpos, texypos=(texypos-texdypos), *it);
     }
   if(fplotdetails)
     {
