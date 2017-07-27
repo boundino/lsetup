@@ -50,6 +50,7 @@ namespace xjjroot
     const Double_t setparam9 = 0.1;
     const Double_t setparam10 = 0.005;
     const Double_t fixparam1 = 1.865;
+    Double_t fixparam7;
     
     const Double_t mass_dzero = 1.8649;
     Double_t d_mass_signal = 0.045;
@@ -136,6 +137,8 @@ TF1* xjjroot::dfitter::fit(TH1* h, TH1* hMCSignal, TH1* hMCSwapped, TString outp
   fun_f->FixParameter(10,fun_f->GetParameter(10));
   fun_f->FixParameter(9,fun_f->GetParameter(9));
 
+  fixparam7 = fun_f->GetParameter(0);
+
   //   - fit swapped
   fun_f->FixParameter(7,0);
   fun_f->ReleaseParameter(8);
@@ -146,7 +149,9 @@ TF1* xjjroot::dfitter::fit(TH1* h, TH1* hMCSignal, TH1* hMCSwapped, TString outp
   hMCSwapped->Fit("fun_f","L q","",min_hist_dzero,max_hist_dzero);
   hMCSwapped->Fit("fun_f",fitoption,"",min_hist_dzero,max_hist_dzero);
   
-  fun_f->FixParameter(7,hMCSignal->Integral(0,1000)/(hMCSwapped->Integral(0,1000)+hMCSignal->Integral(0,1000)));
+  fixparam7 = fixparam7/(fun_f->GetParameter(0)+fixparam7);
+  fun_f->FixParameter(7, fixparam7);
+  // fun_f->FixParameter(7,hMCSignal->Integral(0,1000)/(hMCSwapped->Integral(0,1000)+hMCSignal->Integral(0,1000)));
   fun_f->FixParameter(8,fun_f->GetParameter(8));
 
   //  -- fit data
@@ -332,6 +337,8 @@ void xjjroot::dfitter::sethist(TH1* h)
   h->SetMarkerSize(0.8);
   h->SetMarkerStyle(20);
   h->SetStats(0);
+
+  if(fpapermode) {return;}
 }
 
 void xjjroot::dfitter::setfunparameters()
