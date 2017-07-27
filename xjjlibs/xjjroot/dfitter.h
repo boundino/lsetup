@@ -18,6 +18,42 @@ namespace xjjroot
   class dfitter
   {
   public:
+    dfitter(Option_t* option="")
+    {
+      foption = option;
+      resolveoption();
+      init();
+    }
+    ~dfitter() {};
+
+    TF1* fit(TH1* h, TH1* hMCSignal, TH1* hMCSwapped, TString outputname, TString collisionsyst, std::vector<TString> vtex);
+    Bool_t isFitted() const {return fparamfuns;}
+
+    Double_t GetS() const {return S;}
+    Double_t GetB() const {return B;}
+    Double_t GetSig() const {return Sig;}
+    Double_t GetY() const {return yield;}
+    Double_t GetYE() const {return yieldErr;}
+
+    TF1* GetFun_f() const {if(!fparamfuns){return 0;} return fun_f;}
+    TF1* GetFun_mass() const {if(!fparamfuns){return 0;} return fun_mass;}
+    TF1* GetFun_swap() const {if(!fparamfuns){return 0;} return fun_swap;}
+    TF1* GetFun_background() const {if(!fparamfuns){return 0;} return fun_background;}
+    TF1* GetFun_not_mass() const {if(!fparamfuns){return 0;} return fun_not_mass;}
+
+    void setoption(Option_t* option="") {foption = option; resolveoption();}
+    void set_mass_signal(Double_t d_mass_signal_) {d_mass_signal =  d_mass_signal_; calvar();}
+    void set_mass_sideband_l(Double_t d_mass_sideband_l_) {d_mass_sideband_l = d_mass_sideband_l_; calvar();}
+    void set_mass_sideband_h(Double_t d_mass_sideband_h_) {d_mass_sideband_h = d_mass_sideband_h_; calvar();}
+    
+  protected:
+    Double_t S;
+    Double_t B;
+    Double_t Sig;
+    Double_t yield;
+    Double_t yieldErr;
+
+  private:
     const Int_t npar = 12;
     
     TF1* fun_f;
@@ -26,18 +62,9 @@ namespace xjjroot
     TF1* fun_background;
     TF1* fun_not_mass;
 
-    Double_t S;
-    Double_t B;
-    Double_t yield;
-    Double_t yieldErr;
-
-    dfitter(Option_t* option="");
-    ~dfitter() {};
-    TF1* fit(TH1* h, TH1* hMCSignal, TH1* hMCSwapped, TString outputname, TString collisionsyst, std::vector<TString> vtex);
-    void setoption(Option_t* option="");
-    
-  private:
     TString foption;
+    Bool_t fparamfun_f;
+    Bool_t fparamfuns;
     Bool_t fplotdetails;
     Bool_t ffitverbose;
     Bool_t fpapermode;
@@ -56,35 +83,35 @@ namespace xjjroot
     Double_t d_mass_signal = 0.045;
     Double_t d_mass_sideband_l = 0.01;
     Double_t d_mass_sideband_h = 0.015;
+
     Double_t mass_dzero_signal_l = mass_dzero - d_mass_signal;
     Double_t mass_dzero_signal_h = mass_dzero + d_mass_signal;
+    Double_t mass_dzero_sideband_l_p = d_mass_signal + d_mass_sideband_l;
+    Double_t mass_dzero_sideband_h_p = d_mass_signal + d_mass_sideband_h;
+    Double_t mass_dzero_sideband_l_n = d_mass_signal - d_mass_sideband_l;
+    Double_t mass_dzero_sideband_h_n = d_mass_signal - d_mass_sideband_h;
     
     const Double_t n_hist_dzero = 60;
     const Double_t min_hist_dzero = 1.7;
     const Double_t max_hist_dzero = 2.0;
     const Double_t binwid_hist_dzero = (max_hist_dzero-min_hist_dzero)/n_hist_dzero;
 
-    TLine* line_signal_l;
-    TLine* line_signal_h;
-
     void init();
     void reset();
-    void setfunstyle();
-    void sethist(TH1* h);
-    void setfunparameters();
     void createfun();
     void deletefun();
+    void clearvar();
+    void calvar();
+    void resolveoption();
+    void setfunparameters();
+    void setfunstyle();
+    void sethist(TH1* h);
     void drawCMS(TString collision, TString snn="5.02");
     void drawtex(Double_t x, Double_t y, const char* text, Float_t tsize=0.04, Short_t align=12);
     void drawleg(TH1* h);
+    void drawline(Double_t x1, Double_t y1, Double_t x2, Double_t y2, Color_t lcolor=kBlack, Style_t lstyle=1, Width_t lwidth=2);
     void setgstyle();
   };
-}
-
-xjjroot::dfitter::dfitter(Option_t* option/*=""*/)
-{
-  setoption(option);
-  init();
 }
 
 TF1* xjjroot::dfitter::fit(TH1* h, TH1* hMCSignal, TH1* hMCSwapped, TString outputname, TString collisionsyst, std::vector<TString> vtex)
@@ -151,7 +178,6 @@ TF1* xjjroot::dfitter::fit(TH1* h, TH1* hMCSignal, TH1* hMCSwapped, TString outp
   
   fixparam7 = fixparam7/(fun_f->GetParameter(0)+fixparam7);
   fun_f->FixParameter(7, fixparam7);
-  // fun_f->FixParameter(7,hMCSignal->Integral(0,1000)/(hMCSwapped->Integral(0,1000)+hMCSignal->Integral(0,1000)));
   fun_f->FixParameter(8,fun_f->GetParameter(8));
 
   //  -- fit data
@@ -171,12 +197,9 @@ TF1* xjjroot::dfitter::fit(TH1* h, TH1* hMCSignal, TH1* hMCSwapped, TString outp
   h->Fit("fun_f","L q","",min_hist_dzero,max_hist_dzero);
   h->Fit("fun_f",fitoption,"",min_hist_dzero,max_hist_dzero);
 
+  fparamfun_f = true;
   setfunparameters();
-
-  yield = fun_mass->Integral(min_hist_dzero,max_hist_dzero)/binwid_hist_dzero;
-  yieldErr = fun_mass->Integral(min_hist_dzero,max_hist_dzero)/binwid_hist_dzero*fun_mass->GetParError(0)/fun_mass->GetParameter(0);
-  S = fun_mass->Integral(mass_dzero_signal_l,mass_dzero_signal_h)/binwid_hist_dzero;
-  B = fun_background->Integral(mass_dzero_signal_l,mass_dzero_signal_h)/binwid_hist_dzero + fun_swap->Integral(mass_dzero_signal_h,mass_dzero_signal_h)/binwid_hist_dzero;
+  calvar();
   
   h->Draw("e");
   fun_background->Draw("same");   
@@ -186,10 +209,12 @@ TF1* xjjroot::dfitter::fit(TH1* h, TH1* hMCSignal, TH1* hMCSwapped, TString outp
     {
       fun_not_mass->SetRange(mass_dzero_signal_l,mass_dzero_signal_h);
       fun_not_mass->Draw("same");
-      line_signal_l->SetY2(fun_f->Eval(mass_dzero_signal_l));
-      line_signal_h->SetY2(fun_f->Eval(mass_dzero_signal_h));
-      line_signal_l->Draw();
-      line_signal_h->Draw();
+      drawline(mass_dzero_signal_l, 0, mass_dzero_signal_l, fun_f->Eval(mass_dzero_signal_l), fun_not_mass->GetLineColor(), fun_not_mass->GetLineStyle(), fun_not_mass->GetLineWidth());
+      drawline(mass_dzero_signal_h, 0, mass_dzero_signal_h, fun_f->Eval(mass_dzero_signal_h), fun_not_mass->GetLineColor(), fun_not_mass->GetLineStyle(), fun_not_mass->GetLineWidth());
+      drawline(mass_dzero_sideband_l_p, 0, mass_dzero_sideband_l_p, fun_f->Eval(mass_dzero_sideband_l_p), fun_not_mass->GetLineColor(), fun_not_mass->GetLineStyle(), fun_not_mass->GetLineWidth());
+      drawline(mass_dzero_sideband_h_p, 0, mass_dzero_sideband_h_p, fun_f->Eval(mass_dzero_sideband_h_p), fun_not_mass->GetLineColor(), fun_not_mass->GetLineStyle(), fun_not_mass->GetLineWidth());
+      drawline(mass_dzero_sideband_l_n, 0, mass_dzero_sideband_l_n, fun_f->Eval(mass_dzero_sideband_l_n), fun_not_mass->GetLineColor(), fun_not_mass->GetLineStyle(), fun_not_mass->GetLineWidth());
+      drawline(mass_dzero_sideband_h_n, 0, mass_dzero_sideband_h_n, fun_f->Eval(mass_dzero_sideband_h_n), fun_not_mass->GetLineColor(), fun_not_mass->GetLineStyle(), fun_not_mass->GetLineWidth());
     }
   fun_f->Draw("same");
 
@@ -217,9 +242,8 @@ TF1* xjjroot::dfitter::fit(TH1* h, TH1* hMCSignal, TH1* hMCSwapped, TString outp
   return fun_mass;
 }
 
-void xjjroot::dfitter::setoption(Option_t* option/*=""*/)
+void xjjroot::dfitter::resolveoption()
 {
-  foption = option;
   fplotdetails = false;
   if(foption.Contains("Y")) fplotdetails = true;
   ftmvamode = false;
@@ -236,24 +260,41 @@ void xjjroot::dfitter::setoption(Option_t* option/*=""*/)
 
 void xjjroot::dfitter::reset()
 {
+  clearvar();
   deletefun();
-
-  S = 0;
-  B = 0;
-  yield = 0;
-  yieldErr = 0;
-
 }
 
 void xjjroot::dfitter::init()
 {
+  clearvar();
   createfun();
   setfunstyle();
+}
 
+void xjjroot::dfitter::clearvar()
+{
   S = 0;
   B = 0;
+  Sig = 0;
   yield = 0;
   yieldErr = 0;
+}
+
+void xjjroot::dfitter::calvar()
+{
+  mass_dzero_signal_l = mass_dzero - d_mass_signal;
+  mass_dzero_signal_h = mass_dzero + d_mass_signal;
+  mass_dzero_sideband_l_p = d_mass_signal + d_mass_sideband_l;
+  mass_dzero_sideband_h_p = d_mass_signal + d_mass_sideband_h;
+  mass_dzero_sideband_l_n = d_mass_signal - d_mass_sideband_l;
+  mass_dzero_sideband_h_n = d_mass_signal - d_mass_sideband_h;
+
+  if(!fparamfuns) return;
+  S = fun_mass->Integral(mass_dzero_signal_l,mass_dzero_signal_h)/binwid_hist_dzero;
+  B = fun_background->Integral(mass_dzero_signal_l,mass_dzero_signal_h)/binwid_hist_dzero + fun_swap->Integral(mass_dzero_signal_h,mass_dzero_signal_h)/binwid_hist_dzero;
+  Sig = S/TMath::Sqrt(S+B);
+  yield = fun_mass->Integral(min_hist_dzero,max_hist_dzero)/binwid_hist_dzero;
+  yieldErr = fun_mass->Integral(min_hist_dzero,max_hist_dzero)/binwid_hist_dzero*fun_mass->GetParError(0)/fun_mass->GetParameter(0);
 }
 
 void xjjroot::dfitter::createfun()
@@ -264,8 +305,8 @@ void xjjroot::dfitter::createfun()
   fun_swap = new TF1("fun_swap","[0]*(1-[2])*TMath::Gaus(x,[1],[3]*(1+[4]))/(sqrt(2*3.14159)*[3]*(1+[4]))", min_hist_dzero, max_hist_dzero);
   fun_not_mass = new TF1("fun_not_mass","[0]*(1-[2])*TMath::Gaus(x,[1],[3]*(1+[4]))/(sqrt(2*3.14159)*[3]*(1+[4]))+[5]+[6]*x+[7]*x*x+[8]*x*x*x", min_hist_dzero, max_hist_dzero);
 
-  line_signal_l = new TLine(mass_dzero_signal_l, 0, mass_dzero_signal_l, 0);
-  line_signal_h = new TLine(mass_dzero_signal_h, 0, mass_dzero_signal_h, 0);
+  fparamfun_f = false;
+  fparamfuns = false;
 }
 
 void xjjroot::dfitter::deletefun()
@@ -276,8 +317,8 @@ void xjjroot::dfitter::deletefun()
   delete fun_swap;
   delete fun_not_mass;
 
-  delete line_signal_l;
-  delete line_signal_h;
+  fparamfun_f = false;
+  fparamfuns = false;
 }
 
 void xjjroot::dfitter::setfunstyle()
@@ -301,14 +342,6 @@ void xjjroot::dfitter::setfunstyle()
   fun_not_mass->SetLineColor(12);
   fun_not_mass->SetLineStyle(2);
   fun_not_mass->SetLineWidth(2);
-
-  line_signal_l->SetLineColor(12);
-  line_signal_l->SetLineStyle(2);
-  line_signal_l->SetLineWidth(2);
-
-  line_signal_h->SetLineColor(12);
-  line_signal_h->SetLineStyle(2);
-  line_signal_h->SetLineWidth(2);
 
   if(fpapermode) {return;}
 
@@ -376,6 +409,8 @@ void xjjroot::dfitter::setfunparameters()
   fun_not_mass->SetParError(6,fun_background->GetParError(1));
   fun_not_mass->SetParError(7,fun_background->GetParError(2));
   fun_not_mass->SetParError(8,fun_background->GetParError(3));
+
+  fparamfuns = true;
 }
 
 void xjjroot::dfitter::drawleg(TH1* h)
@@ -422,6 +457,15 @@ void xjjroot::dfitter::drawtex(Double_t x, Double_t y, const char* text, Float_t
   tex->SetTextAlign(align);
   tex->SetTextSize(tsize);
   tex->Draw();
+}
+
+void xjjroot::dfitter::drawline(Double_t x1, Double_t y1, Double_t x2, Double_t y2, Color_t lcolor/*=kBlack*/, Style_t lstyle/*=1*/, Width_t lwidth/*=2*/)
+{
+  TLine* l = new TLine(x1, y1, x2, y2);
+  l->SetLineColor(lcolor);
+  l->SetLineStyle(lstyle);
+  l->SetLineWidth(lwidth);
+  l->Draw();
 }
 
 void xjjroot::dfitter::setgstyle()
