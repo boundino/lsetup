@@ -26,7 +26,7 @@ namespace xjjroot
     }
     ~dfitter() {};
 
-    TF1* fit(TH1* h, TH1* hMCSignal, TH1* hMCSwapped, TString outputname, TString collisionsyst, std::vector<TString> vtex);
+    TF1* fit(const TH1* hmass, const TH1* hmassMCSignal, const TH1* hmassMCSwapped, TString outputname, TString collisionsyst, std::vector<TString> vtex);
     Bool_t isFitted() const {return fparamfuns;}
 
     Double_t GetS() const {return S;}
@@ -35,11 +35,11 @@ namespace xjjroot
     Double_t GetY() const {return yield;}
     Double_t GetYE() const {return yieldErr;}
 
-    TF1* GetFun_f() const {if(!fparamfuns){return 0;} return clonefun(*fun_f,"Fun_f");}
-    TF1* GetFun_mass() const {if(!fparamfuns){return 0;} return clonefun(*fun_mass, "Fun_mass");}
-    TF1* GetFun_swap() const {if(!fparamfuns){return 0;} return clonefun(*fun_swap, "Fun_swap");}
-    TF1* GetFun_background() const {if(!fparamfuns){return 0;} return clonefun(*fun_background, "Fun_background");}
-    TF1* GetFun_not_mass() const {if(!fparamfuns){return 0;} return clonefun(*fun_not_mass, "Fun_not_mass");}
+    TF1* GetFun_f(TString name="Fun_f") const {if(!fparamfuns){return 0;} return clonefun(*fun_f, name);}
+    TF1* GetFun_mass(TString name="Fun_mass") const {if(!fparamfuns){return 0;} return clonefun(*fun_mass, name);}
+    TF1* GetFun_swap(TString name="Fun_swap") const {if(!fparamfuns){return 0;} return clonefun(*fun_swap, name);}
+    TF1* GetFun_background(TString name="Fun_background") const {if(!fparamfuns){return 0;} return clonefun(*fun_background, name);}
+    TF1* GetFun_not_mass(TString name="Fun_not_mass") const {if(!fparamfuns){return 0;} return clonefun(*fun_not_mass, name);}
 
     void setoption(Option_t* option="") {foption = option; resolveoption();}
     void set_mass_signal(Double_t d_mass_signal_) {d_mass_signal =  d_mass_signal_; calvar();}
@@ -116,8 +116,12 @@ namespace xjjroot
   };
 }
 
-TF1* xjjroot::dfitter::fit(TH1* h, TH1* hMCSignal, TH1* hMCSwapped, TString outputname, TString collisionsyst, std::vector<TString> vtex)
+TF1* xjjroot::dfitter::fit(const TH1* hmass, const TH1* hmassMCSignal, const TH1* hmassMCSwapped, TString outputname, TString collisionsyst, std::vector<TString> vtex)
 {
+  TH1* h = (TH1*)hmass->Clone("h");
+  TH1* hMCSignal = (TH1*)hmassMCSignal->Clone("hMCSignal");
+  TH1* hMCSwapped = (TH1*)hmassMCSwapped->Clone("hMCSwapped");
+
   reset();
   init();
 
