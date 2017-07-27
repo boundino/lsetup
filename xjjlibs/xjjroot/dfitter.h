@@ -11,6 +11,7 @@
 #include "TStyle.h"
 #include "TLegend.h"
 #include "TLatex.h"
+#include "TMath.h"
 
 namespace xjjroot
 {
@@ -31,8 +32,8 @@ namespace xjjroot
     Double_t yieldErr;
 
     dfitter(Option_t* option="");
-    ~dfitter();
-    TF1* fit(TH1* h, TH1* hMCSignal, TH1* hMCSwapped, TString outputname, TString collisionsyst, Int_t n_tex...);
+    ~dfitter() {};
+    TF1* fit(TH1* h, TH1* hMCSignal, TH1* hMCSwapped, TString outputname, TString collisionsyst, std::vector<TString> vtex);
     void setoption(Option_t* option="");
     
   private:
@@ -54,8 +55,8 @@ namespace xjjroot
     Double_t d_mass_signal = 0.045;
     Double_t d_mass_sideband_l = 0.01;
     Double_t d_mass_sideband_h = 0.015;
-    Double_t mass_dzero_signal_l;
-    Double_t mass_dzero_signal_h;
+    Double_t mass_dzero_signal_l = mass_dzero - d_mass_signal;
+    Double_t mass_dzero_signal_h = mass_dzero + d_mass_signal;
     
     const Double_t n_hist_dzero = 60;
     const Double_t min_hist_dzero = 1.7;
@@ -65,6 +66,8 @@ namespace xjjroot
     TLine* line_signal_l;
     TLine* line_signal_h;
 
+    void init();
+    void reset();
     void setfunstyle();
     void sethist(TH1* h);
     void setfunparameters();
@@ -72,32 +75,22 @@ namespace xjjroot
     void deletefun();
     void drawCMS(TString collision, TString snn="5.02");
     void drawtex(Double_t x, Double_t y, const char* text, Float_t tsize=0.04, Short_t align=12);
-    void setgstyle()
+    void drawleg(TH1* h);
+    void setgstyle();
   };
 }
 
-xjjroot::dfitter::dfitter(Option_t* option="")
+xjjroot::dfitter::dfitter(Option_t* option/*=""*/)
 {
   setoption(option);
-  createfun();
-  setfunstyle();
-
-  S = 0;
-  B = 0;
-  yield = 0;
-  yieldErr = 0;
-
-  mass_dzero_signal_l = mass_dzero - d_mass_signal;
-  mass_dzero_signal_h = mass_dzero + d_mass_signal;
-
-  line_signal_l = new TLine(mass_dzero_signal_l, 0, mass_dzero_signal_l, 0);
-  line_signal_h = new TLine(mass_dzero_signal_h, 0, mass_dzero_signal_h, 0);
+  init();
 }
 
-TF1* xjjroot::dfitter::fit(TH1* h, TH1* hMCSignal, TH1* hMCSwapped, TString outputname, TString collisionsyst, Int_t n_tex...)
+TF1* xjjroot::dfitter::fit(TH1* h, TH1* hMCSignal, TH1* hMCSwapped, TString outputname, TString collisionsyst, std::vector<TString> vtex)
 {
-  deletefun();
-  createfun();
+  reset();
+  init();
+
   TString fitoption = ffitverbose?"L m":"L m q";
   sethist(h);
   sethist(hMCSignal);
@@ -195,15 +188,13 @@ TF1* xjjroot::dfitter::fit(TH1* h, TH1* hMCSignal, TH1* hMCSwapped, TString outp
     }
   fun_f->Draw("same");
 
-  drawleg();
+  drawleg(h);
   drawCMS(collisionsyst);
 
-  Float_t texxpos = 0.24, texypos = 0.91, texdypos = 0.06;
-  if(n_tex!=0)
+  Float_t texxpos = 0.22, texypos = 0.90, texdypos = 0.055;
+  for(std::vector<TString>::iterator it=vtex.begin(); it!=vtex.end(); it++)
     {
-      va_list arguments;
-      va_start(arguments, n_tex);
-      for(int i=0;i<n_tex;i++) drawtex(texxpos, texypos=(texypos-texdypos), va_arg(arguments, char*));
+      drawtex(texxpos, texypos=(texypos-texdypos), *it);
     }
   if(fplotdetails)
     {
@@ -221,13 +212,13 @@ TF1* xjjroot::dfitter::fit(TH1* h, TH1* hMCSignal, TH1* hMCSwapped, TString outp
   return fun_mass;
 }
 
-void xjjroot::dfitter::setoption(Option_t* option="")
+void xjjroot::dfitter::setoption(Option_t* option/*=""*/)
 {
   foption = option;
   fplotdetails = false;
   if(foption.Contains("Y")) fplotdetails = true;
   ftmvamode = false;
-  if(foption.Contains("tmva")) ftmvamode = true;
+  if(foption.Contains("T")) ftmvamode = true;
   fpapermode = false;
   if(foption.Contains("P"))
     {
@@ -238,6 +229,28 @@ void xjjroot::dfitter::setoption(Option_t* option="")
   if(foption.Contains("V")) ffitverbose = true;
 }
 
+void xjjroot::dfitter::reset()
+{
+  deletefun();
+
+  S = 0;
+  B = 0;
+  yield = 0;
+  yieldErr = 0;
+
+}
+
+void xjjroot::dfitter::init()
+{
+  createfun();
+  setfunstyle();
+
+  S = 0;
+  B = 0;
+  yield = 0;
+  yieldErr = 0;
+}
+
 void xjjroot::dfitter::createfun()
 {
   fun_f = new TF1("fun_f","[0]*([7]*([9]*TMath::Gaus(x,[1],[2]*(1+[11]))/(sqrt(2*3.14159)*[2]*(1+[11]))+(1-[9])*TMath::Gaus(x,[1],[10]*(1+[11]))/(sqrt(2*3.14159)*[10]*(1+[11])))+(1-[7])*TMath::Gaus(x,[1],[8]*(1+[11]))/(sqrt(2*3.14159)*[8]*(1+[11])))+[3]+[4]*x+[5]*x*x+[6]*x*x*x", min_hist_dzero, max_hist_dzero);  
@@ -245,6 +258,9 @@ void xjjroot::dfitter::createfun()
   fun_mass = new TF1("fun_mass","[0]*([3]*([4]*TMath::Gaus(x,[1],[2]*(1+[6]))/(sqrt(2*3.14159)*[2]*(1+[6]))+(1-[4])*TMath::Gaus(x,[1],[5]*(1+[6]))/(sqrt(2*3.14159)*[5]*(1+[6]))))", min_hist_dzero, max_hist_dzero);
   fun_swap = new TF1("fun_swap","[0]*(1-[2])*TMath::Gaus(x,[1],[3]*(1+[4]))/(sqrt(2*3.14159)*[3]*(1+[4]))", min_hist_dzero, max_hist_dzero);
   fun_not_mass = new TF1("fun_not_mass","[0]*(1-[2])*TMath::Gaus(x,[1],[3]*(1+[4]))/(sqrt(2*3.14159)*[3]*(1+[4]))+[5]+[6]*x+[7]*x*x+[8]*x*x*x", min_hist_dzero, max_hist_dzero);
+
+  line_signal_l = new TLine(mass_dzero_signal_l, 0, mass_dzero_signal_l, 0);
+  line_signal_h = new TLine(mass_dzero_signal_h, 0, mass_dzero_signal_h, 0);
 }
 
 void xjjroot::dfitter::deletefun()
@@ -254,6 +270,9 @@ void xjjroot::dfitter::deletefun()
   delete fun_mass;
   delete fun_swap;
   delete fun_not_mass;
+
+  delete line_signal_l;
+  delete line_signal_h;
 }
 
 void xjjroot::dfitter::setfunstyle()
@@ -278,13 +297,13 @@ void xjjroot::dfitter::setfunstyle()
   fun_not_mass->SetLineStyle(2);
   fun_not_mass->SetLineWidth(2);
 
+  line_signal_l->SetLineColor(12);
   line_signal_l->SetLineStyle(2);
   line_signal_l->SetLineWidth(2);
-  line_signal_l->SetLineColor(12);
 
+  line_signal_h->SetLineColor(12);
   line_signal_h->SetLineStyle(2);
   line_signal_h->SetLineWidth(2);
-  line_signal_h->SetLineColor(12);
 
   if(fpapermode) {return;}
 
@@ -352,9 +371,9 @@ void xjjroot::dfitter::setfunparameters()
   fun_not_mass->SetParError(8,fun_background->GetParError(3));
 }
 
-void xjjroot::dfitter::drawleg()
+void xjjroot::dfitter::drawleg(TH1* h)
 {
-  TLegend* leg = new TLegend(0.65, 0.58, 0.82, 0.88, NULL,"brNDC");
+  TLegend* leg = new TLegend(0.65, 0.58, 0.85, 0.88, NULL,"brNDC");
   leg->SetBorderSize(0);
   leg->SetFillStyle(0);
   leg->SetTextFont(42);
