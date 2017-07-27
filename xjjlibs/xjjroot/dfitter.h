@@ -26,7 +26,7 @@ namespace xjjroot
     }
     ~dfitter() {};
 
-    TF1* fit(const TH1* hmass, const TH1* hmassMCSignal, const TH1* hmassMCSwapped, TString outputname, TString collisionsyst, const std::vector<TString>& vtex=std::vector<TString>());
+    TF1* fit(const TH1* hmass, const TH1* hmassMCSignal, const TH1* hmassMCSwapped, TString collisionsyst, TString outputname="cmass", const std::vector<TString>& vtex=std::vector<TString>());
     Bool_t isFitted() const {return fparamfuns;}
 
     Double_t GetS() const {return S;}
@@ -41,10 +41,10 @@ namespace xjjroot
     TF1* GetFun_background(TString name="Fun_background") const {if(!fparamfuns){return 0;} return clonefun(*fun_background, name);}
     TF1* GetFun_not_mass(TString name="Fun_not_mass") const {if(!fparamfuns){return 0;} return clonefun(*fun_not_mass, name);}
 
-    void setoption(Option_t* option="") {foption = option; resolveoption();}
-    void set_mass_signal(Double_t d_mass_signal_) {d_mass_signal =  d_mass_signal_; calvar();}
-    void set_mass_sideband_l(Double_t d_mass_sideband_l_) {d_mass_sideband_l = d_mass_sideband_l_; calvar();}
-    void set_mass_sideband_h(Double_t d_mass_sideband_h_) {d_mass_sideband_h = d_mass_sideband_h_; calvar();}
+    void SetOption(Option_t* option="") {foption = option; resolveoption();}
+    void SetSignalregion(Double_t d_mass_signal_) {d_mass_signal =  d_mass_signal_; calvar();}
+    void SetSidebandL(Double_t d_mass_sideband_l_) {d_mass_sideband_l = d_mass_sideband_l_; calvar();}
+    void SetSidebandH(Double_t d_mass_sideband_h_) {d_mass_sideband_h = d_mass_sideband_h_; calvar();}
     
   protected:
     Double_t S;
@@ -69,6 +69,7 @@ namespace xjjroot
     Bool_t ffitverbose;
     Bool_t fpapermode;
     Bool_t ftmvamode;
+    Bool_t fsaveplot;
 
     const Double_t setparam0 = 100.;
     const Double_t setparam1 = 1.865;
@@ -116,7 +117,7 @@ namespace xjjroot
   };
 }
 
-TF1* xjjroot::dfitter::fit(const TH1* hmass, const TH1* hmassMCSignal, const TH1* hmassMCSwapped, TString outputname, TString collisionsyst, const std::vector<TString> &vtex/*=std::vector<TString>()*/)
+TF1* xjjroot::dfitter::fit(const TH1* hmass, const TH1* hmassMCSignal, const TH1* hmassMCSwapped, TString collisionsyst, TString outputname/*="cmass"*/, const std::vector<TString> &vtex/*=std::vector<TString>()*/)
 {
   reset();
   init();
@@ -241,7 +242,7 @@ TF1* xjjroot::dfitter::fit(const TH1* hmass, const TH1* hmassMCSignal, const TH1
         }
     }
 
-  c->SaveAs(Form("%s.pdf",outputname.Data()));
+  if(fsaveplot) c->SaveAs(Form("%s.pdf",outputname.Data()));
 
   delete c;
   delete h;
@@ -265,6 +266,8 @@ void xjjroot::dfitter::resolveoption()
     } 
   ffitverbose = false;
   if(foption.Contains("V")) ffitverbose = true;
+  fsaveplot = true;
+  if(foption.Contains("N")) fsaveplot = false;
 }
 
 void xjjroot::dfitter::reset()
@@ -353,7 +356,6 @@ void xjjroot::dfitter::setfunstyle()
   fun_not_mass->SetLineWidth(2);
 
   if(fpapermode) {return;}
-
 }
 
 void xjjroot::dfitter::setfunparameters()
