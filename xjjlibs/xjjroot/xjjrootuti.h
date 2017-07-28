@@ -18,12 +18,9 @@ namespace xjjroot
   const TString tper = "%";
 
   void setgstyle();
-  template <class T>
-  void sethempty(T* hempty, Float_t xoffset=0, Float_t yoffset=0);
-  template <class T>
-  void setthgr(T* hempty, Float_t xoffset=0, Float_t yoffset=0);
-  template <class T>
-  void setthgrstyle(T* h, Color_t mlcolor, Style_t mstyle=-1, Size_t msize=-1, Style_t lstyle=-1, Width_t lwidth=-1);
+  template <class T> void sethempty(T* hempty, Float_t xoffset=0, Float_t yoffset=0);
+  template <class T> void setthgr(T* hempty, Float_t xoffset=0, Float_t yoffset=0);
+  template <class T> void setthgrstyle(T* h, Color_t mlcolor, Style_t mstyle=-1, Size_t msize=-1, Style_t lstyle=-1, Width_t lwidth=-1);
   void drawCMS(TString collision, TString snn="5.02");
   void settex(TLatex* tex, Float_t tsize=0.04, Short_t align=12);
   void settexndraw(TLatex* tex, Float_t tsize=0.04, Short_t align=12);
@@ -31,10 +28,12 @@ namespace xjjroot
   void setleg(TLegend* leg, Float_t tsize=0.04);
   void setlegndraw(TLegend* leg, Float_t tsize=0.04);
   void setline(TLine* l, Color_t lcolor=kBlack, Style_t lstyle=1, Width_t lwidth=2);
+  void setline(TLine* l, const TLine &line);
   void setlinendraw(TLine* l, Color_t lcolor=kBlack, Style_t lstyle=1, Width_t lwidth=2);
   void drawline(Double_t x1, Double_t y1, Double_t x2, Double_t y2, Color_t lcolor=kBlack, Style_t lstyle=1, Width_t lwidth=2);
 
   void setbranchaddress(TTree* nt, const char* bname, void* addr);
+  template <class T> T* copyobject(const T* obj, TString objname);
 }
 
 /* ---------- */
@@ -137,7 +136,8 @@ void xjjroot::settexndraw(TLatex* tex, Float_t tsize/*=0.04*/, Short_t align/*=1
 void xjjroot::drawtex(Double_t x, Double_t y, const char* text, Float_t tsize/*=0.04*/, Short_t align/*=12*/)
 {
   TLatex* tex = new TLatex(x, y, text);
-  xjjroot::settexndraw(tex, tsize, align);
+  xjjroot::settex(tex, tsize, align);
+  tex->Draw();
 }
 
 void xjjroot::setleg(TLegend* leg, Float_t tsize/*=0.04*/)
@@ -161,6 +161,16 @@ void xjjroot::setline(TLine* l, Color_t lcolor/*=kBlack*/, Style_t lstyle/*=1*/,
   l->SetLineWidth(lwidth);
 }
 
+void xjjroot::setline(TLine* l, const TLine &line)
+{
+  Double_t coordinate[4] = {l->GetX1(), l->GetY1(), l->GetX2(), l->GetY2()};
+  ((TLine&)line).Copy(*l);
+  l->SetX1(coordinate[0]);
+  l->SetY1(coordinate[1]);
+  l->SetX2(coordinate[2]);
+  l->SetY2(coordinate[3]);
+}
+
 void xjjroot::setlinendraw(TLine* l, Color_t lcolor/*=kBlack*/, Style_t lstyle/*=1*/, Width_t lwidth/*=2*/)
 {
   xjjroot::setline(l, lcolor, lstyle, lwidth);
@@ -179,6 +189,14 @@ void xjjroot::setbranchaddress(TTree* nt, const char* bname, void* addr)
 {
   nt->SetBranchStatus(bname, 1);
   nt->SetBranchAddress(bname, addr);
+}
+
+template <class T>
+T* xjjroot::copyobject(const T* obj, TString objname)
+{
+  T* newobj = new T(*obj);
+  newobj->SetName(objname);
+  return newobj;
 }
 
 #endif
