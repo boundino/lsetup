@@ -60,6 +60,11 @@
 ;; 
 (setq tags-table-list '"~/.emacs.d/git/tags-view/tags-view.el")
 
+;;
+(setq vc-follow-symlinks nil)
+;; (setq org-confirm-babel-evaluate nil)
+
+;;
 (defun comment-or-uncomment-region-or-line ()
   "Comments or uncomments the region or the current line if there's no active region."
   (interactive)
