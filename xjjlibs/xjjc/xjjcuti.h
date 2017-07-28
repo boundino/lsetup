@@ -9,21 +9,18 @@
 #include <utility>
 #include <cstring>
 #include <cmath>
+#include <cxxabi.h>
 
 namespace xjjc
 {
-  template<size_t N, typename T>
-  void initarray(T (*array_)[N], T initval_=0);
-  template<size_t N>
-  int findibin(const float (*array_)[N], float element_);
-  template<size_t N>
-  int findiedge(const float (*array_)[N], float element_);
-  template<typename T>
-  std::string number_to_string(T param_);
-  template<typename T>
-  std::string number_remove_zero(T param_);
+  template<size_t N, typename T> void initarray(T (*array_)[N], T initval_=0);
+  template<size_t N> int findibin(const float (*array_)[N], float element_);
+  template<size_t N> int findiedge(const float (*array_)[N], float element_);
+  template<typename T> std::string number_to_string(T param_);
+  template<typename T> std::string number_remove_zero(T param_);
   void progressbar(int index_, int total_, int morespace_=0);
   void progressbar_summary(int total_);
+  template<typename T> char* gettype(T exp, int& status);
 }
 
 /* ---------- */
@@ -95,6 +92,14 @@ void xjjc::progressbar(int index_, int total_, int morespace_/*=0*/)
 void xjjc::progressbar_summary(int total_)
 {
   std::cout<<std::endl<<"  Processed "<<"\033[1;31m"<<total_<<"\033[0m event(s)."<<std::endl;
+}
+
+template<typename T>
+char* xjjc::gettype(T exp, int& status)
+{
+  const std::type_info &ti = typeid(exp);
+  char* humantypename = abi::__cxa_demangle(ti.name(), 0, 0, &status);
+  return humantypename;
 }
 
 
