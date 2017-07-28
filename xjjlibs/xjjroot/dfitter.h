@@ -18,15 +18,10 @@ namespace xjjroot
   class dfitter
   {
   public:
-    dfitter(Option_t* option="")
-    {
-      foption = option;
-      resolveoption();
-      init();
-    }
+    dfitter(Option_t* option="") {foption = option; resolveoption(); init();}
     ~dfitter() {};
 
-    TF1* fit(const TH1* hmass, const TH1* hmassMCSignal, const TH1* hmassMCSwapped, TString collisionsyst, TString outputname="cmass", const std::vector<TString>& vtex=std::vector<TString>());
+    TF1* fit(const TH1* hmass, const TH1* hmassMCSignal, const TH1* hmassMCSwapped, TString collisionsyst="", TString outputname="cmass", const std::vector<TString>& vtex=std::vector<TString>());
     Bool_t isFitted() const {return fparamfuns;}
 
     Double_t GetS() const {return S;}
@@ -46,16 +41,15 @@ namespace xjjroot
     void SetSidebandL(Double_t d_mass_sideband_l_) {d_mass_sideband_l = d_mass_sideband_l_; calvar();}
     void SetSidebandH(Double_t d_mass_sideband_h_) {d_mass_sideband_h = d_mass_sideband_h_; calvar();}
     
-  protected:
+  private:
+    const Int_t npar = 12;
+    
     Double_t S;
     Double_t B;
     Double_t Sig;
     Double_t yield;
     Double_t yieldErr;
 
-  private:
-    const Int_t npar = 12;
-    
     TF1* fun_f;
     TF1* fun_mass;
     TF1* fun_swap;
@@ -65,10 +59,9 @@ namespace xjjroot
     TString foption;
     Bool_t fparamfun_f;
     Bool_t fparamfuns;
-    Bool_t fplotdetails;
+    Bool_t fdrawyield;
     Bool_t ffitverbose;
-    Bool_t fpapermode;
-    Bool_t ftmvamode;
+    Bool_t fdrawdetail;
     Bool_t fsaveplot;
 
     const Double_t setparam0 = 100.;
@@ -82,8 +75,8 @@ namespace xjjroot
     
     const Double_t mass_dzero = 1.8649;
     Double_t d_mass_signal = 0.045;
-    Double_t d_mass_sideband_l = 0.01;
-    Double_t d_mass_sideband_h = 0.015;
+    Double_t d_mass_sideband_l = 0.07;
+    Double_t d_mass_sideband_h = 0.12;
 
     Double_t mass_dzero_signal_l = mass_dzero - d_mass_signal;
     Double_t mass_dzero_signal_h = mass_dzero + d_mass_signal;
@@ -117,7 +110,7 @@ namespace xjjroot
   };
 }
 
-TF1* xjjroot::dfitter::fit(const TH1* hmass, const TH1* hmassMCSignal, const TH1* hmassMCSwapped, TString collisionsyst, TString outputname/*="cmass"*/, const std::vector<TString> &vtex/*=std::vector<TString>()*/)
+TF1* xjjroot::dfitter::fit(const TH1* hmass, const TH1* hmassMCSignal, const TH1* hmassMCSwapped, TString collisionsyst/*=""*/, TString outputname/*="cmass"*/, const std::vector<TString> &vtex/*=std::vector<TString>()*/)
 {
   reset();
   init();
@@ -210,7 +203,7 @@ TF1* xjjroot::dfitter::fit(const TH1* hmass, const TH1* hmassMCSignal, const TH1
   fun_background->Draw("same");   
   fun_mass->Draw("same");
   fun_swap->Draw("same");
-  if(ftmvamode)
+  if(fdrawdetail)
     {
       fun_not_mass->SetRange(mass_dzero_signal_l,mass_dzero_signal_h);
       fun_not_mass->Draw("same");
@@ -226,22 +219,21 @@ TF1* xjjroot::dfitter::fit(const TH1* hmass, const TH1* hmassMCSignal, const TH1
   drawleg(h);
   drawCMS(collisionsyst);
 
-  Float_t texxpos = 0.22, texypos = 0.90, texdypos = 0.055;
+  Float_t texxpos = 0.22, texypos = 0.90, texdypos = 0.053;
   if(!vtex.empty())
     {
       for(std::vector<TString>::const_iterator it=vtex.begin(); it!=vtex.end(); it++) 
         drawtex(texxpos, texypos=(texypos-texdypos), *it);
     }
-  if(fplotdetails)
+  if(fdrawyield) drawtex(texxpos, texypos=(texypos-texdypos), Form("N = %.0f #pm %.0f",yield,yieldErr));
+  if(fdrawdetail)
     {
-      drawtex(texxpos, texypos=(texypos-texdypos), Form("N = %.0f #pm %.0f",yield,yieldErr));
-      if(ftmvamode)
-        {
-          drawtex(texxpos, texypos=(texypos-texdypos), Form("S/#sqrt{S+B} = %.1f",S/TMath::Sqrt(S+B)));
-          drawtex(texxpos, texypos=(texypos-texdypos), Form("S = %.0f, B = %.0f",S,B));
-        }
+      if(!fdrawyield) drawtex(texxpos, texypos=(texypos-texdypos), Form("N = %.0f #pm %.0f",yield,yieldErr));
+      drawtex(texxpos, texypos=(texypos-texdypos), Form("S = %.0f, B = %.0f",S,B));
+      drawtex(texxpos, (texypos=(texypos-texdypos)) + 0.01, Form("S/#sqrt{S+B} = %.1f",S/TMath::Sqrt(S+B)));
+      drawtex(texxpos, texypos=(texypos-texdypos), Form("N#scale[0.6]{#lower[0.7]{sig}}/(N#scale[0.6]{#lower[0.7]{sig}}+N#scale[0.6]{#lower[0.7]{swap}}) = %.2f",fun_f->GetParameter(7)));
     }
-
+  
   if(fsaveplot) c->SaveAs(Form("%s.pdf",outputname.Data()));
 
   delete c;
@@ -254,20 +246,14 @@ TF1* xjjroot::dfitter::fit(const TH1* hmass, const TH1* hmassMCSignal, const TH1
 
 void xjjroot::dfitter::resolveoption()
 {
-  fplotdetails = false;
-  if(foption.Contains("Y")) fplotdetails = true;
-  ftmvamode = false;
-  if(foption.Contains("T")) ftmvamode = true;
-  fpapermode = false;
-  if(foption.Contains("P"))
-    {
-      fpapermode = true;
-      fplotdetails = false;
-    } 
+  fdrawyield = false;
+  if(foption.Contains("Y")) fdrawyield = true;
+  fdrawdetail = false;
+  if(foption.Contains("D")) fdrawdetail = true;
   ffitverbose = false;
   if(foption.Contains("V")) ffitverbose = true;
   fsaveplot = true;
-  if(foption.Contains("N")) fsaveplot = false;
+  if(foption.Contains("X")) fsaveplot = false;
 }
 
 void xjjroot::dfitter::reset()
@@ -296,10 +282,10 @@ void xjjroot::dfitter::calvar()
 {
   mass_dzero_signal_l = mass_dzero - d_mass_signal;
   mass_dzero_signal_h = mass_dzero + d_mass_signal;
-  mass_dzero_sideband_l_p = d_mass_signal + d_mass_sideband_l;
-  mass_dzero_sideband_h_p = d_mass_signal + d_mass_sideband_h;
-  mass_dzero_sideband_l_n = d_mass_signal - d_mass_sideband_l;
-  mass_dzero_sideband_h_n = d_mass_signal - d_mass_sideband_h;
+  mass_dzero_sideband_l_p = mass_dzero + d_mass_sideband_l;
+  mass_dzero_sideband_h_p = mass_dzero + d_mass_sideband_h;
+  mass_dzero_sideband_l_n = mass_dzero - d_mass_sideband_l;
+  mass_dzero_sideband_h_n = mass_dzero - d_mass_sideband_h;
 
   if(!fparamfuns) return;
   S = fun_mass->Integral(mass_dzero_signal_l,mass_dzero_signal_h)/binwid_hist_dzero;
@@ -353,9 +339,7 @@ void xjjroot::dfitter::setfunstyle()
 
   fun_not_mass->SetLineColor(12);
   fun_not_mass->SetLineStyle(2);
-  fun_not_mass->SetLineWidth(2);
-
-  if(fpapermode) {return;}
+  fun_not_mass->SetLineWidth(3);
 }
 
 void xjjroot::dfitter::setfunparameters()
@@ -427,8 +411,6 @@ void xjjroot::dfitter::sethist(TH1* h) const
   h->SetMarkerSize(0.8);
   h->SetMarkerStyle(20);
   h->SetStats(0);
-
-  if(fpapermode) {return;}
 }
 
 void xjjroot::dfitter::drawleg(TH1* h) const
@@ -445,7 +427,6 @@ void xjjroot::dfitter::drawleg(TH1* h) const
   leg->AddEntry(fun_swap,"K-#pi swapped","f");
   leg->AddEntry(fun_background,"Combinatorial","l");
 
-  if(fpapermode) {return;}
   leg->Draw("same");
 }
 
@@ -462,7 +443,6 @@ void xjjroot::dfitter::drawCMS(TString collision, TString snn/*="5.02"*/) const
   texCol->SetTextSize(0.04);
   texCol->SetTextFont(42);
 
-  if(fpapermode) {return;}
   texCms->Draw();
   texCol->Draw();
 }
