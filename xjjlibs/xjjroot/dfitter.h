@@ -30,11 +30,11 @@ namespace xjjroot
     Double_t GetY() const {return yield;}
     Double_t GetYE() const {return yieldErr;}
 
-    TF1* GetFun_f(TString name="Fun_f") const {if(!fparamfuns){return 0;} return clonefun(*fun_f, name);}
-    TF1* GetFun_mass(TString name="Fun_mass") const {if(!fparamfuns){return 0;} return clonefun(*fun_mass, name);}
-    TF1* GetFun_swap(TString name="Fun_swap") const {if(!fparamfuns){return 0;} return clonefun(*fun_swap, name);}
-    TF1* GetFun_background(TString name="Fun_background") const {if(!fparamfuns){return 0;} return clonefun(*fun_background, name);}
-    TF1* GetFun_not_mass(TString name="Fun_not_mass") const {if(!fparamfuns){return 0;} return clonefun(*fun_not_mass, name);}
+    TF1* GetFun_f(TString name="Fun_f") const {if(!fparamfuns){return 0;} return clonefun(fun_f, name);}
+    TF1* GetFun_mass(TString name="Fun_mass") const {if(!fparamfuns){return 0;} return clonefun(fun_mass, name);}
+    TF1* GetFun_swap(TString name="Fun_swap") const {if(!fparamfuns){return 0;} return clonefun(fun_swap, name);}
+    TF1* GetFun_background(TString name="Fun_background") const {if(!fparamfuns){return 0;} return clonefun(fun_background, name);}
+    TF1* GetFun_not_mass(TString name="Fun_not_mass") const {if(!fparamfuns){return 0;} return clonefun(fun_not_mass, name);}
 
     void SetOption(Option_t* option="") {foption = option; resolveoption();}
     void SetSignalregion(Double_t d_mass_signal_) {d_mass_signal =  d_mass_signal_; calvar();}
@@ -100,7 +100,7 @@ namespace xjjroot
     void setfunparameters();
     void setfunstyle();
 
-    TF1* clonefun(const TF1 &fun, TString fun_name) const;
+    TF1* clonefun(const TF1* fun, TString fun_name) const;
     void sethist(TH1* h) const;
     void drawCMS(TString collision, TString snn="5.02") const;
     void drawtex(Double_t x, Double_t y, const char* text, Float_t tsize=0.04, Short_t align=12) const;
@@ -241,7 +241,7 @@ TF1* xjjroot::dfitter::fit(const TH1* hmass, const TH1* hmassMCSignal, const TH1
   delete hMCSignal;
   delete hMCSwapped;
 
-  return clonefun(*fun_mass, "Fun_mass");
+  return clonefun(fun_mass, "Fun_mass");
 }
 
 void xjjroot::dfitter::resolveoption()
@@ -389,9 +389,9 @@ void xjjroot::dfitter::setfunparameters()
   fparamfuns = true;
 }
 
-TF1* xjjroot::dfitter::clonefun(const TF1 &fun, TString fun_name) const
+TF1* xjjroot::dfitter::clonefun(const TF1* fun, TString fun_name) const
 {
-  TF1* newfun = new TF1(fun);
+  TF1* newfun = new TF1(*fun);
   newfun->SetName(fun_name);
   return newfun;
 }
