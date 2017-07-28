@@ -321,16 +321,24 @@ void xjjroot::dfitter::deletefun()
 
 void xjjroot::dfitter::setfunstyle()
 {
+  fun_f->SetNpx(2000);
+  fun_f->SetLineColor(2);
+  fun_f->SetLineStyle(1);
+  fun_f->SetLineWidth(3);
+
+  fun_background->SetNpx(2000);
   fun_background->SetLineColor(4);
   fun_background->SetLineStyle(2);
   fun_background->SetLineWidth(3);
 
+  fun_mass->SetNpx(2000);
   fun_mass->SetLineColor(kOrange-3);
   fun_mass->SetLineStyle(2);
   fun_mass->SetLineWidth(3);
   fun_mass->SetFillColor(kOrange-3);
   fun_mass->SetFillStyle(3002);
 
+  fun_swap->SetNpx(2000);
   fun_swap->SetLineColor(kGreen+4);
   fun_swap->SetLineStyle(1);
   fun_swap->SetLineWidth(3);
