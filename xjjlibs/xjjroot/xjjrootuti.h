@@ -8,6 +8,7 @@
 #include <TLegend.h>
 #include <TLine.h>
 #include <TStyle.h>
+#include <TH1.h>
 
 namespace xjjroot
 {
@@ -31,6 +32,7 @@ namespace xjjroot
 
   void setbranchaddress(TTree* nt, const char* bname, void* addr);
   template <class T> T* copyobject(const T* obj, TString objname);
+  void dividebinwid(TH1* h);
 }
 
 /* ---------- */
@@ -174,5 +176,17 @@ T* xjjroot::copyobject(const T* obj, TString objname)
   newobj->SetName(objname);
   return newobj;
 }
+
+void xjjroot::dividebinwid(TH1* h)
+{
+  for(int i=0;i<h->GetNbinsX();i++)
+    {
+      Float_t val = h->GetBinContent(i+1)/h->GetBinWidth(i+1);
+      Float_t valErr = h->GetBinError(i+1)/h->GetBinWidth(i+1);
+      h->SetBinContent(i+1,val);
+      h->SetBinError(i+1,valErr);
+    }
+}
+
 
 #endif
