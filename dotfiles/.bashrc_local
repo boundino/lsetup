@@ -1,0 +1,42 @@
+
+# GNU https://www.topbug.net/blog/2013/04/14/install-and-use-gnu-command-line-tools-in-mac-os-x/
+export PATH="$(brew --prefix coreutils)/libexec/gnubin:/usr/local/bin:$PATH"
+export MANPATH="$(brew --prefix coreutils)/libexec/gnuman:$MANPATH"
+
+# set alias
+alias ls='ls --color=auto'
+alias ll="ls -lh"
+alias lla="ls -lha"
+alias la="ls -a"
+alias ld='du -h --max-depth=1 .'
+alias lu='du -sh'
+alias doc="cd ~/Documents"
+alias lxplus="ssh -Y wangj@lxplus.cern.ch"
+alias cgate="ssh -Y jwang@cgate.mit.edu"
+alias athena="ssh -Y jwang011@athena.dialup.mit.edu"
+alias hidsk="ssh -Y jwang@submit-hi2.mit.edu"
+alias Documents="cd ~/Dropbox\ \(Personal\)/Private/MacbookAir/"
+#alias tree="tree | ascii2uni -a K"
+
+alias cleardesk="defaults write com.apple.finder CreateDesktop -bool FALSE;killall Finder"
+alias showdesk="defaults delete com.apple.finder CreateDesktop;killall Finder"
+alias clearfolder="rm *~"
+
+# prompt string
+PS1='${debian_chroot:+($debian_chroot)}\[\033[38;2;255;255;143;1m\]\u\[\033[38;2;121;113;80m\]:~ \[\033[38;5;153;1m\]\h\[\033[00m\]:\[\033[38;2;205;162;184;1m\]\w \[\033[38;2;170;170;170;1m\](*˘︶˘*)\[\033[00m\]$ '
+PS4='\[\033[38;2;165;255;170;1m\]L${LINENO} + \[\033[0m\]'
+
+# color
+# GNU
+export TERM=xterm-256color
+eval "$(dircolors ~/.dircolors)"
+# BSD
+#export CLICOLOR=1
+#export LSCOLORS=gxfxaxdxcxegedabagacad
+
+#
+if [ -f /Users/xjjgww/ROOT/build/bin/thisroot.sh ]
+then
+    source /Users/xjjgww/ROOT/build/bin/thisroot.sh
+    alias root='rooto -l'
+fi
