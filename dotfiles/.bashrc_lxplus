@@ -12,28 +12,14 @@ fi
 # GNU color https://en.wikipedia.org/wiki/ANSI_escape_code
 export TERM=xterm-256color
 export CLICOLOR=1
-LS_COLORS=$LS_COLORS:'di=38;2;89;193;183:ex=38;2;255;207;92;1:*.h=38;2;128;128;128;1:*.pdf=38;2;1;151;202:*.backup=38;2;60;60;60:ln=38;2;116;110;163;1'; export LS_COLORS
 
 # User specific aliases and functions
-alias emacs='emacs -nw'
-alias root='root -l'
-alias rootb='root -l -b -q'
 alias worksp='cd /afs/cern.ch/work/w/wangj'
-alias clearfolder='rm *.so; rm *.d; rm *.pcm; rm *~'
 alias svmithi02='ssh -Y svmithi02'
 alias docmsenv='cd ~/testEverything/CMSSW_7_5_8_patch3/src; cmsenv; cd -'
 alias mounteos='eosmount eos/; cd ~/eos/cms/store/group/phys_heavyions/wangj'
 # https://information-technology.web.cern.ch/services/fe/afs/howto/configure-afs-access-rights
 alias checkafsaccess='fs listacl .'
-
-alias ll='ls -lh'
-alias la='ls -A'
-alias lla='ls -lhA'
-alias l='ls -aCFh'
-alias ld='du -h --max-depth=1 .'
-alias lu='du -sh '
-# alias cpp='rsync --info=progress2'
-alias cpp='rsync --progress'
 
 #
 docmsenv
@@ -96,8 +82,7 @@ fi
 
 if [ "$color_prompt" = yes ]
 then
-    PS1='${debian_chroot:+($debian_chroot)}\[\033[38;5;227;1m\]\u\[\033[38;2;179;179;0m\]:~ \[\033[38;5;153;1m\]\h\[\033[00m\]:\[\033[38;2;205;162;184;1m\]\w\[\033[00m\]\$ '
-    PS4='\[\033[38;2;165;255;170;1m\]L${LINENO} + \[\033[0m\]'
+    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
 else
     PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
 fi
@@ -144,3 +129,5 @@ then
 fi
 
 ##########################################################################
+
+. ~/.bash_linux
