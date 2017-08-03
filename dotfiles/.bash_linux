@@ -18,5 +18,5 @@ alias ctf='ls -l | grep "^-" | wc -l'
 alias clearfolder='rm *.so; rm *.d; rm *.pcm; rm *~'
 # alias cpp='rsync --info=progress2'
 alias cpp='rsync --progress'
-
+alias lns='ln -s'
 
