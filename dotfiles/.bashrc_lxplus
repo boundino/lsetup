@@ -17,8 +17,9 @@ export CLICOLOR=1
 alias worksp='cd /afs/cern.ch/work/w/wangj'
 alias svmithi02='ssh -Y svmithi02'
 alias docmsenv='cd ~/testEverything/CMSSW_7_5_8_patch3/src; cmsenv; cd -'
-alias mounteos='eosmount eos/; cd ~/eos/cms/store/group/phys_heavyions/wangj'
-# https://information-technology.web.cern.ch/services/fe/afs/howto/configure-afs-access-rights
+# alias mounteos='eosmount eos/; cd ~/eos/cms/store/group/phys_heavyions/wangj'
+alias mounteos='cd /eos/cms/store/group/phys_heavyions/wangj'
+# https://information-technology.web.cern.ch/services/fe/afs/howto/configure-afs-access-rights #
 alias checkafsaccess='fs listacl .'
 
 #
