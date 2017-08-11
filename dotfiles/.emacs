@@ -84,3 +84,15 @@
     (indent-region (point-min) (point-max) nil)))
 (provide 'indent-whole-buffer)
 (global-set-key "\C-x\C-a" 'indent-whole-buffer)
+
+
+(defun just-one-space-in-region (beg end)
+  "replace all whitespace in the region with single spaces"
+  (interactive "r")
+  (save-excursion
+    (save-restriction
+      (narrow-to-region beg end)
+      (goto-char (point-min))
+      (while (re-search-forward "\\s-+" nil t)
+        (replace-match " ")))))
+(provide 'just-one-space-in-region)
