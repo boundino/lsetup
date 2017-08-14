@@ -75,8 +75,8 @@
       (setq beg (line-beginning-position) end (line-end-position)))
     (comment-or-uncomment-region beg end)))
 (provide 'comment-or-uncomment-region-or-line)
-
 (global-set-key "\M-;" 'comment-or-uncomment-region-or-line)
+
 
 (defun indent-whole-buffer ()
   (interactive)
@@ -96,3 +96,4 @@
       (while (re-search-forward "\\s-+" nil t)
         (replace-match " ")))))
 (provide 'just-one-space-in-region)
+(global-set-key "\M-p" 'just-one-space-in-region)
