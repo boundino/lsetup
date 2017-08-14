@@ -48,4 +48,4 @@ alias scratch='cd /export/d00/scratch/jwang/'
 
 alias docmsenv='cd /net/hisrv0001/home/jwang/testEverything/CMSSW_7_5_8_patch3/src; cmsenv; cd -'
 
-. .bash_linux
+. ~/.bash_linux
