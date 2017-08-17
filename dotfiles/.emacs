@@ -97,3 +97,19 @@
         (replace-match " ")))))
 (provide 'just-one-space-in-region)
 (global-set-key "\M-p" 'just-one-space-in-region)
+
+(defun swap-star (beg end)
+  ""
+  (interactive "r")
+  (save-excursion
+    (save-restriction
+      (narrow-to-region beg end)
+      (goto-char (point-min))
+      (while (search-forward "*" nil t)
+        (replace-match " * "))
+      (goto-char (point-min))
+      (while (re-search-forward "\\s-+" nil t)
+        (replace-match " "))
+      (goto-char (point-min))
+      (while (search-forward " *" nil t) (replace-match "* " nil t)))))
+(provide 'swap-star)
