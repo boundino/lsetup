@@ -20,6 +20,7 @@ alias Documents="cd ~/Dropbox\ \(Personal\)/Private/MacbookAir/"
 #alias tree="tree | ascii2uni -a K"
 alias lns='ln -s'
 alias cpp='rsync --progress'
+alias diff='diff --old-group-format=$'"'"'\e[38;2;210;106;112;1m%<\e[0m'"'"' --new-group-format=$'"'"'\e[38;2;132;192;127;1m%>\e[0m'"'"' --unchanged-group-format=$'"'"'\e[38;2;128;128;128m%=\e[0m'"'"
 
 alias cleardesk="defaults write com.apple.finder CreateDesktop -bool FALSE;killall Finder"
 alias showdesk="defaults delete com.apple.finder CreateDesktop;killall Finder"
@@ -41,5 +42,5 @@ eval "$(dircolors ~/.dircolors)"
 if [ -f /Users/xjjgww/ROOT/build/bin/thisroot.sh ]
 then
     source /Users/xjjgww/ROOT/build/bin/thisroot.sh
-    alias root='rooto -l'
+    alias root='root -l'
 fi
