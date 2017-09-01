@@ -99,7 +99,7 @@
 (global-set-key "\M-p" 'just-one-space-in-region)
 
 (defun swap-star (beg end)
-  ""
+  "swap star and space"
   (interactive "r")
   (save-excursion
     (save-restriction
@@ -111,5 +111,8 @@
       (while (re-search-forward "\\s-+" nil t)
         (replace-match " "))
       (goto-char (point-min))
-      (while (search-forward " *" nil t) (replace-match "* " nil t)))))
+      (while (search-forward " *" nil t) (replace-match "* " nil t))
+      (goto-char (point-min))
+      (while (re-search-forward "\\s-+" nil t)
+        (replace-match " ")))))
 (provide 'swap-star)
