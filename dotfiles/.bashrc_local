@@ -5,7 +5,7 @@ export PATH="$(brew --prefix coreutils)/libexec/gnubin:/usr/local/bin:$PATH"
 export MANPATH="$(brew --prefix coreutils)/libexec/gnuman:$MANPATH"
 
 # set alias
-alias ls='ls --color=auto'
+alias ls='ls --color=yes'
 alias ll="ls -lh"
 alias lla="ls -lha"
 alias la="ls -a"
@@ -18,9 +18,14 @@ alias athena="ssh -Y jwang011@athena.dialup.mit.edu"
 alias hidsk="ssh -Y jwang@submit-hi2.mit.edu"
 alias Documents="cd ~/Dropbox\ \(Personal\)/Private/MacbookAir/"
 #alias tree="tree | ascii2uni -a K"
-alias lns='ln -s'
+alias emacs='emacs -nw'
+alias cat='cat -n'
+
 alias cpp='rsync --progress'
+alias lns='ln -s'
 alias diff='diff --old-group-format=$'"'"'\e[38;2;210;106;112;1m%<\e[0m'"'"' --new-group-format=$'"'"'\e[38;2;132;192;127;1m%>\e[0m'"'"' --unchanged-group-format=$'"'"'\e[38;2;128;128;128m%=\e[0m'"'"
+alias grep='grep --color=yes'
+alias less='less -RMN'
 
 alias cleardesk="defaults write com.apple.finder CreateDesktop -bool FALSE;killall Finder"
 alias showdesk="defaults delete com.apple.finder CreateDesktop;killall Finder"

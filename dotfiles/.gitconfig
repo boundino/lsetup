@@ -8,6 +8,6 @@
 [core]
         askPass =
 [color]
-	ui = auto
-	branch = auto
-	status = auto
+	ui = always
+	branch = always
+	status = always
