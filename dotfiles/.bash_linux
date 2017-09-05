@@ -23,3 +23,4 @@ alias clearfolder='rm *.so; rm *.d; rm *.pcm; rm *~; rm .*~'
 alias cpp='rsync --progress'
 alias lns='ln -s'
 alias diff='diff --old-group-format=$'"'"'\e[38;2;210;106;112;1m%<\e[0m'"'"' --new-group-format=$'"'"'\e[38;2;132;192;127;1m%>\e[0m'"'"' --unchanged-group-format=$'"'"'\e[38;2;128;128;128m%=\e[0m'"'"
+alias grep='grep --color=auto'
