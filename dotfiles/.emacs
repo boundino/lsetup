@@ -24,6 +24,7 @@
 ;; auto-mode
 (add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
 (add-to-list 'auto-mode-alist '("\\.md\\'" . html-mode))
+(add-to-list 'auto-mode-alist '("\\.bash.*\\'" . sh-mode))
 
 ;; uncomment this line to disable loading of "default.el" at startup
 ;;(setq inhibit-default-init t)
@@ -75,8 +76,8 @@
       (setq beg (line-beginning-position) end (line-end-position)))
     (comment-or-uncomment-region beg end)))
 (provide 'comment-or-uncomment-region-or-line)
-
 (global-set-key "\M-;" 'comment-or-uncomment-region-or-line)
+
 
 (defun indent-whole-buffer ()
   (interactive)
@@ -84,3 +85,35 @@
     (indent-region (point-min) (point-max) nil)))
 (provide 'indent-whole-buffer)
 (global-set-key "\C-x\C-a" 'indent-whole-buffer)
+
+
+(defun just-one-space-in-region (beg end)
+  "replace all whitespace in the region with single spaces"
+  (interactive "r")
+  (save-excursion
+    (save-restriction
+      (narrow-to-region beg end)
+      (goto-char (point-min))
+      (while (re-search-forward "\\s-+" nil t)
+        (replace-match " ")))))
+(provide 'just-one-space-in-region)
+(global-set-key "\M-p" 'just-one-space-in-region)
+
+(defun swap-star (beg end)
+  "swap star and space"
+  (interactive "r")
+  (save-excursion
+    (save-restriction
+      (narrow-to-region beg end)
+      (goto-char (point-min))
+      (while (search-forward "*" nil t)
+        (replace-match " * "))
+      (goto-char (point-min))
+      (while (re-search-forward "\\s-+" nil t)
+        (replace-match " "))
+      (goto-char (point-min))
+      (while (search-forward " *" nil t) (replace-match "* " nil t))
+      (goto-char (point-min))
+      (while (re-search-forward "\\s-+" nil t)
+        (replace-match " ")))))
+(provide 'swap-star)
