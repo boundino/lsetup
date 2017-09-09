@@ -16,6 +16,7 @@ alias cgate="ssh -Y jwang@cgate.mit.edu"
 alias athena="ssh -Y jwang011@athena.dialup.mit.edu"
 alias hidsk="ssh -Y jwang@submit-hi2.mit.edu"
 alias Documents="cd ~/Dropbox\ \(Personal\)/Private/MacbookAir/"
+export DOCPREFIX=/Users/xjjgww/Dropbox\ \(Personal\)/Private/MacbookAir/
 #alias tree="tree | ascii2uni -a K"
 
 alias cleardesk="defaults write com.apple.finder CreateDesktop -bool FALSE;killall Finder"
