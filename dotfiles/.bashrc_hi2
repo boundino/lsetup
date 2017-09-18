@@ -13,7 +13,8 @@ then
     then
 	. /etc/bashrc
     fi
-    source /osg/app/cmssoft/cms/cmsset_default.sh
+    # source /osg/app/cmssoft/cms/cmsset_default.sh
+    source /cvmfs/cms.cern.ch/cmsset_default.sh
     #git config --global user.name Jing Wang
     #git config --global user.github boundino
     #git config --global user.email boundino@gmail.com
@@ -22,6 +23,11 @@ fi
 if [[ $myhost = hidsk0001 || $myhost = submit-hi2 ]]
 then
     cd /net/hisrv0001/home/jwang/testEverything/CMSSW_7_5_8_patch3/src; cmsenv; cd -
+fi
+
+if [[ $myhost = submit ]]
+then
+    cd /afs/lns.mit.edu/user/jwang/testEverything/CMSSW_7_5_8_patch3/src; cmsenv; cd -    
 fi
 
 if [[ $myhost = submit-hi2 ]]
