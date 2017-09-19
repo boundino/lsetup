@@ -32,7 +32,8 @@ fi
 
 if [[ $myhost = submit-hi2 ]]
 then
-    alias condor_submit='condor_submit -pool submit.mit.edu:9615 -name submit.mit.edu -spool'
+    # alias condor_submit='condor_submit -pool submit.mit.edu:9615 -name submit.mit.edu -spool'
+    alias condor_submit='condor_submit -pool submit.mit.edu:9615 -name submit.mit.edu'
     alias condor_q='condor_q -pool submit.mit.edu:9615 -name submit.mit.edu'
     alias condor_rm='condor_rm -pool submit.mit.edu:9615 -name submit.mit.edu'
     alias condor_transfer='condor_transfer_data -pool submit.mit.edu:9615 -name submit.mit.edu'
