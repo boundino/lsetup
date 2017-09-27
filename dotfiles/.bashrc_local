@@ -19,6 +19,7 @@ alias hidsk="ssh -Y jwang@submit-hi2.mit.edu"
 alias submitmit="ssh -Y jwang@submit.mit.edu"
 alias Documents="cd ~/Dropbox\ \(Personal\)/Private/MacbookAir/"
 alias tunnel="ssh -f -N -L 10121:188.184.36.85:10121 wangj@lxplus.cern.ch"
+export DOCPREFIX=/Users/xjjgww/Dropbox\ \(Personal\)/Private/MacbookAir/
 #alias tree="tree | ascii2uni -a K"
 alias emacs='emacs -nw'
 alias cat='cat -n'

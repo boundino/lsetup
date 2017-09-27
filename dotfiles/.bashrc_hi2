@@ -13,7 +13,8 @@ then
     then
 	. /etc/bashrc
     fi
-    source /osg/app/cmssoft/cms/cmsset_default.sh
+    # source /osg/app/cmssoft/cms/cmsset_default.sh
+    source /cvmfs/cms.cern.ch/cmsset_default.sh
     #git config --global user.name Jing Wang
     #git config --global user.github boundino
     #git config --global user.email boundino@gmail.com
@@ -24,9 +25,15 @@ then
     cd /net/hisrv0001/home/jwang/testEverything/CMSSW_7_5_8_patch3/src; cmsenv; cd -
 fi
 
+if [[ $myhost = submit ]]
+then
+    cd /afs/lns.mit.edu/user/jwang/testEverything/CMSSW_7_5_8_patch3/src; cmsenv; cd -    
+fi
+
 if [[ $myhost = submit-hi2 ]]
 then
-    alias condor_submit='condor_submit -pool submit.mit.edu:9615 -name submit.mit.edu -spool'
+    # alias condor_submit='condor_submit -pool submit.mit.edu:9615 -name submit.mit.edu -spool'
+    alias condor_submit='condor_submit -pool submit.mit.edu:9615 -name submit.mit.edu'
     alias condor_q='condor_q -pool submit.mit.edu:9615 -name submit.mit.edu'
     alias condor_rm='condor_rm -pool submit.mit.edu:9615 -name submit.mit.edu'
     alias condor_transfer='condor_transfer_data -pool submit.mit.edu:9615 -name submit.mit.edu'
