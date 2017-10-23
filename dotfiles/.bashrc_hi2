@@ -1,5 +1,6 @@
 # .bashrc
 
+
 [[ $- == *i* ]] || return
 
 # Source global definitions
@@ -20,12 +21,12 @@ then
     #git config --global user.email boundino@gmail.com
 fi
 
-if [[ $myhost = hidsk0001 || $myhost = submit-hi2 ]]
+if [[ $myhost = hidsk0001 ]]
 then
     cd /net/hisrv0001/home/jwang/testEverything/CMSSW_7_5_8_patch3/src; cmsenv; cd -
 fi
 
-if [[ $myhost = submit ]]
+if [[ $myhost = submit || $myhost = submit-hi2 ]]
 then
     cd /afs/lns.mit.edu/user/jwang/testEverything/CMSSW_7_5_8_patch3/src; cmsenv; cd -    
 fi
