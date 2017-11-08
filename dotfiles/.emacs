@@ -15,6 +15,9 @@
 ;; Turn on Font lock mode
 (global-font-lock-mode t)
 
+;; Add space in linum mode
+(setq linum-format "%d ")
+
 ;; Set key globally
 (global-set-key "\C-x\C-m" 'execute-extended-command)
 (global-set-key (kbd "C-h") 'delete-backward-char)
