@@ -48,12 +48,17 @@ alias hidsk2='ssh -X hidsk0002'
 alias hidsk='ssh -X hidsk0002'
 alias hadoopjw='cd /mnt/hadoop/cms/store/user/jwang/'
 alias hadoopwj='cd /mnt/hadoop/cms/store/user/wangj/'
-alias scratch='cd /export/d00/scratch/jwang/'
+if [[ $myhost = submit-hi2 ]]
+then
+    alias scratch='cd /export/d00/scratch/jwang/'
+    alias worksp='cd /export/d00/scratch/jwang/scratchHome/'
+elif [[ $myhost = submit ]]
+then
+    alias scratch='cd /mnt/T2_US_MIT/submit-hi2/scratch/jwang/'
+    alias worksp='cd /mnt/T2_US_MIT/submit-hi2/scratch/jwang/scratchHome/'
+fi
 
-#export scratch=/export/d00/scratch/jwang/
-#export hadoopjw=/mnt/hadoop/cms/store/user/jwang/
-#export hadoopwj=/mnt/hadoop/cms/store/user/wangj/
-
-alias docmsenv='cd /net/hisrv0001/home/jwang/testEverything/CMSSW_7_5_8_patch3/src; cmsenv; cd -'
+# alias docmsenv='cd /net/hisrv0001/home/jwang/testEverything/CMSSW_7_5_8_patch3/src; cmsenv; cd -'
+alias docmsenv='cd /net/hisrv0001/home/jwang/testEverything/CMSSW_8_0_22/src; cmsenv; cd -'
 
 . ~/.bash_linux
