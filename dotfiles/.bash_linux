@@ -24,6 +24,7 @@ alias clearfolder='rm *.so; rm *.d; rm *.pcm; rm *~; rm .*~'
 # alias cpp='rsync --info=progress2'
 alias cpp='rsync --progress'
 alias lns='ln -s'
-alias diff='diff --old-group-format=$'"'"'\e[38;2;210;106;112;1m%<\e[0m'"'"' --new-group-format=$'"'"'\e[38;2;132;192;127;1m%>\e[0m'"'"' --unchanged-group-format=$'"'"'\e[38;2;128;128;128m%=\e[0m'"'"
+alias diff='diff --report-identical-files --old-group-format=$'"'"'\e[38;2;210;106;112m%<\e[0m'"'"' --new-group-format=$'"'"'\e[38;2;132;192;127;1m%>\e[0m'"'"' --unchanged-group-format='"'""'"
+alias diffw='diff --old-group-format=$'"'"'\e[38;2;210;106;112;1m%<\e[0m'"'"' --new-group-format=$'"'"'\e[38;2;132;192;127;1m%>\e[0m'"'"' --unchanged-group-format=$'"'"'\e[38;2;128;128;128m%=\e[0m'"'"
 alias grep='grep --color=yes'
 alias less='less -RMN'

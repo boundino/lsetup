@@ -23,12 +23,12 @@ fi
 
 if [[ $myhost = hidsk0001 ]]
 then
-    cd /net/hisrv0001/home/jwang/testEverything/CMSSW_7_5_8_patch3/src; cmsenv; cd -
+    cd /net/hisrv0001/home/jwang/testEverything/CMSSW_8_0_22/src; cmsenv; cd -
 fi
 
 if [[ $myhost = submit || $myhost = submit-hi2 ]]
 then
-    cd /afs/lns.mit.edu/user/jwang/testEverything/CMSSW_7_5_8_patch3/src; cmsenv; cd -    
+    cd /afs/lns.mit.edu/user/jwang/testEverything/CMSSW_8_0_22/src; cmsenv; cd -    
 fi
 
 if [[ $myhost = submit-hi2 ]]
