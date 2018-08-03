@@ -13,10 +13,13 @@ fi
 export TERM=xterm-256color
 export CLICOLOR=1
 
+export XRDPER=root://cms-xrd-global.cern.ch/
+xrdcpp() { xrdcp ${XRDPER}/$1 $2 ; }
+
 # User specific aliases and functions
 alias worksp='cd /afs/cern.ch/work/w/wangj'
 alias svmithi02='ssh -Y svmithi02'
-alias docmsenv='cd ~/testEverything/CMSSW_7_5_8_patch3/src; cmsenv; cd -'
+alias docmsenv='cd ~/testEverything/CMSSW_10_1_5/src; cmsenv; cd -'
 # alias mounteos='eosmount eos/; cd ~/eos/cms/store/group/phys_heavyions/wangj'
 alias mounteos='cd /eos/cms/store/group/phys_heavyions/wangj'
 # https://information-technology.web.cern.ch/services/fe/afs/howto/configure-afs-access-rights #
