@@ -61,4 +61,6 @@ fi
 # alias docmsenv='cd /net/hisrv0001/home/jwang/testEverything/CMSSW_7_5_8_patch3/src; cmsenv; cd -'
 alias docmsenv='cd /net/hisrv0001/home/jwang/testEverything/CMSSW_8_0_22/src; cmsenv; cd -'
 
+function cmsenv_ver() { cd ~/testEverything/${1}/src; cmsenv; cd -; }
+
 . ~/.bash_linux
