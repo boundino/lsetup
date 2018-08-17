@@ -17,6 +17,7 @@ alias l='ls -CF'
 alias ld='du -h --max-depth=1 .'
 alias lu='du -sh '
 # alias cat='cat'
+alias rl='readlink -f'
 
 alias ctf='ls -l | grep "^-" | wc -l'
 alias clearfolder='rm *.so; rm *.d; rm *.pcm; rm *~; rm .*~'

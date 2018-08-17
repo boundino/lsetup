@@ -27,7 +27,10 @@ alias checkafsaccess='fs listacl .'
 alias json='cd /afs/cern.ch/cms/CAF/CMSCOMM/COMM_DQM/certification/'
 #
 # docmsenv
-function docmsenv() { cd ~/testEverything/CMSSW_${1}/src; cmsenv; cd -; }
+function docmsenv() { 
+    [[ $# -eq 1 ]] && { cd ~/testEverything/CMSSW_${1}/src; cmsenv; cd -; } ;
+    [[ $# -eq 0 ]] && { cd ~/testEverything/CMSSW_10_1_5/src; cmsenv; cd -; } ;
+}
 
 ##########################################################################
 ##########################################################################
