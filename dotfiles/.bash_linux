@@ -29,7 +29,13 @@ alias diff='diff --report-identical-files --old-group-format=$'"'"'\e[38;2;210;1
 alias diffw='diff --old-group-format=$'"'"'\e[38;2;210;106;112;1m%<\e[0m'"'"' --new-group-format=$'"'"'\e[38;2;132;192;127;1m%>\e[0m'"'"' --unchanged-group-format=$'"'"'\e[38;2;128;128;128m%=\e[0m'"'"
 alias grep='grep --color=yes'
 alias less='less -RMN'
-alias cmsver='echo $CMSSW_VERSION'
 alias ccat='highlight -O ansi --force'
 
 catt() { echo -e $(cat "$@" | sed  's/$/\\n/' | sed 's/ /\\a /g') ; }
+
+# docmsenv
+alias cmsver='echo $CMSSW_VERSION'
+function docmsenv() {
+    [[ $# -eq 1 ]] && { cd ~/testEverything/CMSSW_${1}/src; cmsenv; echo $CMSSW_VERSION; cd -; } ;
+    [[ $# -eq 0 ]] && { cd ~/testEverything/CMSSW_10_1_5/src; cmsenv; echo $CMSSW_VERSION; cd -; } ;
+}
