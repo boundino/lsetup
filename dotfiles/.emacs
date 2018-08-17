@@ -4,6 +4,9 @@
 (add-to-list 'load-path "~/.emacs.d/lisp/")
 (require 'color-theme-boundin)
 ;;(require 'fun-boundin)
+(require 'python)
+;; (add-to-list 'load-path "~/.emacs.d/python-mode/")
+;; (require 'python-mode)
 
 (setq color-theme-is-global t)
 (color-theme-initialize)
@@ -120,3 +123,10 @@
       (while (re-search-forward "\\s-+" nil t)
         (replace-match " ")))))
 (provide 'swap-star)
+
+
+;; (smart-tabs-advice python-indent-line-1 python-indent)
+;;     (add-hook 'python-mode-hook
+;;               (lambda ()
+;;                 (setq indent-tabs-mode t)
+;;                 (setq tab-width (default-value 'tab-width))))
