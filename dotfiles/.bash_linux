@@ -25,8 +25,9 @@ alias clearfolder='rm *.so; rm *.d; rm *.pcm; rm *~; rm .*~'
 # alias cpp='rsync --info=progress2'
 alias cpp='rsync --progress'
 alias lns='ln -s'
-alias diff='diff --report-identical-files --old-group-format=$'"'"'\e[38;2;210;106;112m%<\e[0m'"'"' --new-group-format=$'"'"'\e[38;2;132;192;127;1m%>\e[0m'"'"' --unchanged-group-format='"'""'"
-alias diffw='diff --old-group-format=$'"'"'\e[38;2;210;106;112;1m%<\e[0m'"'"' --new-group-format=$'"'"'\e[38;2;132;192;127;1m%>\e[0m'"'"' --unchanged-group-format=$'"'"'\e[38;2;128;128;128m%=\e[0m'"'"
+alias diffw='diff --report-identical-files --old-group-format=$'"'"'\e[38;2;210;106;112;1m%<\e[0m'"'"' --new-group-format=$'"'"'\e[38;2;132;192;127;1m%>\e[0m'"'"' --unchanged-group-format=$'"'"'\e[38;2;128;128;128m%=\e[0m'"'"
+alias diffl='diff --report-identical-files --old-group-format=$'"'"'%dn line --@ l %df:\n\e[38;2;210;106;112;1m%<\e[0m'"'"' --new-group-format=$'"'"'%dN line ++@ l %de:\n\e[38;2;132;192;127;1m%>\e[0m'"'"' --unchanged-group-format='"'""'"
+alias difff='diff --report-identical-files --old-group-format=$'"'"'\e[38;2;210;106;112;1m%<\e[0m'"'"' --new-group-format=$'"'"'\e[38;2;132;192;127;1m%>\e[0m'"'"' --unchanged-group-format='"'""'"
 alias grep='grep --color=yes'
 alias less='less -RMN'
 alias ccat='highlight -O ansi --force'
