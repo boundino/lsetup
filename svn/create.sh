@@ -1,17 +1,23 @@
 #!/bin/bash
 
-FOLDER="DmesonRunII"
-PAPERINDEX="HIN-16-001"
-SUB="papers" # notes, papers, pasS
-STYLE="paper" # note, paper, pas
-# PAPERINDEX="AN-15-308"
-# SUB="notes" # notes, papers, pasS
-# STYLE="note" # note, paper, pas
+FOLDER="Djets"
 
-svn co -N svn+ssh://svn.cern.ch/reps/tdr2 $FOLDER
+PAPERINDEX="HIN-18-007"
+SUB="papers" # notes, papers
+STYLE="paper" # an, paper, pas
+
+# PAPERINDEX="AN-17-097"
+# SUB="notes" # notes, papers
+# STYLE="an" # an, paper, pas
+
+# PAPERINDEX="HIN-18-007"
+# SUB="notes" # notes, papers
+# STYLE="pas" # an, paper, pas
+
+[[ ! -d $FOLDER ]] && { mkdir $FOLDER ; svn co -N svn+ssh://svn.cern.ch/reps/tdr2 $FOLDER ; }
 cd $FOLDER
 svn update utils
-svn update -N ${SUB}
+[[ ! -d $SUB ]] && { svn update -N ${SUB} ; }
 svn update ${SUB}/${PAPERINDEX}
 eval `./${SUB}/tdr runtime -sh` # for tcsh. use -sh for bash
 cd ${SUB}/${PAPERINDEX}/trunk
