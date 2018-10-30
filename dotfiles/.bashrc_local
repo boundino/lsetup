@@ -17,6 +17,7 @@ alias cgate="ssh -Y jwang@cgate.mit.edu"
 alias athena="ssh -Y jwang011@athena.dialup.mit.edu"
 alias hidsk="ssh -Y jwang@submit-hi2.mit.edu"
 alias submitmit="ssh -Y jwang@submit.mit.edu"
+alias grendel="ssh -Y wangj@GRENDEL01.mit.edu"
 alias Documents="cd ~/Dropbox\ \(Personal\)/Private/MacbookAir/"
 alias tunnel="ssh -f -N -L 10121:188.184.36.85:10121 wangj@lxplus.cern.ch"
 export DOCPREFIX=/Users/xjjgww/Dropbox\ \(Personal\)/Private/MacbookAir/
