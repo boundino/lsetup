@@ -88,7 +88,7 @@ function gfalcopy()
     SPATH=$(gfalrl $1)
     [[ $? -eq 0 ]] || { echo $SPATH ; return $?; }
     [[ $1 == *.* ]] && { gfal-copy -p ${SPATH} $2/ ; return 0 ; }
-    for i in `gfal-ls ${SPATH}` ; do [[ ! -f $2/$i ]] && { gfal-copy -p ${SPATH}/$i $2/ ; } ; done ;
+    for i in `gfal-ls ${SPATH}` ; do [[ ! -f $2/$i ]] && { gfal-copy -p ${SPATH}/$i $2/$i ; } ; done ;
     # gfal-copy -p -r ${SPATH} $2
     return 0
 }
