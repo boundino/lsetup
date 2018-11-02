@@ -8,7 +8,6 @@ export PS1='${debian_chroot:+($debian_chroot)}\[\033[38;2;255;255;143;1m\]\u\[\0
 export PS4='\[\033[38;2;165;255;170;1m\]L${LINENO} + \[\033[0m\]'
 
 alias emacs='emacs -nw'
-alias root='root -l'
 alias ls='ls --color=yes'
 alias ll='ls -lh'
 alias lla='ls -alh'
@@ -35,9 +34,44 @@ alias ccat='highlight -O ansi --force'
 
 catt() { echo -e $(cat "$@" | sed  's/$/\\n/' | sed 's/ /\\a /g') ; }
 
+# ====== CMSSW / ROOT ====== #
+
+alias root='root -l'
+alias crab_setup='source ~/crab_setup.sh'
+alias grid_setup='source ~/grid_setup.sh'
+
 # docmsenv
-alias cmsver='echo $CMSSW_VERSION'
+alias cmsver='echo $CMSSW_BASE ; echo $CMSSW_RELEASE_BASE ;'
 function docmsenv() {
     [[ $# -eq 1 ]] && { cd ~/testEverything/CMSSW_${1}/src; cmsenv; echo $CMSSW_VERSION; cd -; } ;
-    [[ $# -eq 0 ]] && { cd ~/testEverything/CMSSW_10_1_5/src; cmsenv; echo $CMSSW_VERSION; cd -; } ;
+    [[ $# -eq 0 ]] && { cd ~/testEverything/CMSSW_10_3_0/src; cmsenv; echo $CMSSW_VERSION; cd -; } ;
+}
+
+# all: root://cms-xrd-global.cern.ch/
+# US: root://cmsxrootd.fnal.gov/
+# Europe/Asia: root://xrootd-cms.infn.it/
+# EOS: root://eoscms.cern.ch/
+export XRDP=root://cms-xrd-global.cern.ch/
+xrdcpp()
+{
+    SPATH=$1
+    [[ $1 == /mnt/T2_US_MIT/hadoop* ]] && { SPATH=${1#/mnt/T2_US_MIT/hadoop} ; }
+    [[ $1 == /mnt/hadoop* ]] && { SPATH=${1#/mnt/hadoop} ; }
+    [[ $SPATH == /store/* ]] || { echo -e "\e[1;31m [xrdcpp] error: invalid path \e[1;33;41m$1\e[0m" ;  return 1 ; }
+    # /store/...
+    xrdcp ${XRDP}/$SPATH $2 ;
+}
+
+export GFALP=gsiftp://se01.cmsaf.mit.edu/
+gfalcopy()
+{
+    SPATH=$1
+    [[ $1 == /mnt/T2_US_MIT/hadoop* ]] && { SPATH=${1#/mnt/T2_US_MIT/hadoop} ; }
+    [[ $1 == /mnt/hadoop* ]] && { SPATH=${1#/mnt/hadoop} ; }
+    [[ $1 == /store* ]] && { SPATH=/cms$1 ; }
+    [[ $SPATH == /cms/store/* ]] || { echo -e "\e[1;31m [gfalcopy] error: invalid path \e[1;33;41m$1\e[0m" ;  return 1 ; }
+    # /cms/store/...
+    [[ $1 == *.* ]] && { gfal-copy -p gsiftp://se01.cmsaf.mit.edu/${SPATH} $2/ ; return 1 ; }
+    gfal-copy -p -r gsiftp://se01.cmsaf.mit.edu/${SPATH} $2
+    # how to quiet (File exist) error message?
 }
