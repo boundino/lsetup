@@ -43,8 +43,8 @@ alias grid_setup='source ~/grid_setup.sh'
 # docmsenv
 alias cmsver='echo $CMSSW_BASE ; echo $CMSSW_RELEASE_BASE ;'
 function docmsenv() {
-    [[ $# -eq 1 ]] && { cd ~/testEverything/CMSSW_${1}/src; cmsenv; echo $CMSSW_VERSION; cd -; } ;
-    [[ $# -eq 0 ]] && { cd ~/testEverything/CMSSW_10_3_0/src; cmsenv; echo $CMSSW_VERSION; cd -; } ;
+    [[ $# -eq 1 ]] && { [[ -d ~/CMSSW_${1} ]] && { cd ~/CMSSW_${1}/src; cmsenv; echo $CMSSW_VERSION; cd -; } || { echo "error: CMSSW_$1 env is not set." ; } ; }
+    [[ $# -eq 0 ]] && { for i in `ls --color=auto -r -d ~/CMSSW_*` ; do cd $i/src/; cmsenv; echo $CMSSW_VERSION; cd -; break; done; }
 }
 
 # all: root://cms-xrd-global.cern.ch/
