@@ -33,6 +33,7 @@ alias less='less -RMN'
 alias ccat='highlight -O ansi --force'
 
 catt() { echo -e $(cat "$@" | sed  's/$/\\n/' | sed 's/ /\\a /g') ; }
+export -f catt
 
 # ====== CMSSW / ROOT ====== #
 
@@ -93,11 +94,4 @@ function gfalcopy()
     return 0
 }
 
-T2SITES=(
-  "gsiftp://se01.cmsaf.mit.edu//cms/  #  gfal-mit"
-  "root://cms-xrd-global.cern.ch/     #  all"
-  "root://cmsxrootd.fnal.gov/         #  US"
-  "root://xrootd-cms.infn.it/         #  Europe"
-  "root://eoscms.cern.ch/             #  eos"
-)
-alias sitelist='for i in "${T2SITES[@]}" ; do echo "$i" ; done ;'
+alias sitelist='[[ -f ~/.sites ]] && catt ~/.sites'

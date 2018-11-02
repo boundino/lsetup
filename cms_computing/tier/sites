@@ -1,12 +1,24 @@
 
-T2_US_MIT
-gsiftp://se01.cmsaf.mit.edu//cms/store/user/...
+\e[1;46m# >>>> XRD SITES >>>>\e[0m
 
-T2_BR_SPRACE
-srm://osg-se.sprace.org.br:8443/srm/managerv2?SFN=/pnfs/sprace.org.br/data/cms/store/temp/user/wangj.2898d9b5617da46d868fd174a59c5d35a5a6a446/...
+xrd-mit           ==>  gsiftp://se01.cmsaf.mit.edu//cms/
+xrd-all           ==>  root://cms-xrd-global.cern.ch/
+xrd-US            ==>  root://cmsxrootd.fnal.gov/
+xrd-Europ/Asia    ==>  root://xrootd-cms.infn.it/
+xrd-eos           ==>  root://eoscms.cern.ch/
+\e[1;36m--\e[0m
 
-T2_FR_GRIF_LLR
-srm://polgrid4.in2p3.fr:8446/srm/managerv2?SFN=/dpm/in2p3.fr/home/cms/trivcat/store/temp/user/wangj.2898d9b5617da46d868fd174a59c5d35a5a6a446/...
+\e[1;46m# >>>> GFAL SITES >>>>\e[0m
 
-T2_US_Purdue
-gsiftp://cms-gridftp.rcac.purdue.edu//store/temp/user/wangj.2898d9b5617da46d868fd174a59c5d35a5a6a446/...
+T2_US_MIT         ==>  gsiftp://se01.cmsaf.mit.edu//cms/store/user/
+T2_FR_GRIF_LLR    ==>  srm://polgrid4.in2p3.fr:8446/srm/managerv2?SFN=/dpm/in2p3.fr/home/cms/trivcat/store/temp/user/
+T2_US_Purdue      ==>  gsiftp://cms-gridftp.rcac.purdue.edu//store/temp/user/
+T2_BR_SPRACE      ==>  srm://osg-se.sprace.org.br:8443/srm/managerv2?SFN=/pnfs/sprace.org.br/data/cms/store/temp/user/
+T2_US_Vanderbilt  ==>  gsiftp://gridftp.accre.vanderbilt.edu/lio/lfs/cms/store/temp/user/
+\e[1;36m--\e[0m
+
+\e[1;46m# >>>> GFAL MINE >>>>\e[0m
+
+.../temp/user/wangj.2898d9b5617da46d868fd174a59c5d35a5a6a446/PD/crab_*/...
+\e[1;36m--\e[0m
+
