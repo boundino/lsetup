@@ -87,8 +87,9 @@ function gfalcopy()
 {
     SPATH=$(gfalrl $1)
     [[ $? -eq 0 ]] || { echo $SPATH ; return $?; }
-    # [[ $1 == *.* ]] && { gfal-copy -p ${SPATH} $2/ ; return 0 ; }
-    gfal-copy -p -r ${SPATH} $2 | grep -v 'ERROR (17)'
+    [[ $1 == *.* ]] && { gfal-copy -p ${SPATH} $2/ ; return 0 ; }
+    for i in `gfal-ls ${SPATH}` ; do [[ ! -f $2/$i ]] && { gfal-copy -p ${SPATH}/$i $2/ ; } ; done ;
+    # gfal-copy -p -r ${SPATH} $2
     return 0
     # how to quiet (File exist) error message?
 }
