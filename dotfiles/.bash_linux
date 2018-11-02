@@ -79,7 +79,7 @@ function gfalrl()
     [[ $1 == /store* ]] && { SPATH=/cms$1 ; }
     # /cms/store/...
     [[ $SPATH == /cms/store/* ]] || { echo -e "\e[1;31m [gfalrl] error: invalid path \e[1;97;41m$SPATH\e[0m" ;  return 1 ; }
-    echo $GFALP/$SPATH
+    echo $GFALP$SPATH
     return 0
 }
 export -f gfalrl
@@ -91,11 +91,13 @@ function gfalcopy()
     for i in `gfal-ls ${SPATH}` ; do [[ ! -f $2/$i ]] && { gfal-copy -p ${SPATH}/$i $2/ ; } ; done ;
     # gfal-copy -p -r ${SPATH} $2
     return 0
-    # how to quiet (File exist) error message?
 }
 
-# all: root://cms-xrd-global.cern.ch/
-# US: root://cmsxrootd.fnal.gov/
-# Europe/Asia: root://xrootd-cms.infn.it/
-# EOS: root://eoscms.cern.ch/
-alias sitelist='echo $XRDP; echo $GFALP/cms; echo root://eoscms.cern.ch/; echo root://cmsxrootd.fnal.gov/;'
+T2SITES=(
+  "gsiftp://se01.cmsaf.mit.edu//cms/  #  gfal-mit"
+  "root://cms-xrd-global.cern.ch/     #  all"
+  "root://cmsxrootd.fnal.gov/         #  US"
+  "root://xrootd-cms.infn.it/         #  Europe"
+  "root://eoscms.cern.ch/             #  eos"
+)
+alias sitelist='for i in "${T2SITES[@]}" ; do echo "$i" ; done ;'
