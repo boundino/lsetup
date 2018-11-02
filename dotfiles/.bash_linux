@@ -43,35 +43,58 @@ alias grid_setup='source ~/grid_setup.sh'
 # docmsenv
 alias cmsver='echo $CMSSW_BASE ; echo $CMSSW_RELEASE_BASE ;'
 function docmsenv() {
-    [[ $# -eq 1 ]] && { [[ -d ~/CMSSW_${1} ]] && { cd ~/CMSSW_${1}/src; cmsenv; echo $CMSSW_VERSION; cd -; } || { echo "error: CMSSW_$1 env is not set." ; } ; }
-    [[ $# -eq 0 ]] && { for i in `ls --color=auto -r -d ~/CMSSW_*` ; do cd $i/src/; cmsenv; echo $CMSSW_VERSION; cd -; break; done; }
+    oldpwd=$OLDPWD
+    thispwd=$PWD
+    [[ $# -eq 1 ]] && { [[ -d ~/CMSSW_${1} ]] && { cd ~/CMSSW_${1}/src; cmsenv; echo "$CMSSW_VERSION ==> $PWD"; cd $oldpwd; cd $thispwd; } || { echo "error: CMSSW_$1 env is not set." ; } ; }
+    [[ $# -eq 0 ]] && { for i in `ls --color=auto -r -d ~/CMSSW_*` ; do cd $i/src/; cmsenv; echo "$CMSSW_VERSION ==> $PWD"; cd $oldpwd; cd $thispwd; break; done; }
+}
+export -f docmsenv
+
+export XRDP=root://cms-xrd-global.cern.ch/
+function xrdrl()
+{
+    SPATH=$1
+    [[ $1 == /mnt/T2_US_MIT/hadoop* ]] && { SPATH=${1#/mnt/T2_US_MIT/hadoop/cms} ; }
+    [[ $1 == /mnt/hadoop* ]] && { SPATH=${1#/mnt/hadoop/cms} ; }
+    [[ $SPATH == /store/* ]] || { echo -e "\e[1;31m [xrdrl] error: invalid path \e[1;97;41m$SPATH\e[0m" ;  return 1 ; }
+    # /store/...
+    echo $XRDP$SPATH
+    return 0
+}
+export -f xrdrl
+function xrdcpp()
+{
+    SPATH=$(xrdrl $1)
+    [[ $? -eq 0 ]] || { echo $SPATH ; return $?; }
+    xrdcp $SPATH $2 
+    return 0
+}
+
+export GFALP=gsiftp://se01.cmsaf.mit.edu/
+function gfalrl()
+{
+    SPATH=$1
+    [[ $1 == /mnt/T2_US_MIT/hadoop* ]] && { SPATH=${1#/mnt/T2_US_MIT/hadoop} ; }
+    [[ $1 == /mnt/hadoop* ]] && { SPATH=${1#/mnt/hadoop} ; }
+    [[ $1 == /store* ]] && { SPATH=/cms$1 ; }
+    # /cms/store/...
+    [[ $SPATH == /cms/store/* ]] || { echo -e "\e[1;31m [gfalrl] error: invalid path \e[1;97;41m$SPATH\e[0m" ;  return 1 ; }
+    echo $GFALP/$SPATH
+    return 0
+}
+export -f gfalrl
+function gfalcopy()
+{
+    SPATH=$(gfalrl $1)
+    [[ $? -eq 0 ]] || { echo $SPATH ; return $?; }
+    # [[ $1 == *.* ]] && { gfal-copy -p ${SPATH} $2/ ; return 0 ; }
+    gfal-copy -p -r ${SPATH} $2 | grep -v 'ERROR (17)'
+    return 0
+    # how to quiet (File exist) error message?
 }
 
 # all: root://cms-xrd-global.cern.ch/
 # US: root://cmsxrootd.fnal.gov/
 # Europe/Asia: root://xrootd-cms.infn.it/
 # EOS: root://eoscms.cern.ch/
-export XRDP=root://cms-xrd-global.cern.ch/
-xrdcpp()
-{
-    SPATH=$1
-    [[ $1 == /mnt/T2_US_MIT/hadoop* ]] && { SPATH=${1#/mnt/T2_US_MIT/hadoop} ; }
-    [[ $1 == /mnt/hadoop* ]] && { SPATH=${1#/mnt/hadoop} ; }
-    [[ $SPATH == /store/* ]] || { echo -e "\e[1;31m [xrdcpp] error: invalid path \e[1;33;41m$1\e[0m" ;  return 1 ; }
-    # /store/...
-    xrdcp ${XRDP}/$SPATH $2 ;
-}
-
-export GFALP=gsiftp://se01.cmsaf.mit.edu/
-gfalcopy()
-{
-    SPATH=$1
-    [[ $1 == /mnt/T2_US_MIT/hadoop* ]] && { SPATH=${1#/mnt/T2_US_MIT/hadoop} ; }
-    [[ $1 == /mnt/hadoop* ]] && { SPATH=${1#/mnt/hadoop} ; }
-    [[ $1 == /store* ]] && { SPATH=/cms$1 ; }
-    [[ $SPATH == /cms/store/* ]] || { echo -e "\e[1;31m [gfalcopy] error: invalid path \e[1;33;41m$1\e[0m" ;  return 1 ; }
-    # /cms/store/...
-    [[ $1 == *.* ]] && { gfal-copy -p gsiftp://se01.cmsaf.mit.edu/${SPATH} $2/ ; return 1 ; }
-    gfal-copy -p -r gsiftp://se01.cmsaf.mit.edu/${SPATH} $2
-    # how to quiet (File exist) error message?
-}
+alias sitelist='echo $XRDP; echo $GFALP/cms; echo root://eoscms.cern.ch/; echo root://cmsxrootd.fnal.gov/;'
