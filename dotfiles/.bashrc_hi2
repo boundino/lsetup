@@ -42,11 +42,11 @@ alias hadoopjw='cd /mnt/hadoop/cms/store/user/jwang/'
 alias hadoopwj='cd /mnt/hadoop/cms/store/user/wangj/'
 if [[ $myhost = submit-hi2 ]]
 then
-    alias scratch='cd /export/d00/scratch/jwang/'
+    alias dalscrath='cd /export/d00/scratch/jwang/'
     alias worksp='cd /export/d00/scratch/jwang/scratchHome/'
 elif [[ $myhost = submit ]]
 then
-    alias scratch='cd /mnt/T2_US_MIT/submit-hi2/scratch/jwang/'
+    alias dalscrath='cd /mnt/T2_US_MIT/submit-hi2/scratch/jwang/'
     alias worksp='cd /mnt/T2_US_MIT/submit-hi2/scratch/jwang/scratchHome/'
 fi
 
