@@ -4,7 +4,7 @@
 (add-to-list 'load-path "~/.emacs.d/lisp/")
 (require 'color-theme-boundin)
 ;;(require 'fun-boundin)
-(require 'python)
+;; (require 'python)
 ;; (add-to-list 'load-path "~/.emacs.d/python-mode/")
 ;; (require 'python-mode)
 

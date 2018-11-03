@@ -1,16 +1,12 @@
 # .bashrc_local #
 
-# GNU https://www.topbug.net/blog/2013/04/14/install-and-use-gnu-command-line-tools-in-mac-os-x/
-export PATH="$(brew --prefix coreutils)/libexec/gnubin:/usr/local/bin:$PATH"
-export MANPATH="$(brew --prefix coreutils)/libexec/gnuman:$MANPATH"
+. ~/.bash_linux
 
-# set alias
-alias ls='ls --color=yes'
-alias ll="ls -lh"
-alias lla="ls -lha"
-alias la="ls -a"
-alias ld='du -h --max-depth=1 .'
-alias lu='du -sh'
+# GNU https://www.topbug.net/blog/2013/04/14/install-and-use-gnu-command-line-tools-in-mac-os-x/
+# $(brew --prefix coreutils) => /usr/local/opt/coreutils
+export PATH="/usr/local/opt/coreutils/libexec/gnubin:/usr/local/bin:$PATH"
+export MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
+
 alias doc="cd ~/Documents"
 alias lxplus="ssh -Y wangj@lxplus.cern.ch"
 alias cgate="ssh -Y jwang@cgate.mit.edu"
@@ -22,25 +18,17 @@ alias Documents="cd ~/Dropbox\ \(Personal\)/Private/MacbookAir/"
 alias tunnel="ssh -f -N -L 10121:188.184.36.85:10121 wangj@lxplus.cern.ch"
 export DOCPREFIX=/Users/xjjgww/Dropbox\ \(Personal\)/Private/MacbookAir/
 #alias tree="tree | ascii2uni -a K"
-alias emacs='emacs -nw'
-alias cat='cat -n'
-alias ccat='highlight -O ansi --force'
-catt() { echo -e $(cat "$@" | sed  's/$/\\n/' | sed 's/ /\\a /g') ; }
-
-alias cpp='rsync --progress'
-alias lns='ln -s'
-alias diffw='diff --old-group-format=$'"'"'\e[38;2;210;106;112;1m%<\e[0m'"'"' --new-group-format=$'"'"'\e[38;2;132;192;127;1m%>\e[0m'"'"' --unchanged-group-format=$'"'"'\e[38;2;128;128;128m%=\e[0m'"'"
-alias diff='diff --report-identical-files --old-group-format=$'"'"'\e[38;2;210;106;112m%<\e[0m'"'"' --new-group-format=$'"'"'\e[38;2;132;192;127;1m%>\e[0m'"'"' --unchanged-group-format='"'""'"
-alias grep='grep --color=yes'
-alias less='less -RMN'
 
 alias cleardesk="defaults write com.apple.finder CreateDesktop -bool FALSE;killall Finder"
 alias showdesk="defaults delete com.apple.finder CreateDesktop;killall Finder"
 alias clearfolder="rm *~; rm .*~"
 
-# prompt string
-PS1='${debian_chroot:+($debian_chroot)}\[\033[38;2;255;255;143;1m\]\u\[\033[38;2;121;113;80m\]:~ \[\033[38;5;153;1m\]\h\[\033[00m\]:\[\033[38;2;205;162;184;1m\]\w \[\033[38;2;170;170;170;1m\](*˘︶˘*)\[\033[00m\]$ '
-PS4='\[\033[38;2;165;255;170;1m\]L${LINENO} + \[\033[0m\]'
+export LANG="en_US.UTF-8"
+export LC_CTYPE="en_US.UTF-8"
+export LANGUAGE="en_US.UTF-8"
+
+PS1=$'${debian_chroot:+($debian_chroot)}\[\e[38;2;255;255;143;1m\]\u\[\e[38;2;121;113;80m\]:~ \[\e[38;5;153;1m\]\h\[\e[00m\]:\[\e[38;2;205;162;184;1m\]\w \[\e[38;2;170;170;170;1m\](\u273F \u02F5\u25D5 \u203F \u25D5\u02F5)\[\e[00m\]$ '
+PS4=$'\[\e[38;2;165;255;170;1m\]L${LINENO} + \[\e[0m\]'
 
 # color
 # GNU
@@ -51,5 +39,7 @@ eval "$(dircolors ~/.dircolors)"
 #export LSCOLORS=gxfxaxdxcxegedabagacad
 
 #
-[[ -f /Users/xjjgww/ROOT/build/bin/thisroot.sh ]] && { source /Users/xjjgww/ROOT/build/bin/thisroot.sh; alias root='root -l'; }
-[[ -f /Users/xjjgww/rootcfg/root/bin/thisroot.sh ]] && { source /Users/xjjgww/rootcfg/root/bin/thisroot.sh; alias root='root -l'; }
+[[ -f /Users/xjjgww/ROOT/build/bin/thisroot.sh ]] && { . /Users/xjjgww/ROOT/build/bin/thisroot.sh ; alias root='root -l' ; }
+[[ -f /Users/xjjgww/macrosc/root/bin/thisroot.sh ]] && { . /Users/xjjgww/macrosc/root/bin/thisroot.sh ; alias root='root -l' ; }
+
+
