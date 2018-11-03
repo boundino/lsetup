@@ -51,3 +51,4 @@ then
 fi
 
 . ~/.bash_linux
+. ~/.bash_cms
