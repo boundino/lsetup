@@ -39,7 +39,7 @@ eval "$(dircolors ~/.dircolors)"
 #export LSCOLORS=gxfxaxdxcxegedabagacad
 
 #
-[[ -f /Users/xjjgww/ROOT/build/bin/thisroot.sh ]] && { . /Users/xjjgww/ROOT/build/bin/thisroot.sh ; alias root='root -l' ; }
+[[ -f /Users/xjjgww/rootcfg/root/bin/thisroot.sh ]] && { . /Users/xjjgww/rootcfg/root/bin/thisroot.sh ; alias root='root -l' ; }
 [[ -f /Users/xjjgww/macrosc/root/bin/thisroot.sh ]] && { . /Users/xjjgww/macrosc/root/bin/thisroot.sh ; alias root='root -l' ; }
 
 
