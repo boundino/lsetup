@@ -35,9 +35,6 @@ fi
 
 # User specific aliases and functions
 
-alias hidsk1='ssh -X hidsk0001'
-alias hidsk2='ssh -X hidsk0002'
-alias hidsk='ssh -X hidsk0002'
 alias hadoopjw='cd /mnt/hadoop/cms/store/user/jwang/'
 alias hadoopwj='cd /mnt/hadoop/cms/store/user/wangj/'
 if [[ $myhost = submit-hi2 ]]
