@@ -45,4 +45,4 @@ eval "$(dircolors ~/.dircolors)"
 [[ -f /Users/xjjgww/macrosc/root/bin/thisroot.sh ]] && { . /Users/xjjgww/macrosc/root/bin/thisroot.sh ; alias root='root -l' ; }
 
 
-export PROMPT_COMMAND='echo -ne "\033]0;${USER}\007"'
+export PROMPT_COMMAND='echo -ne "\033]0;${USER}@${PWD##*/}\007"'
