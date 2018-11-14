@@ -23,6 +23,7 @@ alias eoswangj='cd /eos/user/w/wangj/'
 # https://information-technology.web.cern.ch/services/fe/afs/howto/configure-afs-access-rights #
 alias checkafsaccess='fs listacl .'
 alias json='cd /afs/cern.ch/cms/CAF/CMSCOMM/COMM_DQM/certification/'
+
 #
 
 ##########################################################################
@@ -133,3 +134,17 @@ fi
 
 . ~/.bash_linux
 . ~/.bash_cms
+
+function crabcheck()
+{
+    [[ $# -eq 0 ]] && { for i in `ls --color=auto crab_projects` ; do crab status -d crab_projects/$i ; done ; }
+    [[ $# -eq 1 ]] && { for i in `ls --color=auto crab_projects | grep --color=auto $1` ; do crab status -d crab_projects/$i ; done ; }
+}
+export -f crabcheck
+
+function crabresubmit()
+{
+    [[ $# -eq 0 ]] && { for i in `ls --color=auto crab_projects` ; do crab resubmit -d crab_projects/$i ; done ; }
+    [[ $# -eq 1 ]] && { for i in `ls --color=auto crab_projects | grep --color=auto $1` ; do crab resubmit -d crab_projects/$i ; done ; }
+}
+export -f crabcheck
