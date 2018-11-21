@@ -28,6 +28,7 @@ alias diffu='diff --old-group-format=$'"'"'%dn line --@ l %df:\n%<'"'"' --new-gr
 alias grep='grep --color=yes'
 alias less='less -RMN'
 alias ccat='highlight -O ansi --force'
+alias psme="ps -efH | grep $USER"
 
 catt() { echo -e $(cat "$@" | sed  's/$/\\n/' | sed 's/ /\\a /g') ; }
 export -f catt
