@@ -10,7 +10,7 @@ xrd-eos           ==>  root://eoscms.cern.ch/
 
 \e[1;46m# >>>> GFAL SITES >>>>\e[0m
 
-T2_US_MIT         ==>  gsiftp://se01.cmsaf.mit.edu//cms/store/user/
+T2_US_MIT         ==>  gsiftp://se01.cmsaf.mit.edu:2811//cms/store/user/
 T2_FR_GRIF_LLR    ==>  srm://polgrid4.in2p3.fr:8446/srm/managerv2?SFN=/dpm/in2p3.fr/home/cms/trivcat/store/temp/user/
 T2_US_Purdue      ==>  gsiftp://cms-gridftp.rcac.purdue.edu//store/temp/user/
 T2_BR_SPRACE      ==>  srm://osg-se.sprace.org.br:8443/srm/managerv2?SFN=/pnfs/sprace.org.br/data/cms/store/temp/user/
