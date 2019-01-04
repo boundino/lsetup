@@ -8,7 +8,7 @@ export PATH="/usr/local/opt/coreutils/libexec/gnubin:/usr/local/bin:$PATH"
 export MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
 
 alias doc="cd ~/Documents"
-alias lxplus="ssh -Y wangj@lxplus.cern.ch"
+# alias lxplus="ssh -Y wangj@lxplus.cern.ch"
 alias cgate="ssh -Y jwang@cgate.mit.edu"
 alias athena="ssh -Y jwang011@athena.dialup.mit.edu"
 alias hidsk="ssh -Y jwang@submit-hi2.mit.edu"
@@ -46,3 +46,10 @@ eval "$(dircolors ~/.dircolors)"
 
 
 export PROMPT_COMMAND='echo -ne "\033]0;${USER}@${PWD##*/}\007"'
+
+function lxplus()
+{
+    [[ $# -eq 0 ]] && { ssh -Y wangj@lxplus.cern.ch ; }
+    [[ $# -eq 1 ]] && { ssh -Y wangj@lxplus${1}.cern.ch ; }
+}
+export lxplus
