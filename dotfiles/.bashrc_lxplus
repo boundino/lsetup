@@ -146,5 +146,6 @@ function crabresubmit()
 {
     [[ $# -eq 0 ]] && { for i in `ls --color=auto crab_projects` ; do crab resubmit -d crab_projects/$i ; done ; }
     [[ $# -eq 1 ]] && { for i in `ls --color=auto crab_projects | grep --color=auto $1` ; do crab resubmit -d crab_projects/$i ; done ; }
+    [[ $# -eq 2 ]] && { for i in `ls --color=auto crab_projects | grep --color=auto $1` ; do crab resubmit --maxmemory=$2 -d crab_projects/$i ; done ; }
 }
 export -f crabcheck
