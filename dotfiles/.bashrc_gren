@@ -1,0 +1,37 @@
+# .bashrc
+
+[[ $- == *i* ]] || return
+
+# Source global definitions
+
+export TERM=xterm-256color
+
+myhost=`echo $(hostname) | awk -F "." '{print $1}'`
+if [ -f /etc/bashrc ]
+then
+    . /etc/bashrc
+fi
+#git config --global user.name Jing Wang
+#git config --global user.github boundino
+#git config --global user.email boundino@gmail.com
+
+source /raid5/root/root_v6.14.04/bin/thisroot.sh
+alias worksp='cd /raid5/data/wangj/home/'
+
+# if [[ $myhost = hidsk0001 ]]
+# then
+#     cd /net/hisrv0001/home/jwang/testEverything/CMSSW_8_0_22/src; cmsenv; cd -
+# fi
+
+# if [[ $myhost = submit || $myhost = submit-hi2 ]]
+# then
+#     cd /afs/lns.mit.edu/user/jwang/testEverything/CMSSW_8_0_22/src; cmsenv; cd -    
+# fi
+
+# User specific aliases and functions
+
+
+
+
+. ~/.bash_linux
+. ~/.bash_cms
