@@ -16,7 +16,7 @@ alias lu='du -sh '
 alias rl='readlink -f'
 
 alias ctf='ls -l | grep "^-" | wc -l'
-alias clearfolder='rm *.so; rm *.d; rm *.pcm; rm *~; rm .*~'
+alias clearfolder='for i in "*.so" "*.d" "*.pcm" "*~" ".*~" ; do [[ -z `ls $i 2> /dev/null` ]] || { echo -ne "\e[2mrm:\e[0m " ; ls $i ; rm $i ; } ; done ;'
 
 # alias cpp='rsync --info=progress2'
 alias cpp='rsync --progress'
