@@ -12,3 +12,5 @@
 	ui = always
 	branch = always
 	status = always
+[bash]
+        showDirtyState = false
