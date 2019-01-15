@@ -70,3 +70,6 @@ function gfalcopy()
 }
 
 alias sitelist='[[ -f ~/.sites ]] && catt ~/.sites'
+
+# toolkit
+alias diffleaf='$HOME/toolkit/diffleaf'
