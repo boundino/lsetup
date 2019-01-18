@@ -69,8 +69,18 @@ function gfalcopy()
     # gfal-copy -p -r ${SPATH} $2
     return 0
 }
+export -f gfalcopy
+function gfalrm()
+{
+    SPATH=$(gfalrl $1)
+    [[ $? -eq 0 ]] || { echo $SPATH ; return $?; }
+    gfal-rm -r $SPATH
+    return 0
+}
+export -f gfalrm
 
 alias sitelist='[[ -f ~/.sites ]] && catt ~/.sites'
 
 # toolkit
 alias diffleaf='$HOME/toolkit/diffleaf'
+alias showdir='$HOME/toolkit/showdir'
