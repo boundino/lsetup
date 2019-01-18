@@ -15,6 +15,7 @@ export PS4=$'\[\e[38;2;165;255;170;1m\]L${LINENO} + \[\e[0m\]'
 alias root='root -l'
 alias crab_setup='source ~/crab_setup.sh'
 alias grid_setup='source ~/grid_setup.sh'
+alias bril_setup='export PATH=$HOME/.local/bin:/afs/cern.ch/cms/lumi/brilconda-1.0.3/bin:$PATH'
 
 # docmsenv
 alias cmsver='echo $CMSSW_BASE ; echo $CMSSW_RELEASE_BASE ;'
