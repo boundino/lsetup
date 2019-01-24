@@ -4,7 +4,7 @@
 
   // cmssw/root version
   // std::cout<<"\033[1;38;5;74m"<<getenv("CMSSW_VERSION")<<" ==> "<<gApplication->Argv(0)<<"\033[0m"<<std::endl;
-  std::cout<<"\033[1;38;5;74m"<<gApplication->Argv(0)<<"\033[0m"<<std::endl;
+  std::cout<<"\033[1;38;5;74m"<<" ("<<gROOT->GetVersion()<<") "<<gApplication->Argv(0)<<"\033[0m"<<std::endl;
 
   // https://sft.its.cern.ch/jira/browse/ROOT-8452
   TString exec_file = gApplication->Argv(gApplication->Argc()-1);

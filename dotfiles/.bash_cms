@@ -82,5 +82,5 @@ export -f gfalrm
 alias sitelist='[[ -f ~/.sites ]] && catt ~/.sites'
 
 # toolkit
-alias diffleaf='$HOME/toolkit/diffleaf'
-alias showdir='$HOME/toolkit/showdir'
+alias diffleaf='$HOME/public/toolkit/diffleaf'
+alias showdir='$HOME/public/toolkit/showdir'
