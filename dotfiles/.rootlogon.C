@@ -63,6 +63,7 @@
   //  gStyle->SetErrorX(0);
   gStyle->SetMarkerStyle(20);
   gStyle->SetMarkerSize(1);
+  gStyle->SetMarkerColor(kBlack);
   gStyle->SetOptFit(1111);
   gStyle->SetStatColor(0);
   gStyle->SetStatBorderSize(1);
