@@ -36,3 +36,4 @@ export -f catt
 # export PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME%%.*}\007"'
 export PROMPT_COMMAND='echo -ne "\033]0;${PWD##*/}@${HOSTNAME%%.*}\007"'
 
+alias colort='for i in {1..5..1} ; do { for j in {1..9..1} ; do { echo -ne "\e[3${j};${i}m3${j};${i}\e[0m   " ; } ; done ; echo ; } ; done ;'
