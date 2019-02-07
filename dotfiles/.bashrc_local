@@ -14,15 +14,14 @@ alias athena="ssh -Y jwang011@athena.dialup.mit.edu"
 alias hidsk="ssh -Y jwang@submit-hi2.mit.edu"
 alias submitmit="ssh -Y jwang@submit.mit.edu"
 alias grendel="ssh -Y wangj@GRENDEL01.mit.edu"
-alias Documents="cd ~/Dropbox\ \(Personal\)/Private/MacbookAir/"
+alias Documents="cd ~/DropboxPersonal/Private/MacbookAir/"
 alias tunnel="ssh -f -N -L 10121:188.184.36.85:10121 wangj@lxplus.cern.ch"
-export DOCPREFIX=/Users/xjjgww/Dropbox\ \(Personal\)/Private/MacbookAir/
+# export DOCPREFIX=/Users/xjjgww/Dropbox\ \(Personal\)/Private/MacbookAir/
 #alias tree="tree | ascii2uni -a K"
+alias workspace="cd $HOME/macrosc/"
 
 alias cleardesk="defaults write com.apple.finder CreateDesktop -bool FALSE;killall Finder"
 alias showdesk="defaults delete com.apple.finder CreateDesktop;killall Finder"
-
-alias workspace="cd $HOME/macrosc/"
 
 export LANG="en_US.UTF-8"
 export LC_CTYPE="en_US.UTF-8"
@@ -42,8 +41,7 @@ eval "$(dircolors ~/.dircolors)"
 #export LSCOLORS=gxfxaxdxcxegedabagacad
 
 #
-[[ -f /Users/xjjgww/rootcfg/root/bin/thisroot.sh ]] && { . /Users/xjjgww/rootcfg/root/bin/thisroot.sh ; alias root='root -l' ; }
-[[ -f /Users/xjjgww/macrosc/buildroot/bin/thisroot.sh ]] && { . /Users/xjjgww/macrosc/buildroot/bin/thisroot.sh ; alias root='root -l' ; }
+[[ -f $HOME/macrosc/buildroot/bin/thisroot.sh ]] && { . $HOME/macrosc/buildroot/bin/thisroot.sh ; alias root='root -l' ; }
 
 export PROMPT_COMMAND='echo -ne "\033]0;${USER}@${PWD##*/}\007"'
 
