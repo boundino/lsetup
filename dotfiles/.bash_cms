@@ -86,6 +86,28 @@ export -f gfalrm
 
 alias sitelist='[[ -f ~/.sites ]] && catt ~/.sites'
 
+function summdas()
+{
+    dataset=
+    instance="prod/phys03"
+    setcolor="32;1m"
+    for i in $@ 
+    do
+        [[ $i == --color=no ]] && setcolor="0m"
+        [[ $i == --dataset=* ]] && dataset=${i##"--dataset="}
+        [[ $i == --instance=* ]] && instance="prod/"${i##"--instance="}
+    done
+
+    [[ x$dataset == "x" ]] && echo "usage: summdas --dataset=[pattern] --instance=[global or phys03] (--color=no)"
+
+    for i in `dasgoclient -query="dataset=$dataset instance=$instance"`
+    do
+        echo -e "\e[$setcolor$i\e[0m"
+        dasgoclient -query="summary dataset=$i instance=$instance"
+    done
+}
+export -f summdas
+
 # toolkit
 alias diffleaf='$HOME/public/toolkit/diffleaf'
 alias showdir='$HOME/public/toolkit/showdir'
