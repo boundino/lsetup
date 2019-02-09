@@ -88,22 +88,24 @@ alias sitelist='[[ -f ~/.sites ]] && catt ~/.sites'
 
 function summdas()
 {
-    dataset=
-    instance="prod/phys03"
-    setcolor="32;1m"
+    dataset= ; instance="prod/phys03" ;
+    setcolor="\e[32;1m" ; endcolor="\e[0m" ;
+    newline=0
     for i in $@ 
     do
-        [[ $i == --color=no ]] && setcolor="0m"
         [[ $i == --dataset=* ]] && dataset=${i##"--dataset="}
         [[ $i == --instance=* ]] && instance="prod/"${i##"--instance="}
+        [[ $i == --color=no ]] && { setcolor="" ; endcolor="" ; }
+        [[ $i == --newline ]] && newline=1
     done
 
-    [[ x$dataset == "x" ]] && echo "usage: summdas --dataset=[pattern] --instance=[global or phys03] (--color=no)"
+    [[ x$dataset == "x" ]] && echo "usage: summdas --dataset=[pattern] --instance=[global or phys03] (--color=no) (--newline)"
 
     for i in `dasgoclient -query="dataset=$dataset instance=$instance"`
     do
-        echo -e "\e[$setcolor$i\e[0m"
+        echo -e "$setcolor$i$endcolor"
         dasgoclient -query="summary dataset=$i instance=$instance"
+        [[ $newline -eq 1 ]] && echo
     done
 }
 export -f summdas
