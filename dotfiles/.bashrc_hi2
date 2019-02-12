@@ -35,6 +35,9 @@ fi
 
 # User specific aliases and functions
 
+. ~/.bash_linux
+. ~/.bash_cms
+
 alias hadoopjw='cd /mnt/hadoop/cms/store/user/jwang/'
 alias hadoopwj='cd /mnt/hadoop/cms/store/user/wangj/'
 if [[ $myhost = submit-hi2 ]]
@@ -47,5 +50,3 @@ then
     alias worksp='cd /mnt/T2_US_MIT/submit-hi2/scratch/jwang/scratchHome/'
 fi
 
-. ~/.bash_linux
-. ~/.bash_cms
