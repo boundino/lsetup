@@ -98,7 +98,7 @@ function dassummary()
         [[ $i == --newline ]] && newline=1
     done
 
-    [[ x$dataset == "x" ]] && { echo "usage: summdas --dataset=[pattern] --instance=[global or phys03] (--color=no) (--newline)" ; return ; }
+    [[ x$dataset == "x" ]] && { echo "usage: dassummary --dataset=[pattern] --instance=[global or phys03] (--color=no) (--newline)" ; return ; }
 
     for i in `dasgoclient -query="dataset=$dataset instance=prod/$instance"`
     do
