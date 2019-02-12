@@ -86,29 +86,31 @@ export -f gfalrm
 
 alias sitelist='[[ -f ~/.sites ]] && catt ~/.sites'
 
-function summdas()
+function dassummary()
 {
-    dataset= ; instance="prod/phys03" ;
-    setcolor="\e[32;1m" ; endcolor="\e[0m" ;
+    dataset= ; instance="phys03" ;
+    setcolor="\e[32;1m" ; endcolor="\e[0m" ; colorurl="\e[36;2;3m" ;
     newline=0
     for i in $@ 
     do
         [[ $i == --dataset=* ]] && dataset=${i##"--dataset="}
-        [[ $i == --instance=* ]] && instance="prod/"${i##"--instance="}
-        [[ $i == --color=no ]] && { setcolor="" ; endcolor="" ; }
+        [[ $i == --instance=* ]] && instance=${i##"--instance="}
+        [[ $i == --color=no ]] && { setcolor="" ; endcolor="" ; colorurl="" ; }
         [[ $i == --newline ]] && newline=1
     done
 
-    [[ x$dataset == "x" ]] && echo "usage: summdas --dataset=[pattern] --instance=[global or phys03] (--color=no) (--newline)"
+    [[ x$dataset == "x" ]] && { echo "usage: summdas --dataset=[pattern] --instance=[global or phys03] (--color=no) (--newline)" ; return ; }
 
-    for i in `dasgoclient -query="dataset=$dataset instance=$instance"`
+    for i in `dasgoclient -query="dataset=$dataset instance=prod/$instance"`
     do
         echo -e "$setcolor$i$endcolor"
-        dasgoclient -query="summary dataset=$i instance=$instance"
+        dasgoclient -query="summary dataset=$i instance=prod/$instance"
+        IFS='/' ; subdataset=(${i}) ; unset IFS ;
+        echo -e "$colorurl"'https://cmsweb.cern.ch/das/request?view=list&limit=50&instance=prod%2F'$instance'&input=%2F'${subdataset[1]}'%2F'${subdataset[2]}'%2F'${subdataset[3]}''"$endcolor"
         [[ $newline -eq 1 ]] && echo
     done
 }
-export -f summdas
+export -f dassummary
 
 # toolkit
 alias diffleaf='$HOME/public/toolkit/diffleaf'
