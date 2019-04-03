@@ -47,9 +47,10 @@ function xrdcpp()
 {
     SPATH=$(xrdrl $1)
     [[ $? -eq 0 ]] || { echo $SPATH ; return $?; }
-    xrdcp -r $SPATH $2 
+    [[ $SPATH == *.root ]] && xrdcp $SPATH $2 || xrdcp -r $SPATH $2
     return 0
 }
+export -f xrdcpp
 
 export GFALP=gsiftp://se01.cmsaf.mit.edu:2811/
 function gfalrl()
