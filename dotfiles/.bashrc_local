@@ -20,6 +20,7 @@ alias tunnel="ssh -f -N -L 10121:188.184.36.85:10121 wangj@lxplus.cern.ch"
 # export DOCPREFIX=/Users/xjjgww/Dropbox\ \(Personal\)/Private/MacbookAir/
 #alias tree="tree | ascii2uni -a K"
 alias workspace="cd $HOME/macrosc/"
+alias thesis="cd ~/DropboxPersonal/Private/MacbookAir/Research/Thesis/"
 
 alias cleardesk="defaults write com.apple.finder CreateDesktop -bool FALSE;killall Finder"
 alias showdesk="defaults delete com.apple.finder CreateDesktop;killall Finder"
