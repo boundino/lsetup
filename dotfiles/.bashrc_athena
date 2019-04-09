@@ -17,4 +17,4 @@ export PS4=$'\[\e[38;2;165;255;170;1m\]L${LINENO} + \[\e[0m\]'
 . ~/.bash_linux
 
 alias workspace='cd /afs/athena.mit.edu/org/m/mithig/'
-cd /afs/athena.mit.edu/org/m/mithig
+# cd /afs/athena.mit.edu/org/m/mithig
