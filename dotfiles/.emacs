@@ -131,4 +131,13 @@
 ;;                 (setq indent-tabs-mode t)
 ;;                 (setq tab-width (default-value 'tab-width))))
 
-(setq vc-handled-backends ()) 
+(setq vc-handled-backends ())
+
+(font-lock-add-keywords 'latex-mode
+			'(("rmdme{\\([^}]+\\)}"
+                           1
+                           'font-lock-comment-face)))
+(font-lock-add-keywords 'latex-mode
+			'(("ref{\\([^}]+\\)}"
+                           1
+                           'font-lock-constant-face)))
