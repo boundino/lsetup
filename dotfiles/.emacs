@@ -140,4 +140,8 @@
 (font-lock-add-keywords 'latex-mode
 			'(("ref{\\([^}]+\\)}"
                            1
-                           'font-lock-constant-face)))
+                           'font-lock-variable-name-face)))
+(font-lock-add-keywords 'latex-mode
+			'(("label{\\([^}]+\\)}"
+                           1
+                           'font-lock-variable-name-face)))

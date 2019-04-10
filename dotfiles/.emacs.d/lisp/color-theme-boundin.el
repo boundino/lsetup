@@ -45,13 +45,13 @@
       (flash-paren-face-off ((t (nil))))
       (flash-paren-face-on ((t (nil))))
       (flash-paren-face-region ((t (nil))))
-      (font-lock-builtin-face ((t (:foreground "tan1")))) ;LightSteelBlue
-      (font-lock-comment-face ((t (:foreground "tomato")))) ;OrangeRed
+      (font-lock-builtin-face ((t (:foreground "tan1" :weight bold)))) ;LightSteelBlue
+      (font-lock-comment-face ((t (:foreground "tomato" :weight bold)))) ;OrangeRed
       (font-lock-constant-face ((t (:foreground "Aquamarine")))) ;Aquamarine
       (font-lock-doc-face ((t (:foreground "LightSalmon")))) ;LightSalmon
       (font-lock-function-name-face ((t (:foreground "LightPink")))) ;LightSkyBlue
       (font-lock-keyword-face ((t (:foreground "Cyan")))) ;Cyan
-      (font-lock-string-face ((t (:foreground "LightSkyBlue3")))) ;LightSalmon
+      (font-lock-string-face ((t (:foreground "LightSkyBlue3" :weight bold)))) ;LightSalmon
       (font-lock-type-face ((t (:foreground "YellowGreen")))) ;PaleGreen
       (font-lock-variable-name-face ((t (:foreground "LightGoldenrod")))) ;LightGoldenrod
       (font-lock-warning-face ((t (:bold t :foreground "Pink" :weight bold))))
