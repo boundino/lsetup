@@ -64,7 +64,8 @@
 
 ;; indent
 (setq-default indent-tabs-mode nil)
-
+(add-hook 'bibtex-mode-hook
+             (lambda () (setq fill-column 999999)))
 ;; 
 (setq tags-table-list '"~/.emacs.d/git/tags-view/tags-view.el")
 
@@ -84,7 +85,6 @@
 (provide 'comment-or-uncomment-region-or-line)
 (global-set-key "\M-;" 'comment-or-uncomment-region-or-line)
 
-
 (defun indent-whole-buffer ()
   (interactive)
   (save-excursion
@@ -92,6 +92,11 @@
 (provide 'indent-whole-buffer)
 (global-set-key "\C-x\C-a" 'indent-whole-buffer)
 
+(add-hook 'bibtex-mode-hook
+          (lambda ()
+            (define-key bibtex-mode-map "\C-x\C-a"
+              'bibtex-reformat)))
+;; 'bibtex-fill-entry `C-c C-q`
 
 (defun just-one-space-in-region (beg end)
   "replace all whitespace in the region with single spaces"
