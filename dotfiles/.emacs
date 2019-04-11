@@ -92,6 +92,8 @@
 (provide 'indent-whole-buffer)
 (global-set-key "\C-x\C-a" 'indent-whole-buffer)
 
+;; (setq bibtex-contline-indentation 20)
+(setq bibtex-text-indentation 19)
 (add-hook 'bibtex-mode-hook
           (lambda ()
             (define-key bibtex-mode-map "\C-x\C-a"
