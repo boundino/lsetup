@@ -115,4 +115,4 @@ export -f dassummary
 
 # toolkit
 alias diffleaf='$HOME/public/toolkit/diffleaf'
-alias showdir='$HOME/public/toolkit/showdir'
+alias showdir='$HOME/public/toolkit/showdir 2> /dev/null'
