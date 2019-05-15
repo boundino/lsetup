@@ -1,0 +1,17 @@
+#!/bin/bash
+
+function crabcheck()
+{
+    [[ $# -eq 0 ]] && { for i in `ls --color=auto crab_projects` ; do crab status -d crab_projects/$i ; done ; }
+    [[ $# -eq 1 ]] && { for i in `ls --color=auto crab_projects | grep --color=auto -E $1` ; do crab status -d crab_projects/$i ; done ; }
+}
+export -f crabcheck
+
+function crabresubmit()
+{
+    [[ $# -eq 0 ]] && { for i in `ls --color=auto crab_projects` ; do crab resubmit -d crab_projects/$i ; done ; }
+    [[ $# -eq 1 ]] && { for i in `ls --color=auto crab_projects | grep --color=auto -E $1` ; do crab resubmit -d crab_projects/$i ; done ; }
+    [[ $# -eq 2 ]] && { for i in `ls --color=auto crab_projects | grep --color=auto -E $1` ; do crab resubmit --maxmemory=$2 -d crab_projects/$i ; done ; }
+}
+export -f crabcheck
+

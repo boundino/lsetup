@@ -32,88 +32,11 @@ function docmsenv() {
 }
 export -f docmsenv
 
-export XRDP=root://cms-xrd-global.cern.ch/
-function xrdrl()
-{
-    SPATH=$1
-    [[ $1 == /mnt/T2_US_MIT/hadoop* ]] && { SPATH=${1#/mnt/T2_US_MIT/hadoop/cms} ; }
-    [[ $1 == /mnt/hadoop* ]] && { SPATH=${1#/mnt/hadoop/cms} ; }
-    [[ $SPATH == /store/* ]] || { echo -e "\e[1;31m [xrdrl] error: invalid path \e[1;97;41m$SPATH\e[0m" ;  return 1 ; }
-    # /store/...
-    echo $XRDP$SPATH
-    return 0
-}
-export -f xrdrl
-function xrdcpp()
-{
-    SPATH=$(xrdrl $1)
-    [[ $? -eq 0 ]] || { echo $SPATH ; return $?; }
-    [[ $SPATH == *.root ]] && xrdcp $SPATH $2 || xrdcp -r $SPATH $2
-    return 0
-}
-export -f xrdcpp
-
-export GFALP=gsiftp://se01.cmsaf.mit.edu:2811/
-function gfalrl()
-{
-    SPATH=$1
-    [[ $1 == /mnt/T2_US_MIT/hadoop* ]] && { SPATH=${1#/mnt/T2_US_MIT/hadoop} ; }
-    [[ $1 == /mnt/hadoop* ]] && { SPATH=${1#/mnt/hadoop} ; }
-    [[ $1 == /store* ]] && { SPATH=/cms$1 ; }
-    # /cms/store/...
-    [[ $SPATH == /cms/store/* ]] || { echo -e "\e[1;31m [gfalrl] error: invalid path \e[1;97;41m$SPATH\e[0m" ;  return 1 ; }
-    echo $GFALP$SPATH
-    return 0
-}
-export -f gfalrl
-function gfalcopy()
-{
-    SPATH=$(gfalrl $1)
-    [[ $? -eq 0 ]] || { echo $SPATH ; return $?; }
-    [[ $1 == *.* ]] && { gfal-copy -p ${SPATH} $2/ ; return 0 ; }
-    for i in `gfal-ls ${SPATH}` ; do [[ ! -f $2/$i ]] && { gfal-copy -p ${SPATH}/$i $2/$i ; } ; done ;
-    # gfal-copy -p -r ${SPATH} $2
-    return 0
-}
-export -f gfalcopy
-function gfalrm()
-{
-    SPATH=$(gfalrl $1)
-    [[ $? -eq 0 ]] || { echo $SPATH ; return $?; }
-    gfal-rm -r $SPATH
-    return 0
-}
-export -f gfalrm
-
 alias sitelist='[[ -f ~/.sites ]] && catt ~/.sites'
 
-function dassummary()
-{
-    dataset= ; instance="phys03" ;
-    setcolor="\e[32;1m" ; endcolor="\e[0m" ; colorurl="\e[36;2;3m" ;
-    newline=0
-    for i in $@ 
-    do
-        [[ $i == --dataset=* ]] && dataset=${i##"--dataset="}
-        [[ $i == --instance=* ]] && instance=${i##"--instance="}
-        [[ $i == --color=no ]] && { setcolor="" ; endcolor="" ; colorurl="" ; }
-        [[ $i == --newline ]] && newline=1
-    done
-
-    [[ x$dataset == "x" ]] && { echo "usage: dassummary --dataset=[pattern] --instance=[global or phys03] (--color=no) (--newline)" ; return ; }
-
-    for i in `dasgoclient -query="dataset=$dataset instance=prod/$instance"`
-    do
-        echo -e "$setcolor$i$endcolor"
-        dasgoclient -query="summary dataset=$i instance=prod/$instance"
-        IFS='/' ; subdataset=(${i}) ; unset IFS ;
-        echo -e "$colorurl"'https://cmsweb.cern.ch/das/request?view=list&limit=50&instance=prod%2F'$instance'&input=%2F'${subdataset[1]}'%2F'${subdataset[2]}'%2F'${subdataset[3]}''"$endcolor"
-        [[ $newline -eq 1 ]] && echo
-    done
-}
-export -f dassummary
-
 # toolkit
-alias diffleaf='$HOME/public/toolkit/diffleaf'
-alias showdir='$HOME/public/toolkit/showdir 2> /dev/null'
-alias daslumi='python $HOME/public/toolkit/daslumi.py'
+. $HOME/lsetup/toolkit/gfalxrd.shinc
+alias diffleaf='$HOME/lsetup/toolkit/diffleaf'
+alias showdir='$HOME/lsetup/toolkit/showdir 2> /dev/null'
+alias daslumi='python $HOME/lsetup/toolkit/daslumi.py'
+. $HOME/lsetup/toolkit/dassummary.shinc
