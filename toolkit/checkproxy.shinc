@@ -1,0 +1,9 @@
+#!/bin/bash
+
+function checkproxy()
+{
+    list=($(ls -lt /tmp/ | grep --color=no $USER | grep --color=no -m 1 x509))
+    len=${#list[@]}
+    [[ $len -gt 0 ]] && echo ${list[$len-1]}
+}
+export -f checkproxy

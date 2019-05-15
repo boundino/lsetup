@@ -1,5 +1,11 @@
 #!/bin/bash
 
+function setupproxy()
+{
+    [[ "$(ls -lt /tmp/ | grep --color=no $USER | grep --color=no -m 1 x509)x" == x ]] && { voms-proxy-init --voms cms --valid 168:00 ; }
+}
+export -f setupproxy
+
 export XRDP=root://cms-xrd-global.cern.ch/
 function xrdrl()
 {
@@ -14,6 +20,7 @@ function xrdrl()
 export -f xrdrl
 function xrdcpp()
 {
+    setupproxy
     SPATH=$(xrdrl $1)
     [[ $? -eq 0 ]] || { echo $SPATH ; return $?; }
     [[ $SPATH == *.root ]] && xrdcp $SPATH $2 || xrdcp -r $SPATH $2
@@ -36,6 +43,7 @@ function gfalrl()
 export -f gfalrl
 function gfalcopy()
 {
+    setupproxy
     SPATH=$(gfalrl $1)
     [[ $? -eq 0 ]] || { echo $SPATH ; return $?; }
     [[ $1 == *.* ]] && { gfal-copy -p ${SPATH} $2/ ; return 0 ; }
@@ -46,6 +54,7 @@ function gfalcopy()
 export -f gfalcopy
 function gfalrm()
 {
+    setupproxy
     SPATH=$(gfalrl $1)
     [[ $? -eq 0 ]] || { echo $SPATH ; return $?; }
     gfal-rm -r $SPATH

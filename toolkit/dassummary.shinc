@@ -2,6 +2,8 @@
 
 function dassummary()
 {
+    [[ "$(ls -lt /tmp/ | grep --color=no $USER | grep --color=no -m 1 x509)x" == x ]] && { voms-proxy-init --voms cms --valid 168:00 ; }
+
     dataset= ; instance="global" ;
     setcolor="\e[32;1m" ; endcolor="\e[0m" ; colorurl="\e[36;2;3m" ;
     newline=0

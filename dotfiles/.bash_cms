@@ -40,3 +40,4 @@ alias diffleaf='$HOME/lsetup/toolkit/diffleaf'
 alias showdir='$HOME/lsetup/toolkit/showdir 2> /dev/null'
 alias daslumi='python $HOME/lsetup/toolkit/daslumi.py'
 . $HOME/lsetup/toolkit/dassummary.shinc
+. $HOME/lsetup/toolkit/checkproxy.shinc
