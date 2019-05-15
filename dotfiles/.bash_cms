@@ -116,3 +116,4 @@ export -f dassummary
 # toolkit
 alias diffleaf='$HOME/public/toolkit/diffleaf'
 alias showdir='$HOME/public/toolkit/showdir 2> /dev/null'
+alias daslumi='python $HOME/public/toolkit/daslumi.py'
