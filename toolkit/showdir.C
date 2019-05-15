@@ -4,6 +4,7 @@
 #include <TDirectory.h>
 #include <TClass.h>
 #include <TROOT.h>
+#include <TString.h>
 
 #include <iostream>
 namespace xjjc
@@ -64,8 +65,10 @@ void xjjc::showdir::enterdir(TDirectory* source)
 int main(int argc, char* argv[])
 {
   if(argc==2)
-    { 
-      TFile* inf = TFile::Open(argv[1]);
+    {
+      TString infname(argv[1]);
+      if(infname.BeginsWith("/store/")) { infname = "root://cms-xrd-global.cern.ch/" + infname; }
+      TFile* inf = TFile::Open(infname);
       xjjc::showdir dirs(inf); 
       return 0;
     }
