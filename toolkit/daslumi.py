@@ -52,12 +52,17 @@ print(lumimask_b)
 ## <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 lumimask_ab = lumimask_a & lumimask_b
+lumimask_aorb = lumimask_a | lumimask_b
 lumimask_aonly = lumimask_a - lumimask_b
 lumimask_bonly = lumimask_b - lumimask_a
 
 print("\033[0m\n\033[1;33m==== argv_a & argv_b:")
 print("\033[0m\033[2;33m"),
 print(lumimask_ab)
+
+print("\033[0m\n\033[1;34m++++ argv_a | argv_b:")
+print("\033[0m\033[2;34m"),
+print(lumimask_aorb)
 
 print("\033[0m\n\033[1;32m>>>> argv_a only:\033[0m\033[3;32m"),
 print(argv_a)
