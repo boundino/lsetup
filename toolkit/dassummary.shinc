@@ -53,3 +53,47 @@ function dassummary()
     done
 }
 export -f dassummary
+
+function dastable
+{
+    colortitle="\e[32m" ; colorend="\e[0m"
+    echo -e "\n${colortitle}2013 pPb >>>>>>>>>>>>>>>>>>>>>>>>>>${colorend}"
+    echo '/PAMuon/HIRun2013-PromptReco-v1/RECO'
+    echo '/PAMuon/HIRun2013-28Sep2013-v1/RECO'
+    echo -e "\n${colortitle}2015 pp >>>>>>>>>>>>>>>>>>>>>>>>>>>${colorend}"
+    echo '/MinimumBias*/Run2015E-PromptReco-v1/AOD'
+    echo '/HeavyFlavor/Run2015E-PromptReco-v1/AOD'
+    echo '/DoubleMu/Run2015E-PromptReco-v1/AOD'
+    echo '/HighPtJet80/Run2015E-PromptReco-v1/AOD'
+    echo '/HighPtLowerJets/Run2015E-PromptReco-v1/AOD'
+    echo -e "\n${colortitle}2015 PbPb >>>>>>>>>>>>>>>>>>>>>>>>>${colorend}"
+    echo '/HIMinimumBias*/HIRun2015-PromptReco-v1/AOD'
+    echo '/HIHardProbes/HIRun2015-PromptReco-v1/AOD'
+    echo '/HIOniaL1DoubleMu0*/HIRun2015-PromptReco-v1/AOD'
+    echo -e "\n${colortitle}2016 pPb (5TeV) >>>>>>>>>>>>>>>>>>>${colorend}"
+    echo '/PAMinimumBias*/PARun2016B-PromptReco-v1/AOD'
+    echo '/PADTrack1/PARun2016B-PromptReco-v1/AOD'
+    echo '/PADoubleMuon/PARun2016B-PromptReco-v1/AOD'
+    echo -e "\n${colortitle}2016 pPb (8TeV) >>>>>>>>>>>>>>>>>>>${colorend}"
+    echo '/PAMinimumBias*/PARun2016C-PromptReco-v1/AOD'
+    echo '/PADTrack1/PARun2016C-PromptReco-v1/AOD'
+    echo '/PADTrack2/PARun2016C-PromptReco-v1/AOD'
+    echo '/PADoubleMuon/PARun2016C-PromptReco-v1/AOD'
+    echo -e "\n${colortitle}2017 XeXe >>>>>>>>>>>>>>>>>>>>>>>>>${colorend}"
+    echo '/HIMinimumBias*/XeXeRun2017-PromptReco-v1/AOD'
+    echo '/HIMinimumBias*/XeXeRun2017-13Dec2017-v1/AOD'
+    echo -e "\n${colortitle}2017 pp >>>>>>>>>>>>>>>>>>>>>>>>>>>${colorend}"
+    echo '/HeavyFlavor/Run2017G-PromptReco-v1/AOD'
+    echo '/ZeroBias*/Run2017G-PromptReco-v1/AOD'
+    echo '/HeavyFlavor/Run2017G-17Nov2017-v1/AOD'
+    echo '/ZeroBias*/Run2017G-17Nov2017-v1/AOD'
+    echo -e "\n${colortitle}2018 PbPb >>>>>>>>>>>>>>>>>>>>>>>>>${colorend}"
+    echo '/HIDoubleMuon/HIRun2018A-PromptReco-v1/AOD'
+    echo '/HIDoubleMuon/HIRun2018A-PromptReco-v2/AOD'
+    echo '/HIDoubleMuonPsiPeri/HIRun2018A-PromptReco-v2/AOD'
+    echo '/HIDoubleMuon/HIRun2018A-04Apr2019-v1/AOD'
+    echo '/HIDoubleMuonPsiPeri/HIRun2018A-04Apr2019-v1/AOD'
+
+    echo 
+}
+export -f dastable
