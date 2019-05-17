@@ -30,7 +30,7 @@ else:
 print("\n\033[1;32margv_a:\033[0m\033[3;32m"),
 print(argv_a),
 print("\033[0m")
-if ".txt" in argv_a:
+if (".txt" in argv_a) or (".json" in argv_a) or (".js" in argv_a):
 	lumimask_a = LumiList(filename = argv_a)
 else:
 	lumimask_a = getLumiListInValidFiles(dataset = argv_a, dbsurl = 'global')
@@ -44,7 +44,7 @@ if len(sys.argv) == 2:
 print("\n\033[1;31margv_b:\033[0m\033[3;31m"),
 print(argv_b),
 print("\033[0m")
-if ".txt" in argv_b:
+if (".txt" in argv_b) or (".json" in argv_b) or (".js" in argv_b):
 	lumimask_b = LumiList(filename = argv_b)
 else:
 	lumimask_b = getLumiListInValidFiles(dataset = argv_b, dbsurl = 'global')
