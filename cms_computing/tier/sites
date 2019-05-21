@@ -16,6 +16,7 @@ T2_US_Purdue      ==>  gsiftp://cms-gridftp.rcac.purdue.edu//store/temp/user/
 T2_BR_SPRACE      ==>  srm://osg-se.sprace.org.br:8443/srm/managerv2?SFN=/pnfs/sprace.org.br/data/cms/store/temp/user/
 T2_US_Vanderbilt  ==>  gsiftp://gridftp.accre.vanderbilt.edu/lio/lfs/cms/store/temp/user/
 T2_CH_CSCS        ==>  srm://storage01.lcg.cscs.ch:8443/srm/managerv2?SFN=/pnfs/lcg.cscs.ch/cms/trivcat/store/temp/user/
+T2_ES_CIEMAT      ==>  srm://srm.ciemat.es:8443/srm/managerv2?SFN=/pnfs/ciemat.es/data/cms/scratch/user/
 \e[1;36m--\e[0m
 
 \e[1;46m# >>>> GFAL MINE >>>>\e[0m

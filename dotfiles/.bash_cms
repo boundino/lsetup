@@ -18,6 +18,7 @@ alias grid_setup='source ~/grid_setup.sh'
 alias bril_setup='export PATH=$HOME/.local/bin:/afs/cern.ch/cms/lumi/brilconda-1.0.3/bin:$PATH'
 
 function cmsphbook() {
+    [[ $# -ne 1 ]] && { echo "usage: cmsphbook [people, whoami, site-names, site-resources]. " ; return ; }
     category=${1:-people} # people, whoami, site-names, site-resources
     curl -ks --cert $(voms-proxy-info -path) --key $(voms-proxy-info -path) "https://cmsweb.cern.ch/sitedb/data/prod/$category"
 }
