@@ -31,10 +31,12 @@ export -f xrdcpp
 export GFALP=gsiftp://se01.cmsaf.mit.edu:2811/
 function gfalrl()
 {
-    SPATH=$1
-    [[ $1 == /mnt/T2_US_MIT/hadoop* ]] && { SPATH=${1#/mnt/T2_US_MIT/hadoop} ; }
-    [[ $1 == /mnt/hadoop* ]] && { SPATH=${1#/mnt/hadoop} ; }
-    [[ $1 == /store* ]] && { SPATH=/cms$1 ; }
+    ORIGIN=$1
+    [[ $# -eq 0 ]] && ORIGIN=$PWD
+    SPATH=$ORIGIN
+    [[ $ORIGIN == /mnt/T2_US_MIT/hadoop* ]] && { SPATH=${ORIGIN#/mnt/T2_US_MIT/hadoop} ; }
+    [[ $ORIGIN == /mnt/hadoop* ]] && { SPATH=${ORIGIN#/mnt/hadoop} ; }
+    [[ $ORIGIN == /store* ]] && { SPATH=/cms$ORIGIN ; }
     # /cms/store/...
     [[ $SPATH == /cms/store/* ]] || { echo -e "\e[1;31m [gfalrl] error: invalid path \e[1;97;41m$SPATH\e[0m" ;  return 1 ; }
     echo $GFALP$SPATH
