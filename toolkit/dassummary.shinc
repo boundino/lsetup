@@ -90,8 +90,10 @@ function dastable
     echo '/HIMinimumBias*/XeXeRun2017-13Dec2017-v1/AOD'
     echo -e "\n${colortitle}2017 pp >>>>>>>>>>>>>>>>>>>>>>>>>>>${colorend}"
     echo '/HeavyFlavor/Run2017G-PromptReco-v1/AOD'
+    echo '/DoubleMuon/Run2017G-PromptReco-v1/AOD'
     echo '/ZeroBias*/Run2017G-PromptReco-v1/AOD'
     echo '/HeavyFlavor/Run2017G-17Nov2017-v1/AOD'
+    echo '/DoubleMuon/Run2017G-17Nov2017-v1/AOD'
     echo '/ZeroBias*/Run2017G-17Nov2017-v1/AOD'
     echo -e "\n${colortitle}2018 PbPb >>>>>>>>>>>>>>>>>>>>>>>>>${colorend}"
     echo '/HIDoubleMuon/HIRun2018A-PromptReco-v1/AOD'
