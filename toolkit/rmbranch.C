@@ -42,17 +42,19 @@ void rmbranch(std::string inputname,
               std::string treename, std::string branchname,
               std::string outputname="")
 {
-  if(outputname=="")
+  if(outputname == "")
     { outputname = xjjc::str_replaceall(inputname, ".root", ("__rm__"+xjjc::str_replaceallspecial(treename)+"_"+xjjc::str_replaceallspecial(branchname)+".root")); }
   else if(!xjjc::str_contains(outputname, ".root") || inputname==outputname)
     { std::cout<<__FUNCTION__<<": error: invalid outputname."<<std::endl<<"  "<<outputname<<std::endl; return; }
 
   TFile* inf = new TFile(inputname.c_str());
+  if(!inf->IsOpen()) { std::cout<<__FUNCTION__<<": error: invalid input."<<std::endl<<"  "<<inputname<<std::endl; return; }
   TFile* outf = new TFile(outputname.c_str(), "recreate");
 
   std::cout<<std::endl<<" -- Reading input trees"<<std::endl;
   std::cout<<" -- Removing \e[4m"<<branchname<<"\e[0m in \e[4m"<<treename<<"\e[0m"<<std::endl;
   TTree* nt = (TTree*)inf->Get(treename.c_str());
+  if(!nt) { std::cout<<__FUNCTION__<<": error: invalid tree."<<std::endl<<"  "<<treename<<std::endl; return; }  
   nt->SetBranchStatus(branchname.c_str(), 0);
   
   // >> 
