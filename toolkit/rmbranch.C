@@ -169,7 +169,7 @@ int main(int argc, char* argv[])
 {
   if(argc==5) { rmbranch(argv[1], argv[2], argv[3], argv[4]); return 0; }
   if(argc==4) { rmbranch(argv[1], argv[2], argv[3]); return 0; }
-  std::cout<<__FUNCTION__<<": ./rmbranch.exe [input] [treename] [branchname] (optional)[output]"<<std::endl;
+  std::cout<<__FUNCTION__<<": ./rmbranch [input] [treename] [branchname] (optional)[output]"<<std::endl;
   return 1;
 }
 
