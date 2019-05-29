@@ -16,7 +16,7 @@ namespace xjjc
 {
   std::string str_replaceall(std::string strs, std::string sub, std::string newsub);
   bool str_contains(std::string str1, std::string str2) { return str1.find(str2)!=std::string::npos; }
-  std::vector<std::string> speciallist = {" ", "/", "(", ")", "^", "#", "%", "$", ",", "."};
+  std::vector<std::string> speciallist = {" ", "/", "(", ")", "^", "#", "%", "$", ",", ".", "*"};
   std::string str_replaceallspecial(std::string strs);
 }
 
