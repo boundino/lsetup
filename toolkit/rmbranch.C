@@ -39,11 +39,11 @@ namespace xjjc
 }
 
 void rmbranch(std::string inputname, 
-              std::string treename, std::string branchname,
+              std::string treename, std::string branchname, bool reverse = false,
               std::string outputname="")
 {
   if(outputname == "")
-    { outputname = xjjc::str_replaceall(inputname, ".root", ("__rm__"+xjjc::str_replaceallspecial(treename)+"_"+xjjc::str_replaceallspecial(branchname)+".root")); }
+    { outputname = xjjc::str_replaceall(inputname, ".root", ("__rm__"+xjjc::str_replaceallspecial(treename)+(reverse?"_v_":"_")+xjjc::str_replaceallspecial(branchname)+"br.root")); }
   else if(!xjjc::str_contains(outputname, ".root") || inputname==outputname)
     { std::cout<<__FUNCTION__<<": error: invalid outputname."<<std::endl<<"  "<<outputname<<std::endl; return; }
 
@@ -52,11 +52,19 @@ void rmbranch(std::string inputname,
   TFile* outf = new TFile(outputname.c_str(), "recreate");
 
   std::cout<<std::endl<<" -- Reading input trees"<<std::endl;
-  std::cout<<" -- Removing \e[4m"<<branchname<<"\e[0m in \e[4m"<<treename<<"\e[0m"<<std::endl;
+  std::cout<<" -- Removing branch(es) \e[0m"<<(reverse?"\e[31;1mexcept for \e[0m":"")<<"\e[4m"<<branchname<<"\e[0m in \e[4m"<<treename<<"\e[0m"<<std::endl;
   TTree* nt = (TTree*)inf->Get(treename.c_str());
   if(!nt) { std::cout<<__FUNCTION__<<": error: invalid tree."<<std::endl<<"  "<<treename<<std::endl; return; }  
-  nt->SetBranchStatus(branchname.c_str(), 0);
-  
+
+  // >>
+  if(!reverse)
+    { nt->SetBranchStatus(branchname.c_str(), 0); }
+  else
+    {
+      nt->SetBranchStatus("*", 0);
+      nt->SetBranchStatus(branchname.c_str(), 1);
+    }
+  // <<
   // >> 
   xjjc::copydir_recur dirs(inf, outf, -1);
   // <<
@@ -167,9 +175,16 @@ bool xjjc::copydir_recur::lastiter(const TIter& current)
 
 int main(int argc, char* argv[])
 {
-  if(argc==5) { rmbranch(argv[1], argv[2], argv[3], argv[4]); return 0; }
-  if(argc==4) { rmbranch(argv[1], argv[2], argv[3]); return 0; }
-  std::cout<<__FUNCTION__<<": ./rmbranch [input] [treename] [branchname] (optional)[output]"<<std::endl;
+  std::vector<std::string> argvv;
+  bool isreverse = false;
+  for(int v=1; v<argc; v++)
+    {
+      if(std::string(argv[v]) == "-v") { isreverse = true; }
+      else { argvv.push_back(std::string(argv[v])); }
+    }
+  if(argvv.size()==4) { rmbranch(argvv[0], argvv[1], argvv[2], isreverse, argvv[3]); return 0; }
+  if(argvv.size()==3) { rmbranch(argvv[0], argvv[1], argvv[2], isreverse); return 0; }
+  std::cout<<__FUNCTION__<<": ./rmbranch [input] [treename] (-v) [branchname] (optional)[output]"<<std::endl;
   return 1;
 }
 
