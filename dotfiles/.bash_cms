@@ -42,5 +42,6 @@ alias showdir='$HOME/lsetup/toolkit/showdir 2> /dev/null'
 alias daslumi='python $HOME/lsetup/toolkit/daslumi.py'
 alias rmbranch='$HOME/lsetup/toolkit/rmbranch'
 alias addbranch='$HOME/lsetup/toolkit/addbranch'
+alias typetable='$HOME/lsetup/toolkit/typetable'
 . $HOME/lsetup/toolkit/dassummary.shinc
 . $HOME/lsetup/toolkit/checkproxy.shinc
