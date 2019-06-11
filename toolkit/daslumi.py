@@ -1,5 +1,5 @@
+#!/usr/bin/env python
 ## Ref: https://twiki.cern.ch/twiki/bin/view/CMSPublic/SWGuideGoodLumiSectionsJSONFile
-
 #
 from CRABClient.UserUtilities import config, getLumiListInValidFiles
 from WMCore.DataStructs.LumiList import LumiList
@@ -33,7 +33,10 @@ print("\033[0m")
 if (".txt" in argv_a) or (".json" in argv_a) or (".js" in argv_a):
 	lumimask_a = LumiList(filename = argv_a)
 else:
-	lumimask_a = getLumiListInValidFiles(dataset = argv_a, dbsurl = 'global')
+	if ("/USER" in argv_a):
+		lumimask_a = getLumiListInValidFiles(dataset = argv_a, dbsurl = 'phys03')
+	else:
+		lumimask_a = getLumiListInValidFiles(dataset = argv_a, dbsurl = 'global')
 print(lumimask_a)
 ## <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
@@ -47,14 +50,17 @@ print("\033[0m")
 if (".txt" in argv_b) or (".json" in argv_b) or (".js" in argv_b):
 	lumimask_b = LumiList(filename = argv_b)
 else:
-	lumimask_b = getLumiListInValidFiles(dataset = argv_b, dbsurl = 'global')
+	if ("/USER" in argv_b):
+		lumimask_b = getLumiListInValidFiles(dataset = argv_b, dbsurl = 'phys03')
+	else:
+		lumimask_b = getLumiListInValidFiles(dataset = argv_b, dbsurl = 'global')
 print(lumimask_b)
 ## <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
-lumimask_ab = lumimask_a & lumimask_b
-lumimask_aorb = lumimask_a | lumimask_b
 lumimask_aonly = lumimask_a - lumimask_b
 lumimask_bonly = lumimask_b - lumimask_a
+lumimask_ab	   = lumimask_a & lumimask_b
+lumimask_aorb  = lumimask_a | lumimask_b
 
 print("\033[0m\n\033[1;33m==== argv_a & argv_b:")
 print("\033[0m\033[2;33m"),
