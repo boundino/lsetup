@@ -1,0 +1,34 @@
+#!/bin/bash
+
+function printdir()
+{
+    [[ $# -eq 0 ]] &&
+    {
+        echo "usage: printdir [input] ([branch])"
+    }
+    [[ $# -eq 1 ]] &&
+    {
+        $HOME/lsetup/toolkit/showdir $1 -1 2> /dev/null
+    }
+    [[ $# -eq 2 ]] &&
+    {
+        $HOME/lsetup/toolkit/showdir $1 -1 $2 2> /dev/null
+    }
+}
+export printdir
+
+function scandir()
+{
+    [[ $# -ne 2 ]] &&
+    {
+        echo "usage: scandir [input] [branch]"
+    }
+    [[ $# -eq 2 ]] &&
+    {
+        $HOME/lsetup/toolkit/showdir $1 0 $2 2> /dev/null
+    }
+}
+export scandir
+
+alias showdir='$HOME/lsetup/toolkit/showdir 2> /dev/null'
+

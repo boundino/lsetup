@@ -31,6 +31,7 @@
 (add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
 (add-to-list 'auto-mode-alist '("\\.md\\'" . html-mode))
 (add-to-list 'auto-mode-alist '("\\.bash.*\\'" . sh-mode))
+(add-to-list 'auto-mode-alist '("\\.shinc\\'" . sh-mode))
 
 ;; uncomment this line to disable loading of "default.el" at startup
 ;;(setq inhibit-default-init t)

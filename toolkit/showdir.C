@@ -12,17 +12,43 @@ namespace xjjc
   class showdir
   {
   public:
-    showdir(TDirectory* src);
+    showdir(TDirectory* src, int opt=0, TString flt="*");
     ~showdir() { ; }
 
   private:
     void enterdir(TDirectory* source);
     int fll;
+    int fopt;
+    TString ffilter;
     std::vector<bool> lastll;
+
+    TString tcolor_red = "\e[38;2;178;107;107m";
+    TString tcolor_blue = "\e[38;2;50;98;128m";
   };
 }
 
-xjjc::showdir::showdir(TDirectory* src) : fll(0)
+int main(int argc, char* argv[])
+{
+  if(argc==2 || argc==3 || argc==4)
+    {
+      TString infname(argv[1]);
+      if(infname.BeginsWith("/store/")) { infname = "root://cms-xrd-global.cern.ch/" + infname; }
+      TFile* inf = TFile::Open(infname);
+
+      if(argc==2) xjjc::showdir dirs(inf); 
+      else if(argc==3) xjjc::showdir dirs(inf, atoi(argv[2])); 
+      else if(argc==4) xjjc::showdir dirs(inf, atoi(argv[2]), argv[3]); 
+
+      return 0;
+    }
+  std::cout<<__FUNCTION__<<": ./showdir [input] ([opt] [filter])"<<std::endl;
+  std::cout<<"  [opt]>0  ([filter]=\"treename\")   : Show([opt]-1)"<<std::endl;
+  std::cout<<"\e[38;5;236m  [opt]=-1 ([filter]=\"branchname\") : Print(\"branchname\")\e[0m"<<std::endl;
+  std::cout<<"\e[38;5;236m  [opt]=0  ([filter]=\"branchname\") : Scan(\"branchname\")\e[0m"<<std::endl;
+  return 1;
+}
+
+xjjc::showdir::showdir(TDirectory* src, int opt, TString flt) : fll(0), fopt(opt), ffilter(flt)
 {
   lastll.clear();
   lastll.push_back(true);
@@ -47,7 +73,36 @@ void xjjc::showdir::enterdir(TDirectory* source)
       lastll[fll] = TIter(nextkey).Next()==0;
       for(std::vector<bool>::iterator lll = lastll.begin();lll<lastll.end()-1;lll++) { std::cout<<(*lll?" ":"\u2502")<<"   "; }
       std::cout<<(lastll[fll]?"\u2514":"\u251C")<<"\u2500\u2500 \e[32m("<<classname<<")\e[0m\e[2m =>\e[0m \e[1m"<<keyname<<"\e[0m";
-      if(cl->InheritsFrom(TTree::Class())) { std::cout<<" \e[33m("<<((TTree*)source->Get(keyname))->GetEntries()<<")\e[0m"; }
+      if(cl->InheritsFrom(TTree::Class())) 
+        { 
+          TTree* thistree = ((TTree*)source->Get(keyname));
+          int nentries = thistree->GetEntries();
+          std::cout<<" \e[33m("<<nentries<<")\e[0m"; 
+          // >> complex
+          if(fopt==-1)
+            {
+              std::cout<<tcolor_red<<std::endl;
+              thistree->Print(ffilter.Data()); std::cout<<"\e[0m";
+            }
+          else if(fopt>0)
+            {
+              if(ffilter=="*" || (TString(source->GetName())+"/"+TString(keyname))==ffilter) 
+                {
+                  std::cout<<tcolor_blue<<std::endl;
+                  int ievt = fopt<nentries?(fopt-1):(nentries-1);
+                  thistree->Show(ievt); std::cout<<"\e[0m";
+                }
+            }
+          else if(fopt==0 && ffilter!="*")
+            {
+              if(thistree->FindBranch(ffilter.Data())) 
+                { 
+                  std::cout<<tcolor_blue<<std::endl;
+                  thistree->Scan(ffilter.Data()); std::cout<<"\e[0m"; 
+                }
+            }
+          // << complex
+        }
       std::cout<<std::endl;
       // << print
 
@@ -62,16 +117,3 @@ void xjjc::showdir::enterdir(TDirectory* source)
   lastll.pop_back(); fll = lastll.size()-1;
 }
 
-int main(int argc, char* argv[])
-{
-  if(argc==2)
-    {
-      TString infname(argv[1]);
-      if(infname.BeginsWith("/store/")) { infname = "root://cms-xrd-global.cern.ch/" + infname; }
-      TFile* inf = TFile::Open(infname);
-      xjjc::showdir dirs(inf); 
-      return 0;
-    }
-  std::cout<<__FUNCTION__<<": ./showdir [input]"<<std::endl;
-  return 1;
-}

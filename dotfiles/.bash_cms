@@ -38,7 +38,8 @@ alias sitelist='[[ -f ~/.sites ]] && catt ~/.sites'
 # toolkit
 . $HOME/lsetup/toolkit/gfalxrd.shinc
 alias diffleaf='$HOME/lsetup/toolkit/diffleaf'
-alias showdir='$HOME/lsetup/toolkit/showdir 2> /dev/null'
+# alias showdir='$HOME/lsetup/toolkit/showdir 2> /dev/null'
+. $HOME/lsetup/toolkit/showdir.shinc
 alias daslumi='python $HOME/lsetup/toolkit/daslumi.py'
 alias rmbranch='$HOME/lsetup/toolkit/rmbranch'
 alias addbranch='$HOME/lsetup/toolkit/addbranch'
