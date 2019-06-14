@@ -7,6 +7,8 @@
 #include <TString.h>
 
 #include <iostream>
+#include <regex>
+#include <string>
 namespace xjjc
 {
   class showdir
@@ -23,7 +25,7 @@ namespace xjjc
     TString ffilter;
     std::vector<bool> lastll;
     bool findbranch_scan(TTree* thistree);
-    // bool findbranch_print(TTree* thistree, TString pattern);
+    bool findbranch_print(TTree* thistree);
 
     TString tcolor_red = "\e[38;2;178;107;107m";
     TString tcolor_blue = "\e[38;2;50;98;128m";
@@ -101,8 +103,11 @@ void xjjc::showdir::printtreeinfo(TTree* thistree, TString treename)
   // >> complex
   if(fopt==-1)
     {
-      std::cout<<tcolor_red<<std::endl;
-      thistree->Print(ffilter.Data()); std::cout<<"\e[0m";
+      if(findbranch_print(thistree))
+        {
+          std::cout<<tcolor_red<<std::endl;
+          thistree->Print(ffilter.Data()); std::cout<<"\e[0m";
+        }
     }
   else if(fopt>0)
     {
@@ -126,11 +131,28 @@ void xjjc::showdir::printtreeinfo(TTree* thistree, TString treename)
 
 bool xjjc::showdir::findbranch_scan(TTree* thistree)
 {
-  TObjArray* brs = ffilter.Tokenize(":");
-  for (Int_t b = 0; b < brs->GetEntries(); b++) 
+  TString pattern(ffilter);
+  TObjArray* brs = pattern.Tokenize(":");
+  for (int b = 0; b < brs->GetEntries(); b++) 
     {
       TString brname = ((TObjString*)(brs->At(b)))->String();
       if(thistree->FindBranch(brname.Data())) return true;
+    }
+  return false;
+}
+
+bool xjjc::showdir::findbranch_print(TTree* thistree)
+{
+  TString pattern(ffilter);
+  pattern.ReplaceAll("*", ".*");
+  std::regex regexpattern(pattern.Data());
+
+  TObjArray *branchList = thistree->GetListOfBranches();
+  int nBranch = thistree->GetNbranches();
+  for(int b = 0; b < nBranch; b++)
+    {
+      std::string brname(branchList->At(b)->GetName());
+      if(std::regex_match(brname, regexpattern)) return true;
     }
   return false;
 }
