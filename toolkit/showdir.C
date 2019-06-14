@@ -17,10 +17,13 @@ namespace xjjc
 
   private:
     void enterdir(TDirectory* source);
+    void printtreeinfo(TTree* thistree, TString treename="");
     int fll;
     int fopt;
     TString ffilter;
     std::vector<bool> lastll;
+    bool findbranch_scan(TTree* thistree);
+    // bool findbranch_print(TTree* thistree, TString pattern);
 
     TString tcolor_red = "\e[38;2;178;107;107m";
     TString tcolor_blue = "\e[38;2;50;98;128m";
@@ -75,33 +78,8 @@ void xjjc::showdir::enterdir(TDirectory* source)
       std::cout<<(lastll[fll]?"\u2514":"\u251C")<<"\u2500\u2500 \e[32m("<<classname<<")\e[0m\e[2m =>\e[0m \e[1m"<<keyname<<"\e[0m";
       if(cl->InheritsFrom(TTree::Class())) 
         { 
-          TTree* thistree = ((TTree*)source->Get(keyname));
-          int nentries = thistree->GetEntries();
-          std::cout<<" \e[33m("<<nentries<<")\e[0m"; 
-          // >> complex
-          if(fopt==-1)
-            {
-              std::cout<<tcolor_red<<std::endl;
-              thistree->Print(ffilter.Data()); std::cout<<"\e[0m";
-            }
-          else if(fopt>0)
-            {
-              if(ffilter=="*" || (TString(source->GetName())+"/"+TString(keyname))==ffilter) 
-                {
-                  std::cout<<tcolor_blue<<std::endl;
-                  int ievt = fopt<nentries?(fopt-1):(nentries-1);
-                  thistree->Show(ievt); std::cout<<"\e[0m";
-                }
-            }
-          else if(fopt==0 && ffilter!="*")
-            {
-              if(thistree->FindBranch(ffilter.Data())) 
-                { 
-                  std::cout<<tcolor_blue<<std::endl;
-                  thistree->Scan(ffilter.Data()); std::cout<<"\e[0m"; 
-                }
-            }
-          // << complex
+          std::cout<<" \e[33m("<<((TTree*)source->Get(keyname))->GetEntries()<<")\e[0m"; 
+          printtreeinfo(((TTree*)source->Get(keyname)), (TString(source->GetName())+"/"+TString(keyname)));
         }
       std::cout<<std::endl;
       // << print
@@ -117,3 +95,42 @@ void xjjc::showdir::enterdir(TDirectory* source)
   lastll.pop_back(); fll = lastll.size()-1;
 }
 
+void xjjc::showdir::printtreeinfo(TTree* thistree, TString treename)
+{
+  int nentries = thistree->GetEntries();
+  // >> complex
+  if(fopt==-1)
+    {
+      std::cout<<tcolor_red<<std::endl;
+      thistree->Print(ffilter.Data()); std::cout<<"\e[0m";
+    }
+  else if(fopt>0)
+    {
+      if(ffilter=="*" || treename==ffilter)
+        {
+          std::cout<<tcolor_blue<<std::endl;
+          int ievt = fopt<nentries?(fopt-1):(nentries-1);
+          thistree->Show(ievt); std::cout<<"\e[0m";
+        }
+    }
+  else if(fopt==0 && ffilter!="*")
+    {
+      if(findbranch_scan(thistree))
+        {
+          std::cout<<tcolor_blue<<std::endl;
+          thistree->Scan(ffilter.Data()); std::cout<<"\e[0m";
+        }
+    }
+  std::cout<<"\e[0m";
+}
+
+bool xjjc::showdir::findbranch_scan(TTree* thistree)
+{
+  TObjArray* brs = ffilter.Tokenize(":");
+  for (Int_t b = 0; b < brs->GetEntries(); b++) 
+    {
+      TString brname = ((TObjString*)(brs->At(b)))->String();
+      if(thistree->FindBranch(brname.Data())) return true;
+    }
+  return false;
+}
