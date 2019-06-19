@@ -1,12 +1,12 @@
 #!/bin/bash
-## https://github.com/dmwm/dasgoclient
+## Ref: https://github.com/dmwm/dasgoclient
 
 function dassummary()
 {
     [[ "$(ls -lt /tmp/ | grep --color=no $USER | grep --color=no -m 1 x509)x" == x ]] && { voms-proxy-init --voms cms --valid 168:00 ; }
 
     dataset= ; instance="global" ;
-    setcolor="\e[32;1m" ; endcolor="\e[0m" ; colorurl="\e[36;2;3m" ; colorfile="\e[37;2m" ; colorwarn="\e[38;2;205;92;92m" ;
+    setcolor="\e[32;1m" ; endcolor="\e[0m" ; colorurl="\e[36;2;3m" ; colorfile="\e[37;2m" ; colorwarn="\e[38;2;205;92;92m" ; colorver="\e[34;1m" ;
     newline=0
     verbose=0
     force=0
@@ -14,13 +14,13 @@ function dassummary()
     do
         [[ $i == --dataset=* ]] && dataset=${i##"--dataset="}
         [[ $i == --instance=* ]] && instance=${i##"--instance="}
-        [[ $i == --color=no || $i == --nc ]] && { setcolor="" ; endcolor="" ; colorurl="" ; colorfile="" ; colorwarn="" ; }
-        [[ $i == --newline || $i == --nl ]] && newline=1
-        [[ $i == --verbose || $i == --v ]] && verbose=1
+        [[ $i == --color=no || $i == -nc ]] && { setcolor="" ; endcolor="" ; colorurl="" ; colorfile="" ; colorwarn="" ; colorver="" ; } 
+        [[ $i == --newline || $i == -nl ]] && newline=1
+        [[ $i == --verbose || $i == -v ]] && verbose=1
         [[ $i == -f ]] && force=1
     done
 
-    [[ x$dataset == "x" ]] && { echo "usage: dassummary --dataset=[pattern] --instance=[global or phys03] (--color=no or --nc) (--newline or --nl) (--verbose or --v)" ; return ; }
+    [[ x$dataset == "x" ]] && { echo "usage: dassummary --dataset=[pattern] --instance=[global or phys03] (--run) (--color=no or -nc) (--newline or -nl) (--verbose or -v)" ; return ; }
 
     [[ $dataset == */USER && $instance != "phys03" && $force -eq 0 ]] && {
         echo -e "${colorwarn}warning: autoset --instance=phys03 for private MC production. use -f to force --instance not to change. \n${endcolor}"
@@ -34,7 +34,7 @@ function dassummary()
         echo -e "$colorfile${dasfilelist[0]}$endcolor"
 
         [[ $verbose -eq 1 ]] && {
-            echo -n "{"
+            echo -en "${colorver}{"
             count=0
             for rr in `dasgoclient -query="run dataset=$i instance=prod/$instance"`
             do
@@ -51,7 +51,7 @@ function dassummary()
                 echo -n "[\""$rr"\"]"
                 count=$((count+1))
             done
-            echo "}"
+            echo -e "}$endcolor"
         }
         IFS='/' ; subdataset=(${i}) ; unset IFS ;
         echo -e "$colorurl"'https://cmsweb.cern.ch/das/request?view=list&limit=50&instance=prod%2F'$instance'&input=%2F'${subdataset[1]}'%2F'${subdataset[2]}'%2F'${subdataset[3]}''"$endcolor"
