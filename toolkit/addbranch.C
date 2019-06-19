@@ -37,8 +37,13 @@ void xjjc::addbranch(std::string inputname, std::string treename, std::string br
   TFile* inf = TFile::Open(inputname.c_str(), "update");
   if(!inf->IsOpen()) { std::cout<<__FUNCTION__<<": error: invalid input."<<std::endl<<"  "<<inputname<<std::endl; return; }
   std::vector<std::string> tdirs = xjjc::str_divide(treename, "/"); 
-  std::string trname = tdirs[tdirs.size()-1];
-  tdirs.pop_back();
+  std::string trname;
+  if(tdirs.size()>0)
+    {
+      trname = tdirs[tdirs.size()-1];
+      tdirs.pop_back();
+    }
+  else { trname = treename; }
   TTree* tr = (TTree*)inf->Get(treename.c_str());
   bool existtree = (bool)tr;
   inf->cd();
