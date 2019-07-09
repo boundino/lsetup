@@ -11,7 +11,8 @@ function showdirsetup()
 
 function printdir()
 {
-    showdirsetup && return
+    showdirsetup
+    [[ $? -ne 0 ]] && { echo "error: invalid CMSSW version" ; return ; }
     [[ $# -eq 1 ]] &&
     {
         [[ ! -f $1 ]] && { echo "error: input file does not exist." ; return ; }
@@ -30,7 +31,8 @@ export printdir
 
 function scandir()
 {
-    showdirsetup && return
+    showdirsetup
+    [[ $? -ne 0 ]] && { echo "error: invalid CMSSW version" ; return ; }
     [[ $# -eq 2 ]] &&
     {
         [[ ! -f $1 ]] && { echo "error: input file does not exist." ; return ; }
@@ -43,7 +45,8 @@ export scandir
 
 function showdir()
 {
-    showdirsetup && return
+    showdirsetup
+    [[ $? -ne 0 ]] && { echo "error: invalid CMSSW version" ; return ; }
     [[ $# -eq 1 ]] &&
     {
         for i in `echo $1`

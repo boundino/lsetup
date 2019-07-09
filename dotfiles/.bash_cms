@@ -39,17 +39,16 @@ alias sitelist='[[ -f ~/.sites ]] && catt ~/.sites'
 function cbuildreg() {
     cbuildreg_tmp=${CMSSW_VERSION##CMSSW_}
     cbuildreg_tmp=${cbuildreg_tmp%%_*}
-    cbuildreg_tmp=$(echo ~/CMSSW_${cbuildreg_tmp}*)
+    cbuildreg_tmp=$(echo $HOME/lsetup/toolkit/exec/CMSSW_${cbuildreg_tmp}*)
     cbuildreg_tmp=${cbuildreg_tmp##*/}
     echo $cbuildreg_tmp
 }
-CMSSWCREG=$(cbuildreg)
 . $HOME/lsetup/toolkit/gfalxrd.shinc
-alias diffleaf='$HOME/lsetup/toolkit/exec/$CMSSWCREG/diffleaf'
+alias diffleaf='$HOME/lsetup/toolkit/exec/$(cbuildreg)/diffleaf'
 . $HOME/lsetup/toolkit/showdir.shinc
 alias daslumi='python $HOME/lsetup/toolkit/daslumi.py'
-alias rmbranch='$HOME/lsetup/toolkit/exec/$CMSSWCREG/rmbranch'
-alias addbranch='$HOME/lsetup/toolkit/exec/$CMSSWCREG/addbranch'
-alias typetable='$HOME/lsetup/toolkit/exec/$CMSSWCREG/typetable'
+alias rmbranch='$HOME/lsetup/toolkit/exec/$(cbuildreg)/rmbranch'
+alias addbranch='$HOME/lsetup/toolkit/exec/$(cbuildreg)/addbranch'
+alias typetable='$HOME/lsetup/toolkit/exec/$(cbuildreg)/typetable'
 . $HOME/lsetup/toolkit/dassummary.shinc
 . $HOME/lsetup/toolkit/checkproxy.shinc
