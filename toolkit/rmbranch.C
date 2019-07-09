@@ -148,10 +148,10 @@ void xjjc::copydir_recur::copydir(TDirectory* source)
       else if(cl->InheritsFrom(TTree::Class()))
         {
           TTree* nt = (TTree*)source->Get(key->GetName());
-          trees_input.insert(std::pair(nt, source));
+          trees_input.insert(std::pair<TTree*, TDirectory*>(nt, source));
           adir->cd();
           TTree* nt_new = nt->CloneTree(nevt); // nevt
-          trees_output.insert(std::pair(nt_new, adir));
+          trees_output.insert(std::pair<TTree*, TDirectory*>(nt_new, adir));
         }
       else
         {
