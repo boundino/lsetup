@@ -7,6 +7,8 @@
 [[ $# -ne 1 ]] && return
 cmsver=$1
 
+echo
+echo -e "Processing \e[36;4;1m$cmsver\e[0m >>>"
 cmsrel ${cmsver} || return
 cd ${cmsver}/src/
 cmsenv
