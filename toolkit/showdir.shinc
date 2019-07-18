@@ -60,7 +60,8 @@ function showdir()
     {
         [[ $2 -gt -1  && $2 =~ ^[0-9]+$ ]] && {
             [[ ! -f $1 ]] && { echo "error: input file does not exist." ; return ; }
-            $HOME/lsetup/toolkit/exec/$SHOWDIRCMSSWCREG/showdir $1 $(($2+1)) "$3" 2> /dev/null
+            [[ $# -eq 2 ]] && $HOME/lsetup/toolkit/exec/$SHOWDIRCMSSWCREG/showdir $1 $(($2+1)) 2> /dev/null
+            [[ $# -eq 3 ]] && $HOME/lsetup/toolkit/exec/$SHOWDIRCMSSWCREG/showdir $1 $(($2+1)) "$3" 2> /dev/null
             return
         }
     }

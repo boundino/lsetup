@@ -111,7 +111,7 @@ void xjjc::showdir::printtreeinfo(TTree* thistree, TString treename)
     }
   else if(fopt>0)
     {
-      if(ffilter=="*" || treename==ffilter)
+      if(ffilter=="*" || std::string(treename).find(ffilter)!=std::string::npos)
         {
           std::cout<<tcolor_blue<<std::endl;
           int ievt = fopt<nentries?(fopt-1):(nentries-1);
