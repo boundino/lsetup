@@ -15,23 +15,12 @@ fi
 #git config --global user.github boundino
 #git config --global user.email boundino@gmail.com
 
-source /raid5/root/root_v6.14.04/bin/thisroot.sh
+source /opt/rh/devtoolset-7/enable
+# source /raid5/root/root_v6.14.04/bin/thisroot.sh
+source /raid5/root/root-v6.16.00-gcc731/bin/thisroot.sh
 alias worksp='cd /raid5/data/wangj/home/'
 
-# if [[ $myhost = hidsk0001 ]]
-# then
-#     cd /net/hisrv0001/home/jwang/testEverything/CMSSW_8_0_22/src; cmsenv; cd -
-# fi
-
-# if [[ $myhost = submit || $myhost = submit-hi2 ]]
-# then
-#     cd /afs/lns.mit.edu/user/jwang/testEverything/CMSSW_8_0_22/src; cmsenv; cd -    
-# fi
-
 # User specific aliases and functions
-
-
-
 
 . ~/.bash_linux
 . ~/.bash_cms
