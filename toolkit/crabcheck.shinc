@@ -1,5 +1,11 @@
 #!/bin/bash
 
+########################################
+# -E: regex                            #
+# or:  crabcheck '0730|PiPi'           #
+# and: crabcheck '0730.+PiPi'          #
+########################################
+
 function crabcheck()
 {
     [[ $# -eq 0 ]] && { for i in `ls --color=auto crab_projects` ; do crab status -d crab_projects/$i ; done ; }
