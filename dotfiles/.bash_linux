@@ -10,6 +10,7 @@ alias ll='ls -lh'
 alias lla='ls -alh'
 alias la='ls -A'
 alias l='ls -CF'
+alias lsd='ls -d'
 alias ld='du -h --max-depth=1 .'
 alias lu='du -sh '
 # alias cat='cat'
@@ -32,6 +33,8 @@ alias psme="ps -efH | grep $USER"
 
 catt() { echo -e $(cat "$@" | sed  's/$/\\n/' | sed 's/ /\\a /g') ; }
 export -f catt
+echoo() { for i in `echo $@` ; do echo $i ; done ; }
+export -f echoo
 
 # export PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME%%.*}\007"'
 export PROMPT_COMMAND='echo -ne "\033]0;${PWD##*/}@${HOSTNAME%%.*}\007"'
