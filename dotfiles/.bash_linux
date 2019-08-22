@@ -15,6 +15,8 @@ alias ld='du -h --max-depth=1 .'
 alias lu='du -sh '
 # alias cat='cat'
 alias rl='readlink -f'
+alias rm='rm -v'
+alias mv='mv -v'
 
 alias ctf='ls -l | grep "^-" | wc -l'
 alias clearfolder='for i in "*.so" "*.d" "*.pcm" "*~" ".*~" ; do [[ -z `ls $i 2> /dev/null` ]] || { echo -ne "\e[2mrm:\e[0m " ; ls $i ; rm $i ; } ; done ;'
