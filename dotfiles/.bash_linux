@@ -14,7 +14,15 @@ alias lsd='ls -d'
 alias ld='du -h --max-depth=1 .'
 alias lu='du -sh '
 # alias cat='cat'
-alias rl='readlink -f'
+function rl() {
+    [[ $# -gt 1 ]] && {
+        for i in $@ ; do readlink -f $i ; done ;
+    } || {
+        readlink -f $1 ;
+    } ;
+}
+export -f rl
+# alias rl='readlink -f'
 alias rm='rm -v'
 alias mv='mv -v'
 
