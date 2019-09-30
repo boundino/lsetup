@@ -16,7 +16,7 @@
     }
 
   // =================================================== //
-  TColor::SetColorThreshold(0.);
+  // TColor::SetColorThreshold(0.);
   gStyle->SetPalette(1,0);
   gStyle->SetPadColor(0);
   gStyle->SetPadBorderSize(0);
