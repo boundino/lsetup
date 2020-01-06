@@ -15,6 +15,7 @@ alias hidsk="ssh -Y jwang@submit-hi2.mit.edu"
 alias hidsk01="ssh -Y jwang@submit-hi1.mit.edu"
 alias submitmit="ssh -Y jwang@submit.mit.edu"
 alias grendel="ssh -Y wangj@GRENDEL01.mit.edu"
+# alias grendel="ssh -Y wangj@18.77.5.35"
 alias Documents="cd ~/DropboxPersonal/Private/MacbookAir/"
 alias tunnel="ssh -f -N -L 10121:188.184.36.85:10121 wangj@lxplus.cern.ch"
 # export DOCPREFIX=/Users/xjjgww/Dropbox\ \(Personal\)/Private/MacbookAir/
@@ -49,7 +50,7 @@ export PROMPT_COMMAND='echo -ne "\033]0;${USER}@${PWD##*/}\007"'
 
 function lxplus()
 {
-    [[ $# -eq 0 ]] && { ssh -Y wangj@lxplus6.cern.ch ; }
+    [[ $# -eq 0 ]] && { ssh -Y wangj@lxplus.cern.ch ; }
     [[ $# -eq 1 ]] && { ssh -Y wangj@lxplus${1}.cern.ch ; }
 }
 export lxplus
