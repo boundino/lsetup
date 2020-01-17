@@ -9,3 +9,7 @@ pip3 install --upgrade pipenv
 
 # open another shell
 pipenv shell
+
+# install modules
+pipenv install requests_html
+pipenv install requests
