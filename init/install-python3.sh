@@ -7,9 +7,11 @@ brew install python3
 pip3 install --user pipenv
 pip3 install --upgrade pipenv
 
+# install modules
+pip3 install requests_html
+pip3 install requests
+
 # open another shell
 pipenv shell
-
-# install modules
-pipenv install requests_html
-pipenv install requests
+# pipenv install requests_html
+# pipenv install requests
