@@ -59,8 +59,11 @@ export lxplus
 function setxjjgww()
 {
     echo '
+[credential]
+        helper =
 [user]   
         name = xjjgww
         email = xjjgww@gmail.com
-        github = xjjgww' >> .git/config 
+        github = xjjgww
+' >> .git/config 
 }
