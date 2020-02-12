@@ -55,3 +55,12 @@ function lxplus()
     [[ $# -eq 1 ]] && { ssh -Y wangj@lxplus${1}.cern.ch ; }
 }
 export lxplus
+
+function setxjjgww()
+{
+    echo '
+[user]   
+        name = xjjgww
+        email = xjjgww@gmail.com
+        github = xjjgww' >> .git/config 
+}
