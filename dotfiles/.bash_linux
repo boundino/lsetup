@@ -51,3 +51,21 @@ export -f echoo
 export PROMPT_COMMAND='echo -ne "\033]0;${PWD##*/}@${HOSTNAME%%.*}\007"'
 
 alias colort='for i in {1..9..1} ; do { for j in {1..9..1} ; do { echo -ne "\e[3${j};${i}m3${j};${i}\e[0m   " ; } ; done ; echo ; } ; done ;'
+
+# toolkit
+function cbuildreg() {
+    cbuildreg_tmp=root
+    [[ x$CMSSW_VERSION == x ]] || {
+        cbuildreg_tmp=${CMSSW_VERSION##CMSSW_}
+        cbuildreg_tmp=${cbuildreg_tmp%%_*}
+        cbuildreg_tmp=$(echo $HOME/lsetup/toolkit/exec/CMSSW_${cbuildreg_tmp}*)
+        cbuildreg_tmp=${cbuildreg_tmp##*/}
+    }
+    echo $cbuildreg_tmp
+}
+
+alias diffleaf='$HOME/lsetup/toolkit/exec/$(cbuildreg)/diffleaf'
+. $HOME/lsetup/toolkit/showdir.shinc
+alias rmbranch='$HOME/lsetup/toolkit/exec/$(cbuildreg)/rmbranch'
+alias addbranch='$HOME/lsetup/toolkit/exec/$(cbuildreg)/addbranch'
+alias typetable='$HOME/lsetup/toolkit/exec/$(cbuildreg)/typetable'
