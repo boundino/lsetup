@@ -25,7 +25,12 @@ function xrdcpp()
     setupproxy
     SPATH=$(xrdrl $1)
     [[ $? -eq 0 ]] || { echo $SPATH ; return $?; }
-    [[ $SPATH == *.root ]] && xrdcp $SPATH $2 || xrdcp -r $SPATH $2
+    [[ $SPATH == *.root ]] && { xrdcp $SPATH $2 ; return 0 ; }
+    DES=""
+    mkdir -p $2
+    cd $2
+    for i in `ls --color=never $1` ; do { [[ ! -f $i ]] && { echo -e "\e[2m${SPATH}/$i\e[0m" ; xrdcp ${SPATH}/$i . ; } ; }; done ;
+    cd -
     return 0
 }
 export -f xrdcpp
@@ -55,7 +60,8 @@ function gfalcopy()
     DPATH=$(gfalrl $2)
     # [[ $? -eq 0 ]] || { echo $SPATH ; return $?; }
     [[ $1 == *.* ]] && { gfal-copy -p ${SPATH} ${DPATH} ; return 0 ; }
-    DES=${1##*/}
+    # DES=${1##*/}
+    DES=""
     for i in `gfal-ls ${SPATH}` ; do [[ ! -f $DPATH/$DES/$i ]] && { gfal-copy -p ${SPATH}/$i $DPATH/$DES/$i ; } ; done ;
     # gfal-copy -p -r ${SPATH} $2
     return 0
