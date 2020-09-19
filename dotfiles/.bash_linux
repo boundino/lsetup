@@ -23,7 +23,7 @@ function rl() {
 }
 export -f rl
 # alias rl='readlink -f'
-alias rm='rm -v'
+# alias rm='rm -v'
 alias mv='mv -v'
 alias cp='cp -v'
 
