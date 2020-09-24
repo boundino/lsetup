@@ -103,10 +103,17 @@ void xjjc::showdir::printtreeinfo(TTree* thistree, TString treename)
   // >> complex
   if(fopt==-1)
     {
-      if(findbranch_print(thistree))
+      if(ffilter=="*" || std::string(treename).find(ffilter)!=std::string::npos)
         {
           std::cout<<tcolor_red<<std::endl;
-          thistree->Print(ffilter.Data()); std::cout<<"\e[0m";
+          thistree->Print(); std::cout<<"\e[0m";
+        }
+      else if(findbranch_print(thistree))
+        {
+          std::cout<<tcolor_red<<std::endl;
+          std::string flt(ffilter);
+          if(std::string(flt).find("*")==std::string::npos) flt += "*";
+          thistree->Print(flt.c_str()); std::cout<<"\e[0m";
         }
     }
   else if(fopt>0)
