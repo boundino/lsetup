@@ -18,6 +18,7 @@ alias submitmit="ssh -Y jwang@submit.mit.edu"
 alias grendel="ssh -Y wangj@GRENDEL01.mit.edu"
 # alias grendel="ssh -Y wangj@18.77.5.35"
 alias Documents="cd ~/Dropbox\ \(Personal\)/Private/MacbookAir/"
+alias Results="cd ~/Desktop/Results/"
 alias tunnel="ssh -f -N -L 10121:188.184.36.85:10121 wangj@lxplus.cern.ch"
 # export DOCPREFIX=/Users/xjjgww/Dropbox\ \(Personal\)/Private/MacbookAir/
 #alias tree="tree | ascii2uni -a K"
@@ -34,7 +35,7 @@ export LANGUAGE="en_US.UTF-8"
 
 parse_git_branch() { git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/' ; }
 PS1=$'${debian_chroot:+($debian_chroot)}\[\e[38;2;255;255;143;1m\]\u\[\e[38;2;121;113;80m\]:~ \[\e[38;5;153;1m\]\h\[\e[00m\]:\[\e[38;2;205;162;184;1m\]\w \[\e[00m\]
-\[\e[38;2;45;79;128;1m\]($(parse_git_branch))\[\e[00m\] \[\e[38;2;205;162;184;1m\]${PWD##*/}/\[\e[00m\] \[\e[38;2;170;170;170;1m\]\u2044(\u2044\u2044\u2022\u2044\u03C9\u2044\u2022\u2044\u2044)\u2044\[\e[00m\]$ '
+\[\e[38;2;94;128;173;1m\]($(parse_git_branch))\[\e[00m\] \[\e[38;2;205;162;184;1m\]${PWD##*/}/\[\e[00m\] \[\e[38;2;170;170;170;1m\]\u2044(\u2044\u2044\u2022\u2044\u03C9\u2044\u2022\u2044\u2044)\u2044\[\e[00m\]$ '
 PS4=$'\[\e[38;2;165;255;170;1m\]L${LINENO} + \[\e[0m\]'
 
 # color
@@ -46,7 +47,7 @@ eval "$(dircolors ~/.dircolors)"
 #export LSCOLORS=gxfxaxdxcxegedabagacad
 
 #
-[[ -f $HOME/macrosc/buildroot/bin/thisroot.sh ]] && { . $HOME/macrosc/buildroot/bin/thisroot.sh ; alias root='root -l' ; }
+[[ -f $HOME/buildroot/bin/thisroot.sh ]] && { . $HOME/buildroot/bin/thisroot.sh ; alias root='root -l' ; }
 
 export PROMPT_COMMAND='echo -ne "\033]0;${USER}@${PWD##*/}\007"'
 
