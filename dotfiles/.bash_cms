@@ -6,7 +6,7 @@ export LANGUAGE="en_US.UTF-8"
 
 parse_git_branch() { git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/' ; }
 howmanyme() { [[ $(who | grep -e ^$USER | wc -l) -gt 1 ]] && { echo ' ('$(who | grep -e ^$USER | wc -l)')'; } ; }
-export PS1=$'\[\e[38;2;255;255;143;1m\]\u\[\e[38;2;121;113;80m\]:~ \[\e[38;5;153;1m\]\h\[\e[00m\] \[\e[38;5;153;2m\](${SCRAM_ARCH})\[\e[00m\]:\[\e[38;2;205;162;184;1m\]\w\[\e[00m\] \n\[\e[38;5;96;2m\]($CMSSW_VERSION):($(parse_git_branch))\[\e[00m\]\[\e[38;2;205;92;92;1m\]$(howmanyme)\[\e[00m\] \[\e[38;2;205;162;184;1m\]${PWD##*/}/\[\e[00m\] \[\e[38;2;170;170;170;1m\](\xE2\x9C\xBF \xCB\xB5\xE2\x97\x95 \xE2\x80\xBF \xE2\x97\x95\xCB\xB5)\[\e[00m\]$ '
+export PS1=$'\[\e[38;2;255;255;143;1m\]\u\[\e[38;2;121;113;80m\]:~ \[\e[38;5;153;1m\]\h\[\e[00m\] \[\e[38;5;153;2m\](${SCRAM_ARCH})\[\e[00m\]:\[\e[38;2;205;162;184;1m\]\w\[\e[00m\] \n\[\e[38;5;139;2m\]($CMSSW_VERSION):($(parse_git_branch))\[\e[00m\]\[\e[38;2;205;92;92;1m\]$(howmanyme)\[\e[00m\] \[\e[38;2;205;162;184;1m\]${PWD##*/}/\[\e[00m\] \[\e[38;2;170;170;170;1m\](\xE2\x9C\xBF \xCB\xB5\xE2\x97\x95 \xE2\x80\xBF \xE2\x97\x95\xCB\xB5)\[\e[00m\]$ '
 # export PS1=$'\[\e[38;2;255;255;143;1m\]\u\[\e[38;2;121;113;80m\]:~ \[\e[38;5;153;1m\]\h\[\e[00m\]:\[\e[38;2;205;162;184;1m\]\w\[\e[00m\]\n\[\e[38;2;45;79;128;1m\]($CMSSW_VERSION) \[\e[38;2;205;162;184;1m\]${PWD##*/}/\[\e[00m\] \[\e[38;2;170;170;170;1m\](\xE2\x9C\xBF \xCB\xB5\xE2\x97\x95 \xE2\x80\xBF \xE2\x97\x95\xCB\xB5)\[\e[00m\]$ '
 export PS4=$'\[\e[38;2;165;255;170;1m\]L${LINENO} + \[\e[0m\]'
 
