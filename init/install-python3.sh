@@ -12,6 +12,8 @@ pip3 install requests_html
 pip3 install requests
 
 # open another shell
-pipenv shell
+# pipenv shell
 # pipenv install requests_html
 # pipenv install requests
+
+pip3 install jupyterlab
