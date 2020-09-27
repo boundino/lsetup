@@ -1,6 +1,6 @@
 #!/bin/bash
 
-[[ $0 == *.sh ]] && { echo "usage: source build.sh [cmssw ver]" ; exit 1 ; }
+[[ $0 == *.sh ]] && { echo "usage: source build.sh ([cmssw ver])" ; exit 1 ; }
 
 # CMSSW_10_3_3_patch1 CMSSW_9_4_13_patch1 CMSSW_8_0_24
 
