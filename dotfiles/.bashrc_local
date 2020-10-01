@@ -29,6 +29,8 @@ alias mitdropbox="cd ~/Dropbox\ \(MIT\)/"
 alias cleardesk="defaults write com.apple.finder CreateDesktop -bool FALSE;killall Finder"
 alias showdesk="defaults delete com.apple.finder CreateDesktop;killall Finder"
 
+function nicodetails() { python3 $HOME/macrosc/vocaranlist/toolkit/videodetails.py ${1} ; }
+
 export LANG="en_US.UTF-8"
 export LC_CTYPE="en_US.UTF-8"
 export LANGUAGE="en_US.UTF-8"
