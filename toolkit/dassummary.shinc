@@ -10,6 +10,7 @@ function dassummary()
     newline=0
     verbose=0
     force=0
+    file=
     for i in $@
     do
         [[ $i == --dataset=* ]] && dataset=${i##"--dataset="}
@@ -18,9 +19,10 @@ function dassummary()
         [[ $i == --newline || $i == -nl ]] && newline=1
         [[ $i == --verbose || $i == -v ]] && verbose=1
         [[ $i == -f ]] && force=1
+        [[ $i == --file=* ]] && file=${i##"--file="}
     done
 
-    [[ x$dataset == "x" ]] && { echo "usage: dassummary --dataset=[pattern] --instance=[global or phys03] (--run) (--color=no or -nc) (--newline or -nl) (--verbose or -v)" ; return ; }
+    [[ x$dataset == "x" ]] && { echo "usage: dassummary --dataset=[pattern] (--instance=[global or phys03]) (--run) (--color=no or -nc) (--newline or -nl) (--verbose or -v) (--file=[i])" ; return ; }
 
     [[ $dataset == */USER && $instance != "phys03" && $force -eq 0 ]] && {
         echo -e "${colorwarn}warning: autoset --instance=phys03 for private MC production. use -f to force --instance not to change. \n${endcolor}"
@@ -31,7 +33,11 @@ function dassummary()
         echo -e "$setcolor$i$endcolor"
         dasgoclient -query="summary dataset=$i instance=prod/$instance"
         dasfilelist=($(dasgoclient -query="file dataset=$i instance=prod/$instance"))
-        echo -e "$colorfile${dasfilelist[0]}$endcolor"
+        ifile=0
+        [[ x$file != "x" ]] && {
+            [[ $file -lt ${#dasfilelist[@]} && $file -gt 0 ]] && ifile=$file
+        }
+        echo -e "$colorfile${dasfilelist[ifile]}$endcolor"
 
         [[ $verbose -eq 1 ]] && {
             echo -en "${colorver}{"
@@ -55,6 +61,9 @@ function dassummary()
         }
         IFS='/' ; subdataset=(${i}) ; unset IFS ;
         echo -e "$colorurl"'https://cmsweb.cern.ch/das/request?view=list&limit=50&instance=prod%2F'$instance'&input=%2F'${subdataset[1]}'%2F'${subdataset[2]}'%2F'${subdataset[3]}''"$endcolor"
+
+        [[ $file == -1 ]] && { for i in ${dasfilelist[@]} ; do echo -e "$i$endcolor" ; done ; }
+
         [[ $newline -eq 1 ]] && echo
     done
 }

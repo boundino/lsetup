@@ -112,7 +112,7 @@ void xjjc::showdir::printtreeinfo(TTree* thistree, TString treename)
         {
           std::cout<<tcolor_red<<std::endl;
           std::string flt(ffilter);
-          if(std::string(flt).find("*")==std::string::npos) flt += "*";
+          if(std::string(flt).find("*")==std::string::npos) flt = "*"+flt+"*";
           thistree->Print(flt.c_str()); std::cout<<"\e[0m";
         }
     }
