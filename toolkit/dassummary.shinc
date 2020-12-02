@@ -69,6 +69,14 @@ function dassummary()
 }
 export -f dassummary
 
+function dasgo
+{
+    str="$1 $2"
+    [[ "$2" == */user/* || "$2" == *USER* ]] && str="$str instance=prod/phys03"
+    dasgoclient -query="$str"
+}
+export -f dasgo
+
 function dastable
 {
     colortitle="\e[32m" ; colorend="\e[0m"
