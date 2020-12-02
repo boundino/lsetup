@@ -4,7 +4,9 @@
 	name = boundino
 	email = boundino@gmail.com
 	github = boundino
-	name = Jing
+	name = Jing Wang
+[includeIf "gitdir:~/myDir/"]
+        path = ~/myDir/.gitconfig
 [core]
         askPass =
 	excludesfile = ~/.gitignore
