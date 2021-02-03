@@ -27,7 +27,28 @@ export -f rl
 alias mv='mv -v'
 alias cp='cp -v'
 
-alias ctf='ls -l | grep "^-" | wc -l'
+function ctf() {
+    args=()
+    arg_v=0
+    for i in $@
+    do
+        if [[ $i == "-v" ]]; then arg_v=1 ; 
+        else args+=($i)
+        fi
+    done
+    summ=0
+    for i in ${args[@]}
+    do
+        countt=$(ls -l $i | grep "^-" | wc -l)
+        [[ $arg_v -eq 1 ]] && echo -e "$countt \e[2m($i)\e[0m"
+        summ=$(($summ+$countt))
+    done
+    [[ $arg_v -eq 1 ]] && {
+        echo -e "------------"
+        echo -e "\e[4;1m$summ\e[0m \e[2m(sum)\e[0m" ; } || {
+        echo $summ
+    }
+}; export -f ctf
 alias clearfolder='for i in "*.so" "*.d" "*.pcm" "*~" ".*~" ; do [[ -z `ls $i 2> /dev/null` ]] || { echo -ne "\e[2mrm:\e[0m " ; ls $i ; rm $i ; } ; done ;'
 
 # alias cpp='rsync --info=progress2'
@@ -70,15 +91,15 @@ function cbuildreg() {
     cbuildreg_tmp=root
     [[ x$CMSSW_VERSION == x ]] || {
         cbuildreg_tmp=${CMSSW_VERSION##CMSSW_}
-        cbuildreg_tmp=${cbuildreg_tmp%%_*}
-        cbuildreg_tmp=$(echo $HOME/lsetup/toolkit/exec/CMSSW_${cbuildreg_tmp}*)
-        cbuildreg_tmp=${cbuildreg_tmp##*/}
-    }
-    echo $cbuildreg_tmp
-}
+            cbuildreg_tmp=${cbuildreg_tmp%%_*}
+            cbuildreg_tmp=$(echo $HOME/lsetup/toolkit/exec/CMSSW_${cbuildreg_tmp}*)
+            cbuildreg_tmp=${cbuildreg_tmp##*/}
+            }
+            echo $cbuildreg_tmp
+        }
 
-alias diffleaf='$HOME/lsetup/toolkit/exec/$(cbuildreg)/diffleaf'
-. $HOME/lsetup/toolkit/showdir.shinc
-alias rmbranch='$HOME/lsetup/toolkit/exec/$(cbuildreg)/rmbranch'
-alias addbranch='$HOME/lsetup/toolkit/exec/$(cbuildreg)/addbranch'
-alias typetable='$HOME/lsetup/toolkit/exec/$(cbuildreg)/typetable'
+        alias diffleaf='$HOME/lsetup/toolkit/exec/$(cbuildreg)/diffleaf'
+        . $HOME/lsetup/toolkit/showdir.shinc
+        alias rmbranch='$HOME/lsetup/toolkit/exec/$(cbuildreg)/rmbranch'
+        alias addbranch='$HOME/lsetup/toolkit/exec/$(cbuildreg)/addbranch'
+        alias typetable='$HOME/lsetup/toolkit/exec/$(cbuildreg)/typetable'
