@@ -31,6 +31,7 @@ then
 elif [[ $myhost = submit ]]
 then
     alias dalscrath='cd /mnt/T2_US_MIT/submit-hi2/scratch/jwang/'
-    alias worksp='cd /mnt/T2_US_MIT/submit-hi2/scratch/jwang/scratchHome/'
+    # alias worksp='cd /mnt/T2_US_MIT/submit-hi2/scratch/jwang/scratchHome/'
+    alias worksp='cd /work/jwang/'
 fi
 
