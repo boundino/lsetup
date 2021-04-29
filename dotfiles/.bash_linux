@@ -73,17 +73,39 @@ export -f echoo
 export PROMPT_COMMAND='echo -ne "\033]0;${PWD##*/}@${HOSTNAME%%.*}\007"'
 
 function colort() {
-    for i in {1..9..1}
+    for i in {1..9}
     do
-        for j in {1..9..1}
+        for j in {0..7}
         do { echo -ne "\e[3${j};${i}m3${j};${i}\e[0m   " ; } ; done ; 
         echo
     done
-    # for j in {1..9..1}
-    # do
-    #     echo -ne "\e[4${j};1m4${j};1\e[0m   "
-    # done
-    # echo
+}
+export colort
+
+function colort2() {
+    for j in {0..7}
+    do
+        echo -ne " \e[4${j}m   4${j}    \e[0m "
+    done
+    echo
+    for j in {0..7}
+    do
+        echo -ne " \e[4${j};1m  4${j};1   \e[0m "
+    done
+    echo
+    for i in {0..7}
+    do
+        for j in {0..7}
+        do
+            echo -ne " \e[4${j};3${i}m  4${j};3${i}  \e[0m "
+        done
+        echo
+        for j in {0..7}
+        do
+            echo -ne " \e[4${j};3${i};1m 4${j};3${i};1 \e[0m "
+        done
+        echo
+    done
 }
 export colort
 
@@ -92,15 +114,15 @@ function cbuildreg() {
     cbuildreg_tmp=root
     [[ x$CMSSW_VERSION == x ]] || {
         cbuildreg_tmp=${CMSSW_VERSION##CMSSW_}
-            cbuildreg_tmp=${cbuildreg_tmp%%_*}
-            cbuildreg_tmp=$(echo $HOME/lsetup/toolkit/exec/CMSSW_${cbuildreg_tmp}*)
-            cbuildreg_tmp=${cbuildreg_tmp##*/}
-            }
-            echo $cbuildreg_tmp
-        }
+        cbuildreg_tmp=${cbuildreg_tmp%%_*}
+        cbuildreg_tmp=$(echo $HOME/lsetup/toolkit/exec/CMSSW_${cbuildreg_tmp}*)
+        cbuildreg_tmp=${cbuildreg_tmp##*/}
+    }
+    echo $cbuildreg_tmp
+}
 
-        alias diffleaf='$HOME/lsetup/toolkit/exec/$(cbuildreg)/diffleaf'
-        . $HOME/lsetup/toolkit/showdir.shinc
-        alias rmbranch='$HOME/lsetup/toolkit/exec/$(cbuildreg)/rmbranch'
-        alias addbranch='$HOME/lsetup/toolkit/exec/$(cbuildreg)/addbranch'
-        alias typetable='$HOME/lsetup/toolkit/exec/$(cbuildreg)/typetable'
+alias diffleaf='$HOME/lsetup/toolkit/exec/$(cbuildreg)/diffleaf'
+. $HOME/lsetup/toolkit/showdir.shinc
+alias rmbranch='$HOME/lsetup/toolkit/exec/$(cbuildreg)/rmbranch'
+alias addbranch='$HOME/lsetup/toolkit/exec/$(cbuildreg)/addbranch'
+alias typetable='$HOME/lsetup/toolkit/exec/$(cbuildreg)/typetable'
