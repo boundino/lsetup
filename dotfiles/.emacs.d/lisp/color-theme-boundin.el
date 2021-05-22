@@ -6,8 +6,8 @@
   (interactive)
   (color-theme-install
    '(color-theme-boundin
-     ((background-color . "black")
-      (background-mode . dark)
+     ;; ((background-color . "black")
+      ((background-mode . dark)
       (border-color . "white")
       (cursor-color . "yellow")
       (foreground-color . "#ffffff")
