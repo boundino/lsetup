@@ -63,6 +63,17 @@ alias grepc='grep --color=yes'
 alias less='less -RMN'
 alias ccat='highlight -O ansi --force'
 alias psme="ps -efH | grep ^$USER"
+alias unpack='tar -xvf'
+alias pack='tar -czvf'
+
+packf() {
+    par=${1%%'/'}
+    name=${par##*/}
+    file=${name%%.*}
+    ftype=${name##*.}
+    [[ x$ftype != x$name ]] && { file=${file}-${ftype} ; }
+    tar -czvf ${file}.tar.gz $1
+}
 
 catt() { echo -e $(cat "$@" | sed  's/$/\\n/' | sed 's/ /\\a /g') ; }
 export -f catt
