@@ -65,7 +65,7 @@ alias ccat='highlight -O ansi --force'
 alias psme="ps -efH | grep ^$USER"
 alias unpack='tar -xvf'
 alias pack='tar -czvf'
-alias push='git push origin master'
+alias gpush='git push origin master'
 
 packf() {
     par=${1%%'/'}
