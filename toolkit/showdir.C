@@ -27,8 +27,8 @@ namespace xjjc
     bool findbranch_scan(TTree* thistree);
     bool findbranch_print(TTree* thistree);
 
-    TString tcolor_red = "\e[38;2;211;171;171m";
-    TString tcolor_blue = "\e[38;2;168;188;201m";
+    TString tcolor_red = "\e[36m";
+    TString tcolor_blue = "\e[36m";
   };
 }
 
