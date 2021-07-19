@@ -5,7 +5,7 @@
 # GNU https://www.topbug.net/blog/2013/04/14/install-and-use-gnu-command-line-tools-in-mac-os-x/
 # $(brew --prefix coreutils) => /usr/local/opt/coreutils
 export PATH="/usr/local/opt/coreutils/libexec/gnubin:/usr/local/bin:$PATH"
-export PATH="/usr/local/opt/gnu-sed/libexec/gnubin:$PATH"
+# export PATH="/usr/local/opt/gnu-sed/libexec/gnubin:$PATH"
 export MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
 
 alias doc="cd ~/Documents"
@@ -36,8 +36,8 @@ export LC_CTYPE="en_US.UTF-8"
 export LANGUAGE="en_US.UTF-8"
 
 parse_git_branch() { git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/' ; }
-PS1=$'${debian_chroot:+($debian_chroot)}\[\e[33;1m\]\u\[\e[33;2m\]:~ \[\e[00m\]\[\e[34;1m\]\h\[\e[00m\]:\[\e[38;2;205;162;184;1m\]\w \[\e[00m\]
-\[\e[34;2m\]($(parse_git_branch))\[\e[00m\] \[\e[38;2;205;162;184;1m\]${PWD##*/}/\[\e[00m\] \[\e[38;2;170;170;170;1m\]\u2044(\u2044\u2044\u2022\u2044\u03C9\u2044\u2022\u2044\u2044)\u2044\[\e[00m\]$ '
+PS1=$'${debian_chroot:+($debian_chroot)}\[\e[33m\]\u\[\e[33;2m\]:~ \[\e[00m\]\[\e[34m\]\h\[\e[00m\]:\[\e[38;2;205;162;184m\]\w \[\e[00m\]
+\[\e[34;2m\]($(parse_git_branch))\[\e[00m\] \[\e[38;2;205;162;184m\]${PWD##*/}/\[\e[00m\] \[\e[38;2;170;170;170m\]\u2044(\u2044\u2044\u2022\u2044\u03C9\u2044\u2022\u2044\u2044)\u2044\[\e[00m\]$ '
 PS4=$'\[\e[38;2;165;255;170;1m\]L${LINENO} + \[\e[0m\]'
 
 # color
