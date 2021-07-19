@@ -5,7 +5,7 @@
 
 # Install Homebrew in case it is not installed #
 # https://brew.sh/ #
-# /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+# /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
 # Add in .bashrc #
 # export PATH="$(brew --prefix coreutils)/libexec/gnubin:/usr/local/bin:$PATH"

@@ -4,7 +4,7 @@
 # https://brew.sh/ #
 
 # Install Homebrew in case it is not installed #
-/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
 # Test #
 echo $(brew --prefix)

@@ -4,19 +4,19 @@
 brew install python3
 
 # install pipenv
-pip3 install --user pipenv
-pip3 install --upgrade pipenv
+python3 -m pip install --user pipenv
+python3 -m pip install --upgrade pipenv
 
 # install modules
-pip3 install requests_html
-pip3 install requests
+python3 -m pip install requests_html
+python3 -m pip install requests
 
 # install math modules
-pip3 install numpy
-pip3 install scipy
-pip3 install matplotlib
-pip3 install h5py
-pip3 install lmfit
+python3 -m pip install numpy
+python3 -m pip install scipy
+python3 -m pip install matplotlib
+python3 -m pip install h5py
+python3 -m pip install lmfit
 
 # open another shell
 # pipenv shell
@@ -24,6 +24,6 @@ pip3 install lmfit
 # pipenv install requests
 
 # jupyter notebook
-pip3 install jupyterlab
-pip3 install notebook
+python3 -m pip install jupyterlab
+python3 -m pip install notebook
 
