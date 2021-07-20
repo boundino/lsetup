@@ -4,7 +4,6 @@
 	name = boundino
 	email = boundino@gmail.com
 	github = boundino
-	name = Jing Wang
 [includeIf "gitdir:~/myDir/"]
         path = ~/myDir/.gitconfig
 [core]
