@@ -1,0 +1,41 @@
+#!/bin/bash
+
+input_path="$1"
+
+case "$input_path" in
+    */notes/*) style_detect="note" ;;
+    */papers/*) style_detect="paper" ;;
+    *) style_detect="paper" ;;
+esac
+tdr_style=${style:-"$style_detect"}
+
+diff_path="`dirname \"\`readlink -f \\\"$0\\\"\`\"`"
+temp_path="$diff_path/tmp_magic"
+output_path="$diff_path/output"
+
+cadi=`basename $input_path`
+tdr_temp_basename=`basename "$input_path" | sed "s/\$/_temp/"`
+
+cd export_diff/
+
+perl utils/tdr --temp_dir "$temp_path" --draft --style $tdr_style \
+    b $tdr_temp_basename
+
+cd $diff_path
+
+if [ -f "$temp_path/${tdr_temp_basename}_temp.pdf" ]; then
+    mv -f "$temp_path/${tdr_temp_basename}_temp.pdf" \
+        $output_path/${tdr_temp_basename}.pdf
+
+    # clean up
+    rm -r export_to export_from export_diff
+    rm -r $temp_path
+
+    echo '''
+-------------------------------------------------------------------
+ PDF Output file: $output_path/$tdr_temp_basename.pdf
+-------------------------------------------------------------------
+'''
+
+fi
+

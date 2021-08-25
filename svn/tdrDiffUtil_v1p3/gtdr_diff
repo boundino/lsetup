@@ -1,0 +1,271 @@
+#!/bin/bash
+
+# Latexdiff wrapper for CMS TDR (on gitlab)
+# Please send issues/problem reports to Yue Shi Lai <ylai@mit.edu>
+
+fetch() {
+    # echo -e "\e[41;1m $input_path"
+    set -x
+    pushd "$input_path"
+
+    branch=$(git rev-parse --abbrev-ref HEAD)
+    git checkout -b tmp_$2 "$1"
+    "$input_path"/utils/tdr --temp_dir="$temp_path" --style="$tdr_style" \
+	--export b `basename "$input_path"`
+        git checkout $branch
+        git branch -D tmp_$2
+
+        popd
+        mv "${input_path}/${cadi}".tgz "$export_path" 
+        rm -rf export "$2"
+        tar -zxf "$export_path"
+        mv -f export "$2"
+        # echo -e "\e[0m"
+        set +x
+}
+
+preprocess_clean() {
+    sed "s/^\\(\\\\RCS\\)/%TDR%DIFF%\\1/;\
+s/^\\(\\\\title{\\)\\(.*\\)}/%TDR%DIFF%\\1%\\n\\2%\\n%TDR%DIFF%}/;\
+s/^\\(\\\\abstract{\\)/%TDR%DIFF%\\1/;\
+/}\$/{N;N;s/\\}\\n\\n\\(% >> PDF Metadata\\)/\
+%\\n%TDR%DIFF%\\}\\n\\n\\1/};
+s/\\(.*\\)\\\\\\([a-z]*\\)section{/\
+%TDR%DIFF%\\1\\\\\\2section{/" < "$1"
+}
+
+input_list() {
+    grep "input" export_diff/$cadi.tex | grep -o '{.*}' | sed 's/[{}]//g'
+}
+
+postprocess_clean() {
+    sed "s/^%TDR%DIFF%//;s/%DIF \. TDR%DIFF%//;s/%DIF < TDR%DIFF%//;
+/\\\\\\([a-z]*\\)section{/{\
+s/\\\\\\([a-z]*\\)section\\\\{\\\\DIF\\([a-z]*\\)\\\\{/\
+\\\\DIF\\2\\\\{\\\\\\1section\\\\{/;s/\\\\DIF\\([a-z]*\\)//g}" < \
+    "$1"
+}
+
+remove_unknown_pkg() {
+    sed "s/\\usepackage{adjustbox}/%%%/;" < "$1"
+}
+
+helpmsg() {
+    echo -e "usage: $BASH_SOURCE [directory] [old-commit] [new-commit]";
+    echo -e "    -h, --help	show (this) help message"
+    echo -e "    -s, --style	tdr style [note/paper]"
+}
+
+ARGS=()
+
+while [ $# -gt 0 ]; do
+    case "$1" in
+	-h|--help)	helpmsg; exit 0 ;;
+	-s|--style)	style="$2"; shift 2 ;;
+	--style=*)	style="${1#*=}"; shift ;;
+	-*)		echo -e "invalid option: $1\n"; exit 1 ;;
+	*)		ARGS+=("$1"); shift ;;
+    esac
+done
+
+
+set -- "${ARGS[@]}"
+
+[ $# -ne 3 ] && { helpmsg; exit 1; }
+
+input_path="$1"
+revision_from="$2"
+revision_to="$3"
+
+# attempt to detect tdr style (defaults to paper)
+case "$input_path" in
+    */notes/*) style_detect="note" ;;
+    */papers/*) style_detect="paper" ;;
+    *) style_detect="paper" ;;
+esac
+tdr_style=${style:-"$style_detect"}
+
+diff_path="`dirname \"\`readlink -f \\\"$0\\\"\`\"`"
+echo -e "diff_path \e[41;1m${diff_path}\e[0m"
+algorithm_diff_path="$diff_path/Algorithm-Diff-1.15/lib"
+latexdiff="$diff_path/latexdiff/latexdiff"
+temp_path="$diff_path/tmp_magic"
+output_path="$diff_path/output"
+
+mkdir -p "$temp_path"
+mkdir -p "$output_path"
+
+cadi=`basename $input_path`
+tdr_path="`readlink -f \"\`echo \\\"$input_path\\\"\`\"`"
+export_path="$temp_path/$cadi.tgz"
+echo -e "export_path\e \e[41;1m $export_path\e[0m"
+tdr_temp_basename=`basename "$input_path" | sed "s/\$/_temp/"`
+
+echo "cadi: $cadi"
+echo "input path: $input_path"
+
+# setup environment for git, tdr
+source scl_source enable rh-git29
+eval `$input_path/utils/tdr runtime -sh`
+
+if [ -n "$revision_from" ] && [ -n "$revision_to" ]; then
+    fetch "$revision_from" export_from
+    fetch "$revision_to" export_to
+fi
+
+echo -e "\e[41;1m test-after fetch \e[0m"
+
+cleaned_tex_from="export_from/${tdr_temp_basename}_temp_from.tex"
+cleaned_tex_to="export_from/${tdr_temp_basename}_temp_to.tex"
+unclean_tex_diff="export_diff/${tdr_temp_basename}_raw.tex"
+tex_diff="export_diff/$tdr_temp_basename.tex"
+bbl_diff="export_diff/$tdr_temp_basename.bbl"
+
+rm -rf export_diff
+mkdir export_diff
+pushd export_diff
+ln -sf ../export_to/* .
+for f in "$tdr_path/utils/general/pdfdraftcopy.sty" \
+    "$tdr_path/utils/general/changepage.sty" \
+    "$tdr_path/utils/general/ptdr-definitions.tex" \
+    "$tdr_path/utils/general/BigDraft.pdf"; do
+    rm -f "`basename \"$f\"`"
+    ln -s "$f" .
+done
+popd
+
+rm -f "$tex_diff" "$bbl_diff"
+
+preprocess_clean "export_from/$tdr_temp_basename.tex" > \
+    "$cleaned_tex_from"
+preprocess_clean "export_to/$tdr_temp_basename.tex" > \
+    "$cleaned_tex_to"
+PERL5LIB="$algorithm_diff_path" $latexdiff "$cleaned_tex_from" \
+    "$cleaned_tex_to" > "$unclean_tex_diff"
+postprocess_clean "$unclean_tex_diff" > "$tex_diff"
+
+PERL5LIB="$algorithm_diff_path" $latexdiff \
+    "export_from/$tdr_temp_basename.bbl" \
+    "export_from/$tdr_temp_basename.bbl" > "$bbl_diff"
+
+input_file_list="`input_list \"$tex_diff\"`"
+echo "printing list from $tex_diff"
+echo "`input_list \"$tex_diff\"`"
+echo "  "
+for f in $input_file_list; do
+    f="${f//.tex}"
+    d="`dirname \"$f\"`"
+    [ -L "export_diff/$d" ] && rm -f "export_diff/$d"
+    mkdir -p "export_diff/$d"
+    PERL5LIB="$algorithm_diff_path" $latexdiff "export_from/$f.tex" \
+	"export_to/$f.tex" > "export_to/${f}_temp.tex"
+    echo "latexdiff'd: ${f}"
+    postprocess_clean "export_to/${f}_temp.tex" > "export_diff/$f.tex"
+done
+
+pushd export_diff
+remove_unknown_pkg "cms-tdr.cls" > "cms-tdr_temp.cls"
+mv cms-tdr_temp.cls cms-tdr.cls
+# add package for strikethrough and wavy underline
+sed -i '1s/^/\\usepackage[normalem]{ulem}\n/' cms-tdr.cls
+# comment out lines that conflict with tdr
+sed -i '/\(documentclass\|cmsNoteHeader\|RequirePackage\)/s/^/%/' \
+    $tdr_temp_basename.tex
+# remove duplicate .bib
+rm auto_generated.bib
+perl utils/tdr --temp_dir "$temp_path" --draft --style $tdr_style \
+    b $tdr_temp_basename
+popd
+
+if [ -f "$temp_path/${tdr_temp_basename}_temp.pdf" ]; then
+    mv -f "$temp_path/${tdr_temp_basename}_temp.pdf" \
+	$output_path/${tdr_temp_basename}.pdf
+    cat <<'EOF'
+
+
+
+
+
+
+         ctT?
+        Ii |Yonx=
+       JF     >i1oe}<
+      y9+         }Ckky>
+     iM1             iZmk(
+     4O                +nqe
+    vby                  +/V5|
+    nbi                    LdO1   ; ?+\*><i
+    #P<                +itf4hYf >>;Lf1aXoGkTYY<>
+    ZE           +(YISOMpufv"   <;   +\i+   r/]]"\sx;
+   >G4        >1#EyyY?+          r   <(         riyoZ=<        +r]YsVa4Vea33$#on;r< r
+   rOJ        *"                      =<        rv>   <r+i|jaXua}7"?>=>  ; v)(vvv\><z1YY
+  **Ov               )|iftFz1)                +;     ""   c7vl                        TI
+  v{7      =<<            +]6I     iL{Yl*\+r                )(>                      "K<
+  1xc  +vv{v=+ >|>   >       < rjY=  ?hZ?Te%5l                +                     >9y
+ >kfT"vi=              >?<; v1i+      >Z%ky\<Tn"                  "Tr               #k>
+  1s?i(                     "  +       vi      Lv  1m65sT<         +t             >kPi
+ +Y*       +=;>                       =J>       {=+vv;+<rvx[                      cq4
+ }c            +          Tn;=    >iv7*c7       "v"         +    ><<             v66>
+ XY      <+*|<            >]A641TTfi||v*V/            <             >i?r        /TP|
+>n+   (iiv(< +r +           IU"*([1YY1Yi;yY<         "       ++      >>vi      i[3r
+7?<<+>)i=+*r<               [@i>|vivTTYYv=/yf/r >]T*   >               *i<    7nnY
+7i;)L*i?*>                  vO1+v77YY11Lv]*\#0]/"\  <\<                 ?r   s7yT
+\i*|\                       jOY<;"i1T}7Tv+sST          ;(     <*r        >  o\)=
+ril                         6Olxycsi|(/*"tSr              <     <i"       voi>
+i<                          F2    7n\ >{44                  <    <v>>    (/>"
+]v/                         F     {    Ip                        r++v( <a#r
+ =7\                        lY   ?;   J$=                         )">i/TT\
+ Vv                         <V"      \\                           >i\\(j<
+ YMuv                         >[xvicr                              i7\vXV
+  )epPT                  +                                         ?lr+<l
+    +50Gy+               >)                                        1ezi)
+      =I8G1                ?                                      +yVs< 
+        "v]lv              <y$#zI1;                                r]L"
+           (iv                ><<                              [{\*+>
+            9O++"                                              (i1Y>
+           {Op   ft=                                     +    ;xv"
+          *0pi    >+*                           +\=< \z >+
+         LK0x                              iisyi=?v1X"
+        cAJivii)+                                 LU@p;
+      v;>   +<+=";\i<                            >=#OOA
+     YfL>                                <">r<ivivi*tq0Z>
+      vT<                                            <oUZ=
+    (efv+\r<+                                        vl"{/
+   \afo* |>+>r*(v=    <>r<+                      >*; =Y]svT*
+   |TZ+  i<?+=/ v<>+                         =">>|")=*7TYv<
+    ?v                                                  "=vj\
+    v                                                    1 +/
+    v\<                                                 )))
+     91    +  <                                        "XfJY                           1zz.
+     9Vivii/|?;                                 r|lx[LL}5z>eY>                       |T+ >V
+    =h1              v                               +?(%a  z$+                     {L><> x
+    va$              8?                 /v             /8#  >q#(                   x4  r?v/
+     5Mi ><<r*<>     5c                 z<      ++>>>+>$O5)?idMY                  +C]    3 
+     3q9ii">>+       dT                 c         +]icaMh/  \6O$                  nt*<  zY
+     aApv            sM                ;)            <AOl    atYr                 r;i/iav
+     >YC}            (Oi              *3;            (3z   +;f]2|               *    *z
+      >YP?\v;?"r     >d6             <23;      ri|i(/w%<  <*fmf*             +}VT)+ |c)
+       >Tv            JMF            lai         (/*{#;=    "=r             (r" |iY31>
+         Cc           vMNr          rX1                  ">Yjr         >>r"?    s54v
+         e8";+         [M$         *n3*           |a+      f5;    r|\vz[<<|i|>czv
+         Oqi            v49i      "<|          ;(\sd"    ;5M8POAz?T1[r    >Csi
+        1MZ               tz    L/               >nM<    aXsTT/    i[/> (F1l+
+        li       >         1{Yvcc)                 \< +  SVtTY (v}oaFv+
+       +kY<Y]x?(=S\*  +u\"\CF]YE1]_5>   J     |+   *Z1Vsi$6VeayfTv
+       +vJc>Tfhk7{zjkEkT\;(        tMPIYPY1[]i$511z3{l1*  
+
+
+  cleaning up ..
+
+EOF
+
+    # clean up
+    # rm -r export_to export_from export_diff
+    # rm -r $temp_path
+
+    cat <<EOF
+-------------------------------------------------------------------
+ PDF Output file: $output_path/$tdr_temp_basename.pdf
+-------------------------------------------------------------------
+EOF
+fi
