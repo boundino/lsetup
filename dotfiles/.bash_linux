@@ -51,7 +51,6 @@ function ctf() {
 }; export -f ctf
 alias clearfolder='for i in "*.so" "*.d" "*.pcm" "*~" ".*~" ; do [[ -z `ls $i 2> /dev/null` ]] || { echo -ne "\e[2mrm:\e[0m " ; ls $i ; rm $i ; } ; done ;'
 
-# alias cpp='rsync --info=progress2'
 alias cpp='rsync --progress'
 alias lns='ln -s'
 alias diffw='diff --report-identical-files --old-group-format=$'"'"'\e[38;2;210;106;112;1m%<\e[0m'"'"' --new-group-format=$'"'"'\e[38;2;132;192;127;1m%>\e[0m'"'"' --unchanged-group-format=$'"'"'\e[38;2;128;128;128m%=\e[0m'"'"
@@ -65,7 +64,10 @@ alias ccat='highlight -O ansi --force'
 alias psme="ps -efH | grep ^$USER"
 alias unpack='tar -xvf'
 alias pack='tar -czvf'
+
+# github
 alias gpush='git push origin master'
+alias gcredential='git config --local credential.helper ""'
 
 packf() {
     par=${1%%'/'}
