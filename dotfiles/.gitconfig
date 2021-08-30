@@ -1,9 +1,13 @@
 [http]
 	sslVerify = false
-[user]
+[work]
 	name = boundino
 	email = boundino@gmail.com
 	github = boundino
+[personal]
+	name = xjjgww
+	email = xjjgww@gmail.com
+	github = xjjgww
 [includeIf "gitdir:~/myDir/"]
         path = ~/myDir/.gitconfig
 [core]
