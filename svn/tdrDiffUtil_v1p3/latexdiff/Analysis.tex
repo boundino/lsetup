@@ -1,0 +1,83 @@
+%\section{Data Analysis}
+
+%Identification of b jets is achieved by reconstruction of the secondary vertices (SV) from b-hadron decays or the subsequent c-hadron decays from the b$\rightarrow$c cascade. A selection is made on the significance of the flight distance from the SV to the primary vertex to enhance the contribution of jets containing b-hadrons, which are relatively long-lived. 
+\subsection{Jet reconstruction}
+Jets are reconstructed offline primarily from the energy deposits in the calorimeter towers, clustered by the anti-$k_\mathrm{T}$ algorithm~\cite{Cacciari:2008gp, Cacciari:2011ma} with a size parameter of 0.3. The raw jet energy is obtained from the sum of the tower energies, and the raw jet momentum by the vectorial sum of the constituent particle momenta, which results in a nonzero jet mass. The jet constituent particles are reconstructed using the particle flow event algorithm, which identifies each individual particle with an optimized combination of information from the various elements of the CMS detector~\cite{CMS-PAS-PFT-09-001}.  The raw jet energies are then corrected to establish a uniform response of the calorimeter in $\eta$ and a calibrated absolute response in \pt. The final particle flow-based jet energy resolution amounts typically to 15\% at 10\GeV, 8\% at 100\GeV, and 4\% at 1\TeV, to be compared to about 40\%, 12\%, and 5\% obtained when the calorimeters alone are used for jet clustering. 
+
+Jet energy corrections are derived from simulation, and are confirmed with in situ measurements of the energy balance in dijet and photon+jet events. Jet momentum is found from simulation to be within 1\% to 2\% of the true jet momentum over the whole \pt spectrum and detector acceptance used in this analysis. Additional selection criteria are applied to each event to remove spurious jet-like features originating from isolated noise patterns in certain HCAL regions. 
+
+\subsection{Tagging b jets}
+Identification of b jets is based on kinematic variables related to the relatively long lifetime and large mass of B hadrons. Charged tracks associated with jets are used to reconstruct secondary vertices from B hadron and/or subsequent charm hadron decays from the b $\rightarrow$ c cascade. The primary discriminator used in this analysis to identify b jets takes advantage of the displaced secondary vertex. This secondary vertex based algorithm is called the "simple secondary vertex" (SSV) tagger and is described in detail in Ref.~\cite{Chatrchyan:2012jua}.  Effectively, jets are assigned a discriminator value based on the secondary vertex flight distance significance, which is the ratio of the distance between the primary and secondary vertex to its uncertainty.  Using this discriminator, the contribution of b jets is enhanced by requiring that secondary vertices are far from the primary vertex. The SSV selection value used in this analysis is 2.0, requiring that the secondary vertex is two standard deviations away from the primary vertex.  This is chosen to give a misidentification rate on the order of 1\% for light-flavor jets and 10\% for charm jets, based on simulation. The corresponding b tagging efficiency is about 65\% for both pp and pPb collisions, which use identical reconstruction procedures.  This is in contrast to the PbPb b jet analysis at CMS where the b tagging efficiency is about 45\% due to the need for a dedicated regional track reconstruction owing to the very large multiplicities reached in central collisions \cite{HIN-12-003}.
+
+%%Updated 2014
+\begin{figure}[htb]
+\begin{center}
+\resizebox{0.49\textwidth}{!}{\includegraphics{figures/fitpPb_eta-2p5to1p5_JPdistr_150831}}
+\resizebox{0.49\textwidth}{!}{\includegraphics{figures/fitpPb_etaCM-2p5to1p5_JPtagged_150831}}
+\caption{\label{fig:JPdistr}
+Distributions of the JP tagger discriminator before (left) and after (right) applying the SSV tagger selection. Closed black points are data, while the colored histograms denote contributions from simulated b, c, and light-flavor jets in red, green and blue, respectively, obtained from a fit to data. Statistical uncertainties from data are in black, while statistical uncertainty from the templates are shown in dark green.
+}
+\end{center}
+\end{figure}
+
+The b tagging efficiency is obtained by simply counting the numbers of b jets before and after tagging in simulation, but is cross-checked using a data-driven method from the output of a second b tagging algorithm: the jet probability (JP) algorithm.
+The advantage of this second tagger is that it does not rely upon the reconstruction of a secondary vertex \cite{Chatrchyan:2012jua}.  Instead, the JP tagger calculates the compatibility of each track in the jet cone with the primary vertex using a three-dimensional impact parameter significance.  In essence, the less compatible the jet tracks are with the primary vertex, the greater the likelihood of the jet being from a b quark fragmentation.  Tracks may also have a negative impact parameter, which arises when they are found to be displaced from the primary vertex on the opposite side of the vertex from the jet.  These tracks mainly come from primary tracks with an improperly measured impact parameter due to finite vertex resolution effects or from poorly measured track kinematic parameters.  Since these types of tracks are essentially randomly associated with the vertex, they are not used to tag jets, but instead can be used to calibrate the tagger.  Randomly associated tracks should have no correlation to the vertex as a function of displacement, so the total distribution of these tracks as a function of track displacement should be flat.  If it is not, the tagger is calibrated by applying a weighting function in order to flatten the spectrum \cite{Chatrchyan:2012jua}.
+
+%%Updated 2014
+\begin{figure}[htb]
+\begin{center}
+%\resizebox{0.45\textwidth}{!}{\includegraphics{figures/eff_vs_mistag_CSV}}
+\resizebox{0.49\textwidth}{!}{\includegraphics{figures/bVsX_pPbOnlyBoth_150725}}
+\resizebox{0.49\textwidth}{!}{\includegraphics{figures/fitpPb_eta-2p5to1p5_SVDistr_150831}}
+\caption{\label{fig:eff_vs_mistag}
+The left plot shows the likelihood of misidentifying a light-flavor (circles and dotted lines) or charm (squares and dashed lines) jet as a b jet, as a function of the b tagging efficiency.  Shown is the SSV tagger for pPb (purple) and pp (green) collision species.  On the right is a template fit to the secondary vertex invariant mass distribution in pPb collisions for jets with $90 < \pt < 110$ \GeVc. Closed black points are data, while the colored histograms denote distributions of b, c, and light-quark jets in red, green and blue, respectively, extracted from the fit to data. Statistical uncertainties from data are in black, while statistical uncertainties from the templates are shown in dark green.
+}
+\end{center}
+\end{figure}
+
+Distributions of the JP tagger discriminator are plotted before and after applying the SSV selection defined earlier.  By using an unbinned maximum likelihood fit to the JP distributions, the three flavor contributions from simulations are simultaneously fit to the data.  From these fits, the SSV b tagging efficiency can be extracted based on Eq.~(\ref{eq:JPeff}), where $C_b$ is the fraction of jets that have a JP tag value, $f_b^{\mathrm{tagged}}$ is the purity of the SSV $>$ 2 tagged sample, $f_b^{\mathrm{untagged}}$ is the purity before tagging, and $N_{\mathrm{jets}}^{\mathrm{untagged}}$ and $N_{\mathrm{jets}}^{\mathrm{tagged}}$ are the number of jets before and after the SSV selection, respectively.  Example distributions of the JP tagger discriminator before and after SSV tagging in the range 90 $<$ \pt $<$ 110 \GeVc are shown in Fig. \ref{fig:JPdistr}.  We find that the tagging efficiency from the JP tagger and tagging efficiency from simulation are compatible to within 5--20\%, where the difference is taken as a systematic uncertainty.
+
+\begin{equation}
+\epsilon_{SSV} = \frac{C_{b}f_{b}^{\mathrm{tagged}}N_{\mathrm{jets}}^{\mathrm{tagged}}}{f_{b}^{\mathrm{untagged}}{N_{\mathrm{jets}}^{\mathrm{untagged}}}}
+\label{eq:JPeff}
+\end{equation}
+
+The b tagging efficiency of the SSV tagger is shown as a function of the misidentification probability of light-flavor and charm jets on the left in Fig. \ref{fig:eff_vs_mistag}. The efficiency and purity of the taggers are very similar in pp and pPb collisions due to the identical reconstruction methodology used in both collision types.  Though the JP tagger has a higher b tagging efficiency than the SSV tagger due to the fact that the JP tagger does not require the existence of a secondary vertex, the SSV tagger is the primary method of b jet identification in this analysis for two reasons. First, the SSV tagger is more robust against light-flavor and charm jet background due to the secondary vertex requirement.  Second, the JP tagger can be calibrated against data, which is essential to providing a data-driven estimate of the b tagging efficiency, therefore the JP tagger is better suited as a reference than the SSV tagger.
+
+For each jet \pt\ bin, the b jet purity is extracted via a template fit.  For each secondary vertex, an invariant mass is calculated using the individual track energies and momenta.  Then, secondary vertex mass distributions from light, charm, and b jets in the {\sc pythia+hijing} simulation are fit to those in data.  The shapes of the different flavor components of the distributions are fixed via the Monte Carlo simulations (MC), but the relative normalizations of each component are allowed to float independently.  While all jet flavors have significant contributions, the b jet contribution to the secondary vertex mass dominates above about 2 \GeVcc, allowing for an accurate fit to data.  An example of such fitting is shown on the right in Fig. \ref{fig:eff_vs_mistag}.
+
+For each tagger, a b jet yield can be calculated for a given \pt\ bin:  $N_{\rm b} = N f_{\rm b} / \epsilon$, where $N_{\rm b}$ is the number of b-tagged jets, $f_{\rm b}$ is the purity of the sample, derived from the secondary vertex mass fits, and $\epsilon$ is the tagger efficiency, determined from simulation.  After tagging, the jet resolution effects on the b jet \pt spectra are unfolded using a singular value decomposition (SVD) matrix inversion procedure \cite{svdunfold}, as implemented in the {\sc RooUnfold} package \cite{roounfold}. The pPb spectra are normalized by the total integrated luminosity (35 nb$^{-1}$) and divided by the mass number of lead (A = 208), which is the effective enhancement of jet production due to geometrical effects from the heavier nuclei, as predicted by the Glauber model~\cite{glauber}. 
+
+\begin{equation}
+\label{eq:rpa}
+R_{\mathrm{pA}}^{\mathrm{PYTHIA}} = \frac{1}{A}\frac{d^{2}\sigma^{\mathrm{pA}}_{\mathrm{jet}}/dp_{T}d\eta}{d^2\sigma^{\mathrm{PYTHIA}}_{\mathrm{jet}}/dp_{T}d\eta}.
+\end{equation}
+
+The formula used to calculate the nuclear modification factor (\RpAPythia) is defined in Eq. (\ref{eq:rpa}). The \etaCM-dependent \RpAPythia is obtained by dividing the luminosity and mass scaled jet cross section in pPb by the jet cross section obtained from a pp reference. As there is no pp data available at $\sqrt{s_{NN}}$ = 5.02 TeV, this reference is obtained from a {\sc pythia} calculation ``$\sigma^{\mathrm{PYTHIA}}_{\mathrm{jet}}$".
+%The right side of Fig.~\ref{fig:spectra} shows the \RpAPythia~ measurements for the same four $\eta_{CM}$ selections as on the left side of the figure. These values are all consistent with unity.
+
+
+%%Updated 2014
+%% Moved to results
+%\begin{figure}[htb]
+%\begin{center}
+%\resizebox{0.49\textwidth}{!}{\includegraphics{figures/spectraEta_150831}}
+%\resizebox{0.49\textwidth}{!}{\includegraphics{figures/spectraEtaRatio_150831}}
+%\caption[b jet spectra]{\label{fig:spectra}
+%The b jet cross section as a function of \pt\ is shown for various pseudorapidity selections for pPb collisions, scaled by the mass number of lead, and compared to {\sc pythia} predictions of b jet cross sections in pp shown as bare histograms (left). In addition \RpAPythia\ measurements for the same four \etaCM\ ranges are shown (right). Positive $\eta$ corresponds to the direction of the proton beam (+z). Statistical uncertainties are represented with lines, while systematic uncertainties are shown as filled boxes. The pp reference uncertainty is shown separately as red boxes around unity on the right panel. 
+%}
+%\end{center}
+%\end{figure}
+
+%
+%The b-jet purity is defined to be the fraction of jets from bottom quarks in the SSVHE-tagged sample.  
+%The left panel of Fig.~\ref{fig:ssvheEffPbPb} shows the b-jet purity of the tagged sample as a function of the jet \pt\ extracted from the template fits in Fig.~\ref{fig:fitPbPb_SVmass}.  These purity values are close to those from the input simulation.   The SSVHE tagging efficiency is shown in the right panel of Fig.~\ref{fig:ssvheEffPbPb}.  The result obtained using JP as a reference tagger is compared to the result obtained directly from simulation.  The difference, which is found to be within about 5\%, is included in the systematic uncertainties, as discussed in the next section.
+%
+%\begin{figure}[htb]
+%\begin{center}
+%\resizebox{0.49\textwidth}{!}{\includegraphics{figures/ssvhePurPbPb}}
+%\resizebox{0.49\textwidth}{!}{\includegraphics{figures/ssvheEffPbPb}}
+%\caption[Efficiency and purity of secondary vertex tagging]{\label{fig:ssvheEffPbPb}
+% Left:  The b-jet purity extracted from template fits to the SV mass distributions, compared to the input simulation.  Right: The tagging efficiency of the SSVHE discriminator from simulation and from the reference tagger method.  }
+%\end{center}
+%\end{figure}

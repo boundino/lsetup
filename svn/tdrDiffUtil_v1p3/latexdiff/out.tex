@@ -1,0 +1,113 @@
+% Customizable fields and text areas start with % >> below.
+% Lines starting with the comment character (%) are normally removed before release outside the collaboration, but not those comments ending lines
+
+% svn info. These are modified by svn at checkout time.
+% The last version of these macros found before the maketitle will be the one on the front page,
+% so only the main file is tracked.
+% Do not edit by hand!
+\RCS$Revision: 302010 $
+\RCS$HeadURL: svn+ssh://svn.cern.ch/reps/tdr2/papers/HIN-14-007/trunk/HIN-14-007.tex $
+\RCS$Id: HIN-14-007.tex 302010 2015-08-31 21:13:41Z kjung $
+%%%%%%%%%%%%% local definitions %%%%%%%%%%%%%%%%%%%%%
+% This allows for switching between one column and two column (cms@external) layouts
+% The widths should  be modified for your particular figures. You'll need additional copies if you have more than one standard figure size.
+\newlength\cmsFigWidth
+\ifthenelse{\boolean{cms@external}}{\setlength\cmsFigWidth{0.85\columnwidth}}{\setlength\cmsFigWidth{0.4\textwidth}}
+\ifthenelse{\boolean{cms@external}}{\providecommand{\cmsLeft}{top}}{\providecommand{\cmsLeft}{left}}
+\ifthenelse{\boolean{cms@external}}{\providecommand{\cmsRight}{bottom}}{\providecommand{\cmsRight}{right}}
+
+%%%%%%%%%%%%%%%  Title page %%%%%%%%%%%%%%%%%%%%%%%%
+\cmsNoteHeader{HIN-14-007} % This is over-written in the CMS environment: useful as preprint no. for export versions
+% >> Title: please make sure that the non-TeX equivalent is in PDFTitle below
+\title{Transverse momentum spectra of b jets in pPb collisions at $\sqrt{s_{NN}}$ = 5.02 TeV}
+
+% >> Authors
+%Author is always "The CMS Collaboration" for PAS and papers, so author, etc, below will be ignored in those cases
+%For multiple affiliations, create an address entry for the combination
+%To mark authors as primary, use the \author* form
+\address[purdue]{Purdue University}
+\address[mit]{Massachussetts Institute of Technology}
+\address[vanderbilt]{Vanderbilt University}
+\address[llr]{LLR - Ecole Polytechnique}
+\address[rutgers]{Rutgers University}
+
+\author[rutgers]{Raghav Kunnawalkam Elayavalli}
+\author[mit]{Doga Gulhan}
+\author*[purdue]{Kurt Jung}
+\author[mit]{Yen-Jie Lee}
+\author[vanderbilt]{Yaxian Mao}
+\author[llr]{Matthew Nguyen}
+\author[rutgers]{Sevil Salur}
+\author[purdue]{Wei Xie}
+
+% >> Date
+% The date is in yyyy/mm/dd format. Today has been
+% redefined to match, but if the date needs to be fixed, please write it in this fashion.
+% For papers and PAS, \today is taken as the date the head file (this one) was last modified according to svn: see the RCS Id string above.
+% For the final version it is best to "touch" the head file to make sure it has the latest date.
+\date{\today}
+
+% >> Abstract
+% Abstract processing:
+% 1. **DO NOT use \include or \input** to include the abstract: our abstract extractor will not search through other files than this one.
+% 2. **DO NOT use %**                  to comment out sections of the abstract: the extractor will still grab those lines (and they won't be comments any longer!).
+% 3. For PASs: **DO NOT use tex macros**         in the abstract: CDS MathJax processor used on the abstract doesn't understand them _and_ will only look within $$. The abstracts for papers are hand formatted so macros are okay.
+\abstract{
+We present a measurement of the b jet transverse momentum spectra in proton-lead (pPb) collisions from CMS using the 35 nb$^{-1}$ of data collected during the 2013 heavy-ion run at the LHC.  Jets from b quark fragmentation are found by exploiting the long lifetime of mesons containing a b quark through tagging methods using distributions of the secondary vertex mass and displacement. Extracted cross sections for b jets in pPb collisions are scaled by the number of nucleon-nucleon collisions and compared to pp cross sections obtained from {\sc pythia} simulations. This {\sc pythia}-based estimate of the nuclear modification factor is denoted $R_{\mathrm{pA}}^{\mathrm{PYTHIA}}$ and is found be 1.22$\pm$0.04(stat.)$\pm$0.22(syst.).  The nominal value larger than unity seems to suggest a small enhancement of yield in pPb as compared to {\sc pythia}, but is consistent with unity within systematic uncertainties. We also compare this result to predictions from models using perturbative QCD calculations.  
+}
+
+% >> PDF Metadata
+% Do not comment out the following hypersetup lines (metadata). They will disappear in NODRAFT mode and are needed by CDS.
+% Also: make sure that the values of the metadata items are sensible and are in plain text:
+% (1) no TeX! -- for \sqrt{s} use sqrt(s) -- this will show with extra quote marks in the draft version but is okay).
+% (2) no %.
+% (3) No curly braces {}.
+\hypersetup{%
+pdfauthor={Kurt Jung},%
+pdftitle={Transverse momentum spectra of b jets in pPb collisions at sqrt(sNN) = 5.02 TeV},%
+pdfsubject={CMS},%
+pdfkeywords={CMS, physics, heavy ions, b-tagging}
+}
+
+\newcommand{\etaCM}{$\eta_{\text{CM}}$}
+\newcommand{\etalab}{$\eta_{\text{lab}}$}
+\newcommand{\RpAPythia}{$R_{\mathrm{pA}}^{\mathrm{PYTHIA}}$}
+
+\maketitle %maketitle comes after all the front information has been supplied
+% >> Text
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  Begin text %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% **DO NOT REMOVE THE BIBLIOGRAPHY** which is located before the appendix.
+%% You can take the text between here and the bibiliography as an example which you should replace with the actual text of your document.
+%% If you include other TeX files, be sure to use "\input{filename}" rather than "\input filename".
+%% The latter works for you, but our parser looks for the braces and will break when uploading the document.
+%%%%%%%%%%%%%%%
+
+%\tableofcontents
+%\listoffigures  % to produce list of figures
+%\listoftables   % to produce list of tables
+
+\clearpage
+\section{Introduction}
+\input{Introduction.tex}
+
+\section{Detector and event selection}
+\input{EvtSelection.tex}
+
+\section{Analysis procedure}
+\input{Analysis.tex}
+
+\section{Systematic uncertainties}
+\label{sec:syst}
+\input{Systematics.tex}
+
+\section{Results and conclusions}
+\input{Conclusion.tex}
+
+%% **DO NOT REMOVE BIBLIOGRAPHY**
+\bibliography{auto_generated}   % will be created by the tdr script.
+
+%% examples of appendices. **DO NOT PUT \end{document} at the end
+%\clearpage
+%\appendix
+%%% DO NOT ADD \end{document}!
+
