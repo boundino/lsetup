@@ -20,6 +20,10 @@ source /opt/rh/devtoolset-7/enable
 source /raid5/root/root-v6.16.00-gcc731/bin/thisroot.sh
 alias worksp='cd /raid5/data/wangj/home/'
 
+export PATH=${PATH}:/raid5/data/wangj/home/RooUnfold/build
+export PYTHONPATH=${PYTHONPATH}:/raid5/data/wangj/home/RooUnfold/build
+export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/raid5/data/wangj/home/RooUnfold/build
+
 # User specific aliases and functions
 
 . ~/.bash_linux

@@ -49,7 +49,21 @@ function ctf() {
         echo $summ
     }
 }; export -f ctf
-alias clearfolder='for i in "*.so" "*.d" "*.pcm" "*~" ".*~" ; do [[ -z `ls $i 2> /dev/null` ]] || { echo -ne "\e[2mrm:\e[0m " ; ls $i ; rm $i ; } ; done ;'
+
+function clearfolder() {
+    for i in "*.so" "*.d" "*.pcm"
+    do 
+        # [[ -z `ls $i 2> /dev/null` ]] || { echo -ne "\e[2mrm:\e[0m " ; ls $i ; rm $i ; }
+        [[ -z `ls $i 2> /dev/null` ]] || { 
+            echo -ne "\e[2m" ; 
+            rm -v $i ; 
+            echo -ne "\e[0m" ;
+        }
+    done
+    echo -ne "\e[2m" ; 
+    rm -v `find . -name *~` 
+    echo -ne "\e[0m" ;
+}; export -f clearfolder
 
 alias cpp='rsync --progress'
 alias lns='ln -s'
