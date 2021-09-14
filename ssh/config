@@ -6,5 +6,6 @@ Host github.com-work
 Host github.com-personal
    HostName github.com
    User git
-   IdentityFile ~/.ssh/id_ed25519
+   IdentityFile ~/.ssh/github-ecdsa-personal
 #EndHost
+
