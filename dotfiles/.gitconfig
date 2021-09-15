@@ -1,15 +1,12 @@
 [http]
 	sslVerify = false
-[work]
+[user]
 	name = boundino
 	email = boundino@gmail.com
-	github = boundino
-[personal]
-	name = xjjgww
-	email = xjjgww@gmail.com
-	github = xjjgww
-[includeIf "gitdir:~/myDir/"]
-        path = ~/myDir/.gitconfig
+
+[includeIf "gitdir:~/macrosc/gitx"]
+        path = ~/macrosc/gitx/.gitconfig
+
 [core]
         askPass =
 	excludesfile = ~/.gitignore
