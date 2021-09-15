@@ -61,7 +61,7 @@ function clearfolder() {
         }
     done
     echo -ne "\e[2m" ; 
-    rm -v `find . -name *~` 2> /dev/null
+    rm -v `find . -name '*~'` 2> /dev/null
     echo -ne "\e[0m" ;
 }; export -f clearfolder
 
