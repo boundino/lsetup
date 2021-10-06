@@ -24,15 +24,11 @@ fi
 
 alias hadoopjw='cd /mnt/hadoop/cms/store/user/jwang/'
 alias hadoopwj='cd /mnt/hadoop/cms/store/user/wangj/'
-if [[ $myhost = submit-hi2 || $myhost = submit-hi1 ]]
+if [[ $myhost = submit* ]]
 then
-    alias dalscrath='cd /export/d00/scratch/jwang/'
-    alias worksp='cd /export/d00/scratch/jwang/scratchHome/'
-elif [[ $myhost = submit ]]
-then
-    alias dalscrath='cd /mnt/T2_US_MIT/submit-hi2/scratch/jwang/'
-    # alias worksp='cd /mnt/T2_US_MIT/submit-hi2/scratch/jwang/scratchHome/'
-    alias worksp='cd /work/jwang/'
-    alias condorq='condor_q jwang | grep Total'
+    alias dalscrath='cd /mnt/submit-hi1/d00/scratch/jwang/'
+    alias worksp='cd /mnt/submit-hi1/d00/scratch/jwang/scratchHome/'
+    alias worksphi2='cd /mnt/submit03/d00/scratch/jwang/scratchHome/'
+    alias condorq='condor_q jwang011 | grep Total'
 fi
 
