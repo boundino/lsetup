@@ -2,10 +2,37 @@ Host github.com-work
    HostName github.com
    User git
    IdentityFile ~/.ssh/github-ecdsa
+#EndHost
 
 Host github.com-personal
    HostName github.com
    User git
    IdentityFile ~/.ssh/github-ecdsa-personal
+#EndHost
+
+Host submit.mit.edu
+   User jwang011
+   IdentityFile ~/.ssh/submit-ecdsa
+#EndHost
+
+Host submit01.mit.edu
+   User jwang011
+   IdentityFile ~/.ssh/submit-ecdsa
+#EndHost
+
+Host gitlab.cern.ch
+     User wangj
+     KbdInteractiveAuthentication no
+     ChallengeResponseAuthentication no
+     PreferredAuthentications publickey,gssapi-with-mic
+     IdentityFile ~/.ssh/id_ed25519_gitlab
+#EndHost
+
+Host svn.cern.ch svn
+     GSSAPIAuthentication yes
+     GSSAPITrustDNS yes
+     GSSAPIDelegateCredentials yes
+     Protocol 2
+     ForwardX11 no
 #EndHost
 
