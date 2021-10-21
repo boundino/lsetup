@@ -17,7 +17,8 @@ fi
 
 source /opt/rh/devtoolset-7/enable
 # source /raid5/root/root_v6.14.04/bin/thisroot.sh
-source /raid5/root/root-v6.16.00-gcc731/bin/thisroot.sh
+# source /raid5/root/root-v6.16.00-gcc731/bin/thisroot.sh
+source /raid5/data/szhaozho/root/build/bin/thisroot.sh
 alias worksp='cd /raid5/data/wangj/home/'
 
 export PATH=${PATH}:/raid5/data/wangj/home/RooUnfold/build

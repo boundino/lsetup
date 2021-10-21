@@ -50,19 +50,21 @@ function ctf() {
     }
 }; export -f ctf
 
+function clearfolder_int() {
+    echo -ne "\e[2m" ; 
+    rm -v `find . -name '*~'` 2> /dev/null
+    echo -ne "\e[0m" ;
+}; export -f clearfolder_int
+
 function clearfolder() {
-    for i in "*.so" "*.d" "*.pcm"
+    for i in "*~" "*.so" "*.d" "*.pcm"
     do 
-        # [[ -z `ls $i 2> /dev/null` ]] || { echo -ne "\e[2mrm:\e[0m " ; ls $i ; rm $i ; }
         [[ -z `ls $i 2> /dev/null` ]] || { 
             echo -ne "\e[2m" ; 
             rm -v $i ; 
             echo -ne "\e[0m" ;
         }
     done
-    echo -ne "\e[2m" ; 
-    rm -v `find . -name '*~'` 2> /dev/null
-    echo -ne "\e[0m" ;
 }; export -f clearfolder
 
 alias cpp='rsync --progress'
