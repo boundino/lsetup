@@ -12,9 +12,6 @@ BREWPRE=""
 alias doc="cd ~/Documents"
 alias cgate="ssh -Y jwang@cgate.mit.edu"
 alias athena="ssh -Y jwang011@athena.dialup.mit.edu"
-alias submitmit="ssh -Y jwang011@submit.mit.edu"
-alias submit01="ssh -Y jwang011@submit01.mit.edu"
-alias submit04="ssh -Y jwang011@submit04.mit.edu"
 alias grendel="ssh -Y wangj@GRENDEL01.mit.edu"
 # alias grendel="ssh -Y wangj@18.77.5.35"
 alias Documents="cd ~/Dropbox/Private/MacbookAir/"
@@ -56,6 +53,12 @@ function lxplus()
     [[ $# -eq 1 ]] && { ssh -Y wangj@lxplus${1}.cern.ch ; }
 }
 export lxplus
+
+function submitmit()
+{
+    ssh -Y jwang011@submit${1}.mit.edu
+}
+export submitmit
 
 function setxjjgww()
 {
