@@ -1,0 +1,9 @@
+
+function mcmlink()
+{
+    ds=${1##/}
+    PD=${ds%%/*}
+    llink="https://cms-pdmv.cern.ch/mcm/requests?dataset_name=${PD}&page=0&shown=4295491647"
+    echo $llink
+}
+export -f mcmlink

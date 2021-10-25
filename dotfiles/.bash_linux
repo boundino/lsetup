@@ -153,6 +153,7 @@ function cbuildreg() {
 
 alias diffleaf='$HOME/lsetup/toolkit/exec/$(cbuildreg)/diffleaf'
 . $HOME/lsetup/toolkit/showdir.shinc
+. $HOME/lsetup/toolkit/mcmlink.shinc
 alias rmbranch='$HOME/lsetup/toolkit/exec/$(cbuildreg)/rmbranch'
 alias addbranch='$HOME/lsetup/toolkit/exec/$(cbuildreg)/addbranch'
 alias typetable='$HOME/lsetup/toolkit/exec/$(cbuildreg)/typetable'
