@@ -5,6 +5,7 @@
 #include <TClass.h>
 #include <TROOT.h>
 #include <TString.h>
+#include <TObjString.h>
 
 #include <iostream>
 #include <regex>
