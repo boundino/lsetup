@@ -3,6 +3,7 @@
 export TERM=xterm-256color
 
 LS_COLORS=$LS_COLORS:'di=38;2;89;193;183:ex=38;2;255;207;92;1:*.h=38;2;128;128;128;1:*.pdf=38;2;1;151;202:*.backup=38;2;60;60;60:ln=38;2;116;110;163;1:*.root=38;2;230;211;208;3;1:*.highlight=38;5;20;1;48;5;230:*.py=38;2;72;116;81;1:*.log=38;5;15;48;2;71;117;163;1:*.txt=38;5;15;48;2;71;117;163;1:*.output=38;5;15;48;2;71;117;163;1' ; export LS_COLORS
+parse_git_branch() { git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/' ; }
 
 alias emacs='emacs -nw'
 alias ls='ls --color=yes'
@@ -50,13 +51,13 @@ function ctf() {
     }
 }; export -f ctf
 
-function clearfolder_int() {
+function clearfolder() {
     echo -ne "\e[2m" ; 
     rm -v `find . -name '*~'` 2> /dev/null
     echo -ne "\e[0m" ;
-}; export -f clearfolder_int
+}; export -f clearfolder
 
-function clearfolder() {
+function clearfolder_1layer() {
     for i in "*~" "*.so" "*.d" "*.pcm"
     do 
         [[ -z `ls $i 2> /dev/null` ]] || { 
@@ -65,7 +66,7 @@ function clearfolder() {
             echo -ne "\e[0m" ;
         }
     done
-}; export -f clearfolder
+}; export -f clearfolder_1layer
 
 alias cpp='rsync --progress'
 alias lns='ln -s'
@@ -82,7 +83,8 @@ alias unpack='tar -xvf'
 alias pack='tar -czvf'
 
 # github
-alias gpush='git push origin master'
+alias gpush='git push origin '$(parse_git_branch)
+alias gitstatus='git status'
 alias gcredential='git config --local credential.helper ""'
 
 packf() {
