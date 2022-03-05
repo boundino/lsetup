@@ -3,9 +3,8 @@
 [user]
 	name = boundino
 	email = boundino@gmail.com
-
-[includeIf "gitdir:~/macrosc/gitx"]
-        path = ~/macrosc/gitx/.gitconfig
+[includeIf "gitdir:~/macrosc/xjjgww/"]
+        path = ~/macrosc/xjjgww/.gitconfig
 
 [core]
         askPass =
