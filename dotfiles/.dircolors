@@ -168,5 +168,6 @@ EXEC 38;2;255;207;92;1
 .pdf 38;2;1;151;202
 LINK 38;2;116;110;163;1
 .py 38;2;72;116;81;1
+.txt 38;5;15;48;2;71;117;163;1
 
 # https://wiki.xiph.org/MIME_Types_and_File_Extensions
