@@ -83,7 +83,8 @@ alias unpack='tar -xvf'
 alias pack='tar -czvf'
 
 # github
-alias gpush='git push origin '$(parse_git_branch)
+function gpush() { git push origin $(parse_git_branch) ; }
+export -f gpush
 alias gitstatus='git status'
 alias gcredential='git config --local credential.helper ""'
 
