@@ -31,8 +31,10 @@ alias cmsver='echo $CMSSW_BASE ; echo $CMSSW_RELEASE_BASE ;'
 function docmsenv() {
     oldpwd=$OLDPWD
     thispwd=$PWD
-    [[ $# -eq 1 ]] && { [[ -d ~/CMSSW_${1} ]] && { cd ~/CMSSW_${1}/src; cmsenv; echo "$CMSSW_VERSION ==> $PWD"; cd $oldpwd; cd $thispwd; } || { echo "error: CMSSW_$1 env is not set." ; } ; }
-    [[ $# -eq 0 ]] && { for i in `ls --color=auto -r -d ~/CMSSW_*` ; do cd $i/src/; cmsenv; echo "$CMSSW_VERSION ==> $PWD"; cd $oldpwd; cd $thispwd; break; done; }
+    ver=${1}
+    [[ $# -eq 0 ]] && { ver=10_3_3_patch1 ; }
+    [[ -d ~/CMSSW_${ver} ]] && { cd ~/CMSSW_${ver}/src; cmsenv; echo "$CMSSW_VERSION ==> $PWD"; cd $oldpwd; cd $thispwd; } || { echo "error: CMSSW_$ver env is not set." ; }
+    # [[ $# -eq 0 ]] && { for i in `ls --color=auto -r -d ~/CMSSW_*` ; do cd $i/src/; cmsenv; echo "$CMSSW_VERSION ==> $PWD"; cd $oldpwd; cd $thispwd; break; done; }
 }
 export -f docmsenv
 
