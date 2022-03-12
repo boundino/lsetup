@@ -81,6 +81,7 @@ alias ccat='highlight -O ansi --force'
 alias psme="ps -efH | grep ^$USER"
 alias unpack='tar -xvf'
 alias pack='tar -czvf'
+alias p3='python3'
 
 # github
 function gpush() { git push origin $(parse_git_branch) ; }
