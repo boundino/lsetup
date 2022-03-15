@@ -30,7 +30,7 @@ Host gitlab.cern.ch
 
 Host svn.cern.ch svn
      GSSAPIAuthentication yes
-     GSSAPITrustDNS yes
+     # GSSAPITrustDNS yes
      GSSAPIDelegateCredentials yes
      Protocol 2
      ForwardX11 no
