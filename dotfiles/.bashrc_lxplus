@@ -16,7 +16,6 @@ export CLICOLOR=1
 # User specific aliases and functions
 alias worksp='cd /afs/cern.ch/work/w/wangj'
 alias svmithi02='ssh -Y svmithi02'
-# alias docmsenv='cd ~/testEverything/CMSSW_10_1_5/src; cmsenv; cd -'
 # alias mounteos='eosmount eos/; cd ~/eos/cms/store/group/phys_heavyions/wangj'
 alias mounteos='cd /eos/cms/store/group/phys_heavyions/wangj/'
 alias eoswangj='cd /eos/user/w/wangj/'
