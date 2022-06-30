@@ -13,8 +13,9 @@ git clone http://github.com/root-project/root.git
 mkdir buildroot
 cd buildroot
 cmake ../root
-cmake --build .
+cmake --build . -j6
+# 2022-06-30: -jX to solve the *.pcm out of date issue: https://root-forum.cern.ch/t/wsl-build-from-source-error-rint-pcm-is-out-of-date-cannot-read-module-signature/47564/9
 
 # Initialization
-readlink dir/bin/thisroot.sh
-source $(readlink dir/bin/thisroot.sh)
+readlink -f bin/thisroot.sh
+source $(readlink -f bin/thisroot.sh)
