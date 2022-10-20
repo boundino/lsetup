@@ -3,6 +3,7 @@
 [user]
 	name = boundino
 	email = boundino@gmail.com
+        github = boundino
 [includeIf "gitdir:~/macrosc/xjjgww/"]
         path = ~/macrosc/xjjgww/.gitconfig
 
