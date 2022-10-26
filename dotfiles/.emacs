@@ -12,6 +12,18 @@
 (color-theme-initialize)
 (color-theme-boundin)
 
+(require 'package)
+(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
+(add-to-list 'package-archives
+             '("melpa-stable" . "https://stable.melpa.org/packages/") t)
+(package-initialize)
+
+;; (add-to-list 'load-path "~/use-package-2.4.1/")
+;; (require 'use-package)
+;; (use-package lsp-mode
+;;   :ensure t)
+
+
 ;; Highlight parenthese
 (show-paren-mode t)
 
@@ -28,11 +40,8 @@
 (global-set-key [end] 'end-of-buffer)
 
 ;; auto-mode
-(add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
-(add-to-list 'auto-mode-alist '("\\.md\\'" . html-mode))
 (add-to-list 'auto-mode-alist '("\\.bash.*\\'" . sh-mode))
 (add-to-list 'auto-mode-alist '("\\.shinc\\'" . sh-mode))
-
 ;; uncomment this line to disable loading of "default.el" at startup
 ;;(setq inhibit-default-init t)
 
@@ -153,3 +162,15 @@
 			'(("label{\\([^}]+\\)}"
                            1
                            'font-lock-variable-name-face)))
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages '(lsp-mode)))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
