@@ -1,0 +1,19 @@
+#!/bin/bash
+
+function makerun()
+{
+    tag=${1%%.*}
+    echo $tag
+
+    echo '
+INPUT=
+
+g++ '$1' $(root-config --libs --cflags) -I$HOME -g -o '$tag'.exe || exit 1
+
+./'$tag'.exe
+
+' > run_${tag}.sh
+
+    chmod 744 run_${tag}.sh
+}
+export -f makerun
