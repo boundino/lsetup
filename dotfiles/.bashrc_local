@@ -30,7 +30,7 @@ export LC_CTYPE="en_US.UTF-8"
 export LANGUAGE="en_US.UTF-8"
 
 PS1=$'${debian_chroot:+($debian_chroot)}\[\e[33m\]\u\[\e[33;2m\]:~ \[\e[00m\]\[\e[34m\]\h\[\e[00m\]:\[\e[38;2;205;162;184m\]\w \[\e[00m\]
-\[\e[34;2m\]($(parse_git_branch))\[\e[00m\] \[\e[38;2;205;162;184m\]${PWD##*/}/\[\e[00m\] \[\e[38;2;170;170;170m\]\u2044(\u2044\u2044\u2022\u2044\u03C9\u2044\u2022\u2044\u2044)\u2044\[\e[00m\]$ '
+\[\e[34;2m\]($(parse_git_branch)) \[\e[4m\]\D{%H:%M:%S}\[\e[00m\] \[\e[38;2;205;162;184m\]${PWD##*/}/\[\e[00m\] \[\e[38;2;170;170;170m\]\u2044(\u2044\u2044\u2022\u2044\u03C9\u2044\u2022\u2044\u2044)\u2044\[\e[00m\]$ '
 PS4=$'\[\e[38;2;165;255;170;1m\]L${LINENO} + \[\e[0m\]'
 
 # color
@@ -43,6 +43,7 @@ eval "$(dircolors ~/.dircolors)"
 
 #
 [[ -f $HOME/buildroot/bin/thisroot.sh ]] && { . $HOME/buildroot/bin/thisroot.sh ; alias root='root -l' ; }
+[[ -f $HOME/root/bin/thisroot.sh ]] && { . $HOME/root/bin/thisroot.sh ; alias root='root -l' ; }
 
 export PROMPT_COMMAND='echo -ne "\033]0;${USER}@${PWD##*/}\007"'
 
