@@ -52,8 +52,9 @@ function ctf() {
 }; export -f ctf
 
 function clearfolder() {
-    echo -ne "\e[2m" ; 
-    rm -v `find . -name '*~'` 2> /dev/null
+    echo -ne "\e[2m" ;
+    [[ x$PWD == x$HOME ]] && echo "Stop clearfolder in the home directory." || {
+    rm -v `find . -name '*~'` 2> /dev/null ; }
     echo -ne "\e[0m" ;
 }; export -f clearfolder
 
