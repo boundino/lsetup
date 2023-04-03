@@ -1,0 +1,3 @@
+# https://superuser.com/questions/189498/gnu-screen-affects-the-display-of-my-terminal
+attrcolor d "-d"
+attrcolor u "-u R"
