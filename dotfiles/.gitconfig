@@ -18,3 +18,5 @@
         showDirtyState = false
 [init]
 	defaultBranch = master
+[pull]
+	rebase = false
