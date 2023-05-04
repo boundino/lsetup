@@ -57,12 +57,12 @@ div > ul > li > ul > li > ul > li > .list-bullet::after
     --callout-color: var(--color-accent-rgb);
 }
 .callout[data-callout="white"], .callout[data-callout="whiteno"] {
-    --callout-color: var(--color-base-50-rgb);
+    --callout-color: var(--color-base-70-rgb);
     background-color: rgba(var(--callout-color), 0);
     --callout-border-width: 1px;
 }
 .callout[data-callout="gray"], .callout[data-callout="grayno"] {
-    --callout-color: var(--color-base-50-rgb);
+    --callout-color: var(--color-base-70-rgb);
 }
 .callout[data-callout="whiteno"], .callout[data-callout="grayno"] {
     --callout-icon: none;
