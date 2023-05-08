@@ -66,7 +66,7 @@
       (italic ((t (:italic t :slant italic))))
       (lazy-highlight ((t (:background "paleturquoise4"))))
       (menu ((t (nil))))
-      (mode-line ((t (:background "royalblue4" :foreground "antiquewhite" :box (:line-width (1 . -1) :style released-button)))))
+      (mode-line ((t (:background "royalblue4" :foreground "antiquewhite" :box))))
       (mouse ((t (:background "white"))))
       (region ((t (:background "blue"))))
       (scroll-bar ((t (nil))))
