@@ -10,17 +10,13 @@ BREWPRE=""
 [[ x$BREWPRE != x ]] && { export PATH="$BREWPRE/bin:$BREWPRE/opt/coreutils/libexec/gnubin:$BREWPRE/opt/gnu-sed/libexec/gnubin:$BREWPRE/opt/gnu-sed/libexec/gnubin:$BREWPRE/opt/gnu-tar/libexec/gnubin:$BREWPRE/opt/gnu-tar/libexec/gnubin$PATH" ; }
 
 alias doc="cd ~/Documents"
-alias cgate="ssh -Y jwang@cgate.mit.edu"
-alias athena="ssh -Y jwang011@athena.dialup.mit.edu"
-alias grendel="ssh -Y wangj@GRENDEL01.mit.edu"
-# alias grendel="ssh -Y wangj@18.77.5.35"
-alias Documents="cd ~/Dropbox/Private/MacbookAir/"
-alias Results="cd ~/Desktop/Results/"
+alias athena="ssh -X jwang011@athena.dialup.mit.edu"
+alias grendel="ssh -X wangj@GRENDEL01.mit.edu"
 alias tunnel="ssh -f -N -L 10121:188.184.36.85:10121 wangj@lxplus.cern.ch"
 #alias tree="tree | ascii2uni -a K"
 alias workspace="cd $HOME/macrosc/"
-alias thesis="cd ~/Dropbox/Private/MacbookAir/Research/Thesis/"
-alias mitdropbox="cd ~/Dropbox\ \(MIT\)/"
+alias macbookair="cd $HOME/Dropbox/Private/MacbookAir/"
+alias results="cd ~/Desktop/Results/"
 
 alias cleardesk="defaults write com.apple.finder CreateDesktop -bool FALSE;killall Finder"
 alias showdesk="defaults delete com.apple.finder CreateDesktop;killall Finder"
@@ -35,11 +31,7 @@ PS4=$'\[\e[38;2;165;255;170;1m\]L${LINENO} + \[\e[0m\]'
 
 # color
 # GNU
-export TERM=xterm-256color
 eval "$(dircolors ~/.dircolors)"
-# BSD
-#export CLICOLOR=1
-#export LSCOLORS=gxfxaxdxcxegedabagacad
 
 #
 [[ -f $HOME/buildroot/bin/thisroot.sh ]] && { . $HOME/buildroot/bin/thisroot.sh ; alias root='root -l' ; }
@@ -49,14 +41,13 @@ export PROMPT_COMMAND='echo -ne "\033]0;${USER}@${PWD##*/}\007"'
 
 function lxplus()
 {
-    [[ $# -eq 0 ]] && { ssh -Y wangj@lxplus.cern.ch ; }
-    [[ $# -eq 1 ]] && { ssh -Y wangj@lxplus${1}.cern.ch ; }
+    ssh -X wangj@lxplus${1}.cern.ch
 }
 export lxplus
 
 function submitmit()
 {
-    ssh -Y jwang011@submit${1}.mit.edu
+    ssh -X jwang011@submit${1}.mit.edu
 }
 export submitmit
 
