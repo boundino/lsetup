@@ -4,7 +4,7 @@
 
 # Source global definitions
 
-export TERM=xterm-256color
+export TERM=xterm-24bit
 
 myhost=`echo $(hostname) | awk -F "." '{print $1}'`
 if [[ ! $SCRAM_ARCH ]]
@@ -26,9 +26,8 @@ alias hadoopjw='cd /mnt/hadoop/cms/store/user/jwang/'
 alias hadoopwj='cd /mnt/hadoop/cms/store/user/wangj/'
 if [[ $myhost = submit* ]]
 then
-    alias dalscrath='cd /mnt/submit-hi1/d00/scratch/jwang/'
-    alias worksp='cd /mnt/submit-hi1/d00/scratch/jwang/scratchHome/'
-    alias worksphi2='cd /mnt/submit03/d00/scratch/jwang/scratchHome/'
+    alias dalscrath='cd /mnt/submit03/d00/scratch/jwang/'
+    alias worksp='cd /data/submit/jwang011/scratchHome/'
     alias condorq='condor_q jwang011 | grep Total'
 fi
 
