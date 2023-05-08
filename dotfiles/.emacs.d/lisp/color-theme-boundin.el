@@ -46,15 +46,15 @@
       (flash-paren-face-off ((t (nil))))
       (flash-paren-face-on ((t (nil))))
       (flash-paren-face-region ((t (nil))))
-      (font-lock-builtin-face ((t (:foreground "tan1" :weight bold)))) ;LightSteelBlue
-      (font-lock-comment-face ((t (:foreground "tomato" :weight bold)))) ;OrangeRed
-      (font-lock-constant-face ((t (:foreground "Aquamarine")))) ;Aquamarine
-      (font-lock-doc-face ((t (:foreground "LightSalmon")))) ;LightSalmon
-      (font-lock-function-name-face ((t (:foreground "LightPink")))) ;LightSkyBlue
-      (font-lock-keyword-face ((t (:foreground "Cyan")))) ;Cyan
-      (font-lock-string-face ((t (:foreground "LightSkyBlue3" :weight bold)))) ;LightSalmon
-      (font-lock-type-face ((t (:foreground "YellowGreen")))) ;PaleGreen
-      (font-lock-variable-name-face ((t (:foreground "LightGoldenrod")))) ;LightGoldenrod
+      (font-lock-builtin-face ((t (:foreground "tan1"))))
+      (font-lock-comment-face ((t (:foreground "indianred" :weight light))))
+      (font-lock-constant-face ((t (:foreground "cadetblue2"))))
+      (font-lock-doc-face ((t (:foreground "LightSalmon"))))
+      (font-lock-function-name-face ((t (:foreground "lightpink1"))))
+      (font-lock-keyword-face ((t (:foreground "cadetblue"))))
+      (font-lock-string-face ((t (:foreground "LightSkyBlue3" :weight semilight))))
+      (font-lock-type-face ((t (:foreground "darkolivegreen3"))))
+      (font-lock-variable-name-face ((t (:foreground "LightGoldenrod"))))
       (font-lock-warning-face ((t (:bold t :foreground "Pink" :weight bold))))
       (fringe ((t (:background "grey10"))))
       (header-line ((t (:box (:line-width -1 :style released-button) :foreground "grey20" :background "grey90" :box nil))))
@@ -81,7 +81,8 @@
       (show-block-face7 ((t (:background "gray40"))))
       (show-block-face8 ((t (:background "gray45"))))
       (show-block-face9 ((t (:background "gray50"))))
-      (show-paren-match-face ((t (:background "turquoise"))))
+      (show-paren-match ((t (:background "paleturquoise" :foreground "black"))))
+      (show-paren-match-face ((t (:background "paleturquoise" :foreground "black"))))
       (show-paren-mismatch-face ((t (:background "purple" :foreground "white"))))
       (tool-bar ((t (:background "grey75" :foreground "black" :box (:line-width 1 :style released-button)))))
       (tooltip ((t (:background "lightyellow" :foreground "black"))))
@@ -91,6 +92,7 @@
       (widget-button-face ((t (:bold t :weight bold))))
       (widget-button-pressed-face ((t (:foreground "red"))))
       (widget-documentation-face ((t (:foreground "lime green"))))
+      (widget-field ((t (:extend t :background "darkslategray" :foreground "whitesmoke"))))
       (widget-field-face ((t (:background "dim gray"))))
       (widget-inactive-face ((t (:foreground "light gray"))))
       (widget-single-line-field-face ((t (:background "dim gray"))))
