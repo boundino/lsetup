@@ -10,8 +10,8 @@ BREWPRE=""
 [[ x$BREWPRE != x ]] && { export PATH="$BREWPRE/bin:$BREWPRE/opt/coreutils/libexec/gnubin:$BREWPRE/opt/gnu-sed/libexec/gnubin:$BREWPRE/opt/gnu-sed/libexec/gnubin:$BREWPRE/opt/gnu-tar/libexec/gnubin:$BREWPRE/opt/gnu-tar/libexec/gnubin$PATH" ; }
 
 alias doc="cd ~/Documents"
-alias athena="ssh -X jwang011@athena.dialup.mit.edu"
-alias grendel="ssh -X wangj@GRENDEL01.mit.edu"
+alias athena="ssh -Y jwang011@athena.dialup.mit.edu"
+alias grendel="ssh -Y wangj@GRENDEL01.mit.edu"
 alias tunnel="ssh -f -N -L 10121:188.184.36.85:10121 wangj@lxplus.cern.ch"
 #alias tree="tree | ascii2uni -a K"
 alias workspace="cd $HOME/macrosc/"
@@ -41,13 +41,13 @@ export PROMPT_COMMAND='echo -ne "\033]0;${USER}@${PWD##*/}\007"'
 
 function lxplus()
 {
-    ssh -X wangj@lxplus${1}.cern.ch
+    ssh -Y wangj@lxplus${1}.cern.ch
 }
 export lxplus
 
 function submitmit()
 {
-    ssh -X jwang011@submit${1}.mit.edu
+    ssh -Y jwang011@submit${1}.mit.edu
 }
 export submitmit
 
