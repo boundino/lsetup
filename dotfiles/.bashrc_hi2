@@ -28,6 +28,7 @@ if [[ $myhost = submit* ]]
 then
     alias dalscrath='cd /mnt/submit03/d00/scratch/jwang/'
     alias worksp='cd /work/submit/jwang011/scratchHome/'
+    alias datasp='cd /data/submit/jwang011/'
     alias condorq='condor_q jwang011 | grep Total'
 fi
 
