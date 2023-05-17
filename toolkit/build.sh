@@ -19,7 +19,7 @@ then
 fi
 
 mkdir -p exec/$folder
-for i in `echo *.cc` ; do 
+for i in `echo *.cc *.C` ; do 
     echo "building $i ..."
     g++ $i $(root-config --libs --cflags) -g -o exec/${folder}/${i%%.cc}
 done
