@@ -59,7 +59,7 @@
   gStyle->SetHistLineStyle(0);
   gStyle->SetHistLineWidth(3);
   gStyle->SetHistLineWidth(1);
-  gStyle->SetEndErrorSize(0);
+  // gStyle->SetEndErrorSize(0);
   //  gStyle->SetErrorX(0);
   gStyle->SetMarkerStyle(20);
   gStyle->SetMarkerSize(1);
