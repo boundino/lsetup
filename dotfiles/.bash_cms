@@ -12,8 +12,20 @@ export PS4=$'\[\e[38;2;165;255;170;1m\]L${LINENO} + \[\e[0m\]'
 # ====== CMSSW / ROOT ====== #
 
 alias root='root -l'
-alias crab_setup='source ~/crab_setup.sh'
-alias grid_setup='source ~/grid_setup.sh'
+
+function grid_setup() {
+    which grid-proxy-info
+    [[ $(ls -lt /tmp/ | grep --color=no "$USER " | grep --color=no -m 1 x509)x == x ]] && voms-proxy-init --voms cms --valid 168:00
+    voms-proxy-info --all
+}
+export -f grid_setup
+function crab_setup() {
+    grid_setup
+    source /cvmfs/cms.cern.ch/crab3/crab.sh
+    echo -e "\e[32;1m$(which crab)\e[0m"
+}
+export -f crab_setup
+
 alias bril_setup='export PATH=$HOME/.local/bin:/afs/cern.ch/cms/lumi/brilconda-1.0.3/bin:$PATH'
 # svn
 alias gitlabinit='eval `utils/tdr runtime -sh`'
