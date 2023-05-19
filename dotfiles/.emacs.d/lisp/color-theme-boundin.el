@@ -50,7 +50,7 @@
       (font-lock-comment-face ((t (:foreground "indianred" :weight light))))
       (font-lock-constant-face ((t (:foreground "darkslategray2"))))
       (font-lock-doc-face ((t (:foreground "LightSalmon"))))
-      (font-lock-function-name-face ((t (:foreground "lightpink1"))))
+      (font-lock-function-name-face ((t (:foreground "pink1"))))
       (font-lock-keyword-face ((t (:foreground "cadetblue"))))
       (font-lock-string-face ((t (:foreground "LightSkyBlue3" :weight semilight))))
       (font-lock-type-face ((t (:foreground "darkolivegreen3"))))
