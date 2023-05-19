@@ -31,6 +31,8 @@
 
 ;; which-key https://github.com/justbur/emacs-which-key ;; (require 'which-key)
 (which-key-mode)
+(set-face-attribute 'which-key-local-map-description-face nil :weight 'bold)
+(which-key-setup-side-window-right-bottom)
 
 ;; helm-mode https://emacs-helm.github.io/helm/ ;; (require 'helm)
 (helm-mode)
@@ -46,6 +48,7 @@
 (web-mode)
 (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.js[x]?\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.css\\'" . web-mode))
 (defun my-web-mode-hook ()
   "Hooks for Web mode."
   (setq web-mode-markup-indent-offset 2
