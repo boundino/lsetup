@@ -2,12 +2,13 @@
 
 # https://root.cern.ch/get-root-sources
 # https://root.cern.ch/building-root
+# Homebrew require whole xcode
 
 # Install cmake if not yet done
 brew install cmake
 
 # Get root source macros
-git clone http://github.com/root-project/root.git
+git clone git@github.com-work:root-project/root.git
 
 # Build root
 mkdir buildroot
@@ -19,3 +20,5 @@ cmake --build . -j6
 # Initialization
 readlink -f bin/thisroot.sh
 source $(readlink -f bin/thisroot.sh)
+
+# rm -r ../root

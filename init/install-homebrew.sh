@@ -9,3 +9,4 @@
 # Test #
 echo $(brew --prefix)
 
+# May need to reboot to work in other tabs #

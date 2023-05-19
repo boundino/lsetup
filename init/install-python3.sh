@@ -9,7 +9,6 @@ python3 -m pip install --upgrade pipenv
 
 # install modules
 python3 -m pip install requests_html
-python3 -m pip install requests
 
 # install math modules
 python3 -m pip install numpy

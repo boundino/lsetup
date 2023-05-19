@@ -1,6 +1,6 @@
 #!/bin/bash
 
 # latex
-brew cask install mactex
+brew install mactex --cask
 
 
