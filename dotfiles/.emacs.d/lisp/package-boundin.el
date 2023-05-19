@@ -26,6 +26,8 @@
         company-tooltip-minimum 4
         company-tooltip-flip-when-above t
         company-format-margin-function #'company-vscode-dark-icons-margin) ;; yet work
+  (set-face-attribute 'company-tooltip-common nil :weight 'bold)
+  (set-face-attribute 'company-tooltip-annotation nil :foreground "blue4")
   )
 (add-hook 'company-mode-hook 'my-company-mode-hook)
 
