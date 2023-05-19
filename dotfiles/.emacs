@@ -2,6 +2,10 @@
 
 (add-to-list 'load-path "~/.emacs.d/lisp/")
 
+;; Set dark theme ;; 
+(setq frame-background-mode 'dark)
+(mapc 'frame-set-background-mode (frame-list))
+
 ;; Color theme ;;
 (require 'color-theme-boundin)
 (setq color-theme-is-global t)

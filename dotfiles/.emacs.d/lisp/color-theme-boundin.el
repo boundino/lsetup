@@ -53,7 +53,7 @@
       (font-lock-function-name-face ((t (:foreground "pink1"))))
       (font-lock-keyword-face ((t (:foreground "cadetblue"))))
       (font-lock-string-face ((t (:foreground "LightSkyBlue3" :weight semilight))))
-      (font-lock-type-face ((t (:foreground "darkolivegreen3"))))
+      (font-lock-type-face ((t (:foreground "darkolivegreen2"))))
       (font-lock-variable-name-face ((t (:foreground "LightGoldenrod"))))
       (font-lock-warning-face ((t (:bold t :foreground "Pink" :weight bold))))
       (fringe ((t (:background "grey10"))))
