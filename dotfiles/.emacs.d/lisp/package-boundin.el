@@ -96,7 +96,8 @@
 
 ;; markdown-mode
 (custom-set-faces
- '(markdown-url-face ((t (:inherit font-lock-variable-name-face)))))
+ '(markdown-url-face ((t (:inherit font-lock-variable-name-face))))
+ '(markdown-header-face ((t (:inherit font-lock-function-name-face)))))
 
 ;;
 (provide 'package-boundin)
