@@ -57,4 +57,3 @@
 (setq-default indent-tabs-mode nil)
 (add-hook 'bibtex-mode-hook
           (lambda () (setq fill-column 999999)))
-

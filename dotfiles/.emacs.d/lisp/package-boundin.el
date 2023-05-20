@@ -4,7 +4,7 @@
              '("melpa" . "https://melpa.org/packages/") t)
 (package-initialize)
 
-(setq package-selected-packages '(auto-complete company which-key web-mode helm)) 
+(setq package-selected-packages '(auto-complete company which-key web-mode helm company-c-headers))
 ;; projectile hydra flycheck company avy which-key helm-xref dap-mode))
 
 (when (cl-find-if-not #'package-installed-p package-selected-packages)
@@ -39,6 +39,13 @@
  '(company-preview-common ((t (:inherit completions-common-part))))
  '(company-template-field ((t (:inherit company-tooltip :foreground "wheat1")))))
 (add-hook 'company-mode-hook 'my-company-mode-hook)
+;; company-c-headers
+(add-to-list 'company-backends 'company-c-headers)
+(custom-set-variables
+ '(company-c-headers-path-user '("~" "../includes"))
+ '(company-clang-arguments
+   '("-std=c++14" "-I\"../includes\""
+     "-I/Users/boundin/buildroot/include" "-I/Users/boundin")))
 
 ;; which-key https://github.com/justbur/emacs-which-key ;; (require 'which-key)
 (which-key-mode)
