@@ -44,8 +44,9 @@
 (custom-set-variables
  '(company-c-headers-path-user '("~" "../includes"))
  '(company-clang-arguments
-   '("-std=c++14" "-I\"../includes\""
-     "-I/Users/boundin/buildroot/include" "-I/Users/boundin")))
+   '("-I\"../includes\"" "-I\"../include\""
+     "-I/Users/boundin" "-I/Users/boundin/buildroot/include"
+     "-I/afs/cern.ch/user/w/wangj" "-I/usr/include/root")))
 
 ;; which-key https://github.com/justbur/emacs-which-key ;; (require 'which-key)
 (which-key-mode)
