@@ -18,7 +18,7 @@
 ;; company-mode https://company-mode.github.io/manual/Getting-Started.html ;; (require 'company-mode)
 (global-company-mode)
 (defun my-company-mode-hook ()
-  "Hooks for Web mode."
+  "Hooks for Company mode."
   (setq company-minimum-prefix-length 1
         company-idle-delay 0
         company-require-match nil
@@ -31,7 +31,7 @@
 ;; dark
 (custom-set-faces
  '(company-tooltip ((t (:inherit default :background "gray25"))))
- '(company-tooltip-selection ((t (:background "gray15"))))
+ '(company-tooltip-selection ((t (:background "gray20"))))
  '(company-scrollbar-bg ((t (:background "gray35"))))
  '(company-scrollbar-fg ((t (:background "gray50"))))
  '(company-tooltip-common ((t (:inherit completions-common-part))))
@@ -88,7 +88,8 @@
 (add-hook 'web-mode-hook  'my-web-mode-hook)
 
 ;; markdown-mode
-;; '(markdown-header-face ((t (:inherit font-lock-function-name-face))))
+(custom-set-faces
+ '(markdown-url-face ((t (:inherit font-lock-variable-name-face)))))
 
 ;;
 (provide 'package-boundin)
