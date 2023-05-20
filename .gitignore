@@ -3,3 +3,4 @@ toolkit/showdir
 toolkit/rmbranch
 toolkit/addbranch
 toolkit/typetable
+dotfiles/.emacs.d/elpa/*

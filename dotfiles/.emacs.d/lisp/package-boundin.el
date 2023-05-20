@@ -4,7 +4,7 @@
              '("melpa" . "https://melpa.org/packages/") t)
 (package-initialize)
 
-(setq package-selected-packages '(auto-complete company which-key web-mode helm company-c-headers markdown-mode))
+(setq package-selected-packages '(auto-complete company which-key web-mode helm company-c-headers markdown-mode paren-face))
 ;; projectile hydra flycheck company avy which-key helm-xref dap-mode))
 
 (when (cl-find-if-not #'package-installed-p package-selected-packages)
@@ -70,6 +70,13 @@
 (custom-set-faces
  '(helm-match ((t (:inherit completions-common-part))))
  '(helm-source-header ((t (:inherit mode-line)))))
+
+;; paren-face https://github.com/tarsius/paren-face
+(global-paren-face-mode)
+(setq paren-face-modes '(lisp-mode emacs-lisp-mode lisp-interaction-mode ielm-mode
+                                   scheme-mode inferior-scheme-mode clojure-mode
+                                   cider-repl-mode nrepl-mode arc-mode inferior-arc-mode
+                                   c++-mode sh-mode))
 
 ;; web-mode https://web-mode.org/
 (web-mode)

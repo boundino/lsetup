@@ -72,6 +72,7 @@
      (region ((t (:background "palegreen4"))))
      (scroll-bar ((t (nil))))
      (secondary-selection ((t (:background "darkslateblue"))))
+     (shadow ((t (:foreground "grey55"))))
      (show-block-face1 ((t (:background "gray10"))))
      (show-block-face2 ((t (:background "gray15"))))
      (show-block-face3 ((t (:background "gray20"))))
