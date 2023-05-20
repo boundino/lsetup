@@ -4,7 +4,7 @@
              '("melpa" . "https://melpa.org/packages/") t)
 (package-initialize)
 
-(setq package-selected-packages '(auto-complete company which-key web-mode helm company-c-headers))
+(setq package-selected-packages '(auto-complete company which-key web-mode helm company-c-headers markdown-mode))
 ;; projectile hydra flycheck company avy which-key helm-xref dap-mode))
 
 (when (cl-find-if-not #'package-installed-p package-selected-packages)
@@ -21,6 +21,7 @@
   "Hooks for Web mode."
   (setq company-minimum-prefix-length 1
         company-idle-delay 0
+        company-require-match nil
         company-tooltip-idle-delay 1
         company-tooltip-minimum 4
         company-tooltip-flip-when-above t
@@ -30,7 +31,7 @@
 ;; dark
 (custom-set-faces
  '(company-tooltip ((t (:inherit default :background "gray25"))))
- '(company-tooltip-selection ((t (:background "gray20"))))
+ '(company-tooltip-selection ((t (:background "gray15"))))
  '(company-scrollbar-bg ((t (:background "gray35"))))
  '(company-scrollbar-fg ((t (:background "gray50"))))
  '(company-tooltip-common ((t (:inherit completions-common-part))))
@@ -42,7 +43,7 @@
 ;; company-c-headers
 (add-to-list 'company-backends 'company-c-headers)
 (custom-set-variables
- '(company-c-headers-path-user '("~" "../includes"))
+ ;; '(company-c-headers-path-user '("~" "../includes"))
  '(company-clang-arguments
    '("-I\"../includes\"" "-I\"../include\""
      "-I/Users/boundin" "-I/Users/boundin/buildroot/include"
@@ -58,17 +59,17 @@
 (define-key global-map [remap find-file] #'helm-find-files)
 (define-key global-map [remap execute-extended-command] #'helm-M-x)
 (define-key global-map [remap switch-to-buffer] #'helm-mini)
+(set-face-attribute 'helm-selection nil :background "gray25")
+(set-face-attribute 'helm-ff-directory nil :foreground "darkseagreen3")
+(set-face-attribute 'helm-ff-symlink nil :foreground "steelblue3")
+(set-face-attribute 'helm-ff-file-extension nil :foreground "indianred1")
+(set-face-attribute 'helm-ff-dotted-directory nil :foreground "darkolivegreen2")
+(set-face-attribute 'helm-ff-file nil :foreground "wheat2")
+(set-face-attribute 'helm-ff-executable nil :foreground "gold1")
+(set-face-attribute 'helm-candidate-number nil :background "wheat1" :foreground "black")
 (custom-set-faces
- '(helm-selection ((t (:extend t :background "gray20" :distant-foreground "black"))))
  '(helm-match ((t (:inherit completions-common-part))))
- '(helm-source-header ((t (:inherit mode-line))))
- '(helm-ff-directory ((t (:extend t :foreground "darkseagreen3"))))
- '(helm-ff-symlink ((t (:extend t :foreground "steelblue3"))))
- '(helm-ff-file-extension ((t (:foreground "indianred1" :extend t))))
- '(helm-ff-dotted-directory ((t (:extend t :foreground "darkolivegreen2"))))
- '(helm-ff-file ((t (:extend t :foreground "wheat2"))))
- '(helm-ff-executable ((t (:extend t :foreground "gold1"))))
- '(helm-candidate-number ((t (:background "wheat1" :foreground "black")))))
+ '(helm-source-header ((t (:inherit mode-line)))))
 
 ;; web-mode https://web-mode.org/
 (web-mode)
@@ -85,6 +86,9 @@
   (setq web-mode-enable-css-colorization t)
   (set-face-attribute 'web-mode-html-tag-bracket-face nil :foreground "gray30"))
 (add-hook 'web-mode-hook  'my-web-mode-hook)
+
+;; markdown-mode
+;; '(markdown-header-face ((t (:inherit font-lock-function-name-face))))
 
 ;;
 (provide 'package-boundin)
