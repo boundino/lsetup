@@ -43,11 +43,11 @@
 ;; company-c-headers
 (add-to-list 'company-backends 'company-c-headers)
 (custom-set-variables
- ;; '(company-c-headers-path-user '("~" "../includes"))
+ '(company-c-headers-path-user '("~" "../includes"))
  '(company-clang-arguments
    '("-I\"../includes\"" "-I\"../include\""
-     "-I/Users/boundin" "-I/Users/boundin/buildroot/include"
-     "-I/afs/cern.ch/user/w/wangj" "-I/usr/include/root")))
+     "-I/Users/boundin" "-I/Users/boundin/buildroot/include" ;; local
+     "-I/afs/cern.ch/user/w/wangj" "-I/usr/include/root"))) ;; lxplus
 
 ;; which-key https://github.com/justbur/emacs-which-key ;; (require 'which-key)
 (which-key-mode)
@@ -60,28 +60,21 @@
 (define-key global-map [remap execute-extended-command] #'helm-M-x)
 (define-key global-map [remap switch-to-buffer] #'helm-mini)
 (set-face-attribute 'helm-selection nil :background "gray25")
-(set-face-attribute 'helm-ff-directory nil :foreground "darkseagreen3")
-(set-face-attribute 'helm-ff-symlink nil :foreground "steelblue3")
+(set-face-attribute 'helm-ff-directory nil :background 'unspecified :foreground "darkseagreen3")
+(set-face-attribute 'helm-ff-symlink nil :inherit 'font-lock-keyword-face)
 (set-face-attribute 'helm-ff-file-extension nil :foreground "indianred1")
-(set-face-attribute 'helm-ff-dotted-directory nil :foreground "darkolivegreen2")
-(set-face-attribute 'helm-ff-file nil :foreground "wheat2")
+(set-face-attribute 'helm-ff-dotted-directory nil :background 'unspecified :foreground "white" :weight 'bold)
+(set-face-attribute 'helm-ff-file nil :inherit 'font-lock-variable-name-face)
 (set-face-attribute 'helm-ff-executable nil :foreground "gold1")
 (set-face-attribute 'helm-candidate-number nil :background "wheat1" :foreground "black")
 (custom-set-faces
  '(helm-match ((t (:inherit completions-common-part))))
  '(helm-source-header ((t (:inherit mode-line)))))
 
-;; paren-face https://github.com/tarsius/paren-face
-(global-paren-face-mode)
-(setq paren-face-modes '(lisp-mode emacs-lisp-mode lisp-interaction-mode ielm-mode
-                                   scheme-mode inferior-scheme-mode clojure-mode
-                                   cider-repl-mode nrepl-mode arc-mode inferior-arc-mode
-                                   c++-mode sh-mode))
-
 ;; web-mode https://web-mode.org/
 (web-mode)
 (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.js[x]?\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.js[xon]?\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.css\\'" . web-mode))
 (defun my-web-mode-hook ()
   "Hooks for Web mode."
@@ -91,13 +84,21 @@
   (setq web-mode-enable-current-element-highlight t
         web-mode-enable-current-column-highlight t)
   (setq web-mode-enable-css-colorization t)
-  (set-face-attribute 'web-mode-html-tag-bracket-face nil :foreground "gray30"))
+  (set-face-attribute 'web-mode-html-tag-bracket-face nil :foreground "gray30")
+  (set-face-attribute 'web-mode-function-call-face nil :inherit 'font-lock-warning-face))
 (add-hook 'web-mode-hook  'my-web-mode-hook)
 
 ;; markdown-mode
 (custom-set-faces
  '(markdown-url-face ((t (:inherit font-lock-variable-name-face))))
  '(markdown-header-face ((t (:inherit font-lock-function-name-face)))))
+
+;; paren-face https://github.com/tarsius/paren-face
+(global-paren-face-mode)
+(setq paren-face-modes '(lisp-mode emacs-lisp-mode lisp-interaction-mode ielm-mode
+                                   scheme-mode inferior-scheme-mode clojure-mode
+                                   cider-repl-mode nrepl-mode arc-mode inferior-arc-mode
+                                   c++-mode sh-mode))
 
 ;;
 (provide 'package-boundin)
