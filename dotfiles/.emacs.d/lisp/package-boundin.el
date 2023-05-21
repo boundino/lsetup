@@ -5,6 +5,7 @@
 (package-initialize)
 
 (setq package-selected-packages '(auto-complete company which-key web-mode helm company-c-headers markdown-mode paren-face))
+                                                ;; lsp-mode dap-mode yasnippet))
 ;; projectile hydra flycheck company avy which-key helm-xref dap-mode))
 
 (when (cl-find-if-not #'package-installed-p package-selected-packages)
@@ -20,7 +21,7 @@
 (defun my-company-mode-hook ()
   "Hooks for Company mode."
   (setq company-minimum-prefix-length 1
-        company-idle-delay 0
+        company-idle-delay 0.0
         company-require-match nil
         company-tooltip-idle-delay 1
         company-tooltip-minimum 4
@@ -80,7 +81,7 @@
   "Hooks for Web mode."
   (setq web-mode-markup-indent-offset 2
         web-mode-css-indent-offset 4
-        web-mode-code-indent-offset 2)
+        web-mode-code-indent-offset 4)
   (setq web-mode-enable-current-element-highlight t
         web-mode-enable-current-column-highlight t)
   (setq web-mode-enable-css-colorization t)
@@ -99,6 +100,23 @@
                                    scheme-mode inferior-scheme-mode clojure-mode
                                    cider-repl-mode nrepl-mode arc-mode inferior-arc-mode
                                    c++-mode sh-mode))
+
+;; lsp-mode c++ https://emacs-lsp.github.io/lsp-mode/tutorials/CPP-guide/
+;; https://emacs-lsp.github.io/lsp-mode/tutorials/how-to-turn-off/
+;; (add-hook 'c-mode-hook 'lsp)
+;; (add-hook 'c++-mode-hook 'lsp)
+;; (setq gc-cons-threshold (* 100 1024 1024)
+;;       read-process-output-max (* 1024 1024)
+;;       treemacs-space-between-root-nodes nil
+;;       lsp-idle-delay 0.1  ;; clangd is fast
+;;       lsp-diagnostics-provider :none
+;;       ;; lsp-completion-show-kind nil
+;;       lsp-completion-provider :none)
+;; (setq lsp-clients-clangd-args '("--header-insertion-decorators=0" "--compile-commands-dir=build"))
+;; (with-eval-after-load 'lsp-mode
+;;   (add-hook 'lsp-mode-hook #'lsp-enable-which-key-integration)
+;;   (require 'dap-cpptools)
+;;   (yas-global-mode))
 
 ;;
 (provide 'package-boundin)
