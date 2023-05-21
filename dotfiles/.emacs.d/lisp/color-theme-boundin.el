@@ -57,7 +57,7 @@
      (font-lock-variable-name-face ((t (:foreground "burlywood1"))))
      (font-lock-warning-face ((t (:foreground "thistle"))))
      (fringe ((t (:background "grey10"))))
-     (header-line ((t (:box (:line-width -1 :style released-button) :foreground "grey20" :background "grey90" :box nil))))
+     (header-line ((t (:box (:line-width -1 :style released-button) :foreground "grey50" :background "grey15" :box nil))))
      (highlight ((t (:background "darkolivegreen"))))
      (ibuffer-deletion-face ((t (:foreground "red"))))
      (ibuffer-marked-face ((t (:foreground "green"))))
