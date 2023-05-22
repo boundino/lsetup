@@ -20,10 +20,10 @@
 ;; Set variables ;;
 ;; Highlight parenthese
 (show-paren-mode t)
-;; Turn on Font lock mode
-(global-font-lock-mode t)
 ;; Add space in linum mode
 (setq linum-format "%d ")
+;; display column number
+(column-number-mode t)
 ;; default to better frame titles
 (setq frame-title-format
       (concat  "%b - emacs@" (system-name)))
@@ -33,8 +33,6 @@
 ;; turn on transient-mark
 (transient-mark-mode t)
 (setq x-select-enable-clipboard t)
-;; display column number
-(column-number-mode t)
 ;; Allow open symlinks
 (setq vc-follow-symlinks nil)
 ;; (setq org-confirm-babel-evaluate nil)
