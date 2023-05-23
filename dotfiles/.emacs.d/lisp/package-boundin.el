@@ -100,6 +100,7 @@
                                    scheme-mode inferior-scheme-mode clojure-mode
                                    cider-repl-mode nrepl-mode arc-mode inferior-arc-mode
                                    c++-mode sh-mode))
+(setq paren-face-regexp "[][(),]")
 
 ;; lsp-mode c++ https://emacs-lsp.github.io/lsp-mode/tutorials/CPP-guide/
 ;; https://emacs-lsp.github.io/lsp-mode/tutorials/how-to-turn-off/
