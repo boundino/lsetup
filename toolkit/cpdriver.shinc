@@ -1,0 +1,33 @@
+#!/bin/bash 
+
+function cpdriver() {
+    
+    echo '
+#!/bin/bash
+
+FIGDIR='$1'
+
+[[ $# -eq 0 ]] && set -- "figs/"
+
+for dir in $@
+do
+    echo $dir
+
+    dir=${dir%%"/"} # remove possible last slash
+    lastdir=${dir##*/} # last directory
+    subdir="./"${dir%%$lastdir}
+
+    # echo $FIGDIR/$dir $subdir
+
+    set -x
+    cp -r  $FIGDIR/$dir $subdir
+    # scp -r wangj@lxplus.cern.ch:$FIGDIR/$dir $subdir
+    set +x
+
+done
+' > cpfigs.sh
+
+    chmod 744 cpfigs.sh
+}
+
+export -f cpdriver
