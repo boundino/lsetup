@@ -15,7 +15,22 @@ alias root='root -l'
 
 function grid_setup() {
     which grid-proxy-info
-    [[ $(ls -lt /tmp/ | grep --color=no "$USER " | grep --color=no -m 1 x509)x == x ]] && voms-proxy-init --voms cms --valid 168:00
+    POSITIONAL_ARGS=()
+    while [[ $# -gt 0 ]]; do
+        case $1 in
+            -f|--force)
+                FORCE=YES
+                shift # past argument
+                ;;
+            *)
+                POSITIONAL_ARGS+=("$1") # save positional arg
+                shift # past argument
+                ;;
+        esac
+    done
+    set -- "${POSITIONAL_ARGS[@]}" # restore positional parameters
+
+    [[ $(ls -lt /tmp/ | grep --color=no "$USER " | grep --color=no -m 1 x509)x == x || $FORCE == YES ]] && voms-proxy-init --voms cms --valid 168:00
     voms-proxy-info --all
 }
 export -f grid_setup
