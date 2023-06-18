@@ -1,4 +1,2 @@
-
-PAPERINDEX="HIN-16-001"
-TYPE=paper # an, pas, paper
-tdr --style=$TYPE b $PAPERINDEX
+# an, paper, pas
+tdr --style=paper --temp_dir=$PWD/tmp b
