@@ -91,7 +91,6 @@
   (setq web-mode-comment-formats '(("typescript" . "//")
                                    ("javascript" . "//")
                                    ("java" . "//"))) ;; https://emacs.stackexchange.com/questions/28204/how-to-set-web-mode-to-use-single-line-comment-style-instead-of-multi-line-for-j
-  ;; (local-unset-key (kbd "\M-;"))
   )
 (eval-after-load 'web-mode
   '(progn
