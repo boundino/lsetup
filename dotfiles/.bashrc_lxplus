@@ -13,11 +13,16 @@ fi
 export TERM=xterm-24bit
 export CLICOLOR=1
 
+export CURRENTWORKDIR=/afs/cern.ch/work/w/wangj/RECO2022/CMSSW_12_5_2/src/tracklet/analysis
+export CURRENTDOCUMENTDIR=/afs/cern.ch/user/w/wangj/myDir/dNdeta2022/AN-22-178
+
 # User specific aliases and functions
+alias workspnow='cd '$CURRENTWORKDIR
+alias documentnow='cd '$CURRENTDOCUMENTDIR
 alias worksp='cd /afs/cern.ch/work/w/wangj'
 alias svmithi02='ssh -Y svmithi02'
 # alias mounteos='eosmount eos/; cd ~/eos/cms/store/group/phys_heavyions/wangj'
-alias mounteos='cd /eos/cms/store/group/phys_heavyions/wangj/'
+alias eosheavyions='cd /eos/cms/store/group/phys_heavyions/wangj/'
 alias eoswangj='cd /eos/user/w/wangj/'
 # https://information-technology.web.cern.ch/services/fe/afs/howto/configure-afs-access-rights #
 alias checkafsaccess='fs listacl .'
