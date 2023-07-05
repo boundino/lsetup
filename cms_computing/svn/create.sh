@@ -59,6 +59,11 @@ SUB=${SUBF[$STYLE]}  #  notes,  papers,  notes
 [user]
         name = '$USER'
         email = '$em'
+' >> .git/config ; } || {
+    echo '
+[user]
+        name = wangj
+        email = jing.wang@cern.ch
 ' >> .git/config ; }
     cat .git/config
 
