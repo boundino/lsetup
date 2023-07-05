@@ -3,7 +3,12 @@
 LS_COLORS=$LS_COLORS:'di=38;2;89;193;183:ex=38;2;255;207;92;1:*.h=38;2;128;128;128;1:*.pdf=38;2;1;151;202:*.backup=38;2;60;60;60:ln=38;2;116;110;163;1:*.root=38;2;230;211;208;3:*.highlight=38;5;20;1;48;5;230:*.py=38;2;72;116;81;1:*.log=38;5;15;48;2;71;117;163;1:*.txt=38;5;15;48;2;71;117;163;1:*.output=38;5;15;48;2;71;117;163;1' ; export LS_COLORS
 parse_git_branch() { git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/' ; }
 
-[[ -f $HOME/bin/emacs ]] && { alias emacs=$HOME'/bin/emacs -nw' ; } || { alias emacs='emacs -nw' ; }
+[[ `echo $(hostname) | awk -F "." '{print $1}'` == lxplus9* ]] && {
+    alias emacs='emacs -nw' ; } || {
+    [[ -f $HOME/bin/emacs ]] && {
+        alias emacs=$HOME'/bin/emacs -nw' ; } || {
+        alias emacs='emacs -nw' ; }
+}
 alias ls='ls --color=yes'
 alias ll='ls -lh'
 alias lla='ls -alh'
