@@ -15,6 +15,7 @@ alias grendel="ssh -Y wangj@GRENDEL01.mit.edu"
 alias tunnel="ssh -f -N -L 10121:188.184.36.85:10121 wangj@lxplus.cern.ch"
 #alias tree="tree | ascii2uni -a K"
 alias workspace="cd $HOME/macrosc/"
+alias workspacenow="cd $HOME/macrosc/cms-hin-coordination/analysis/cadibot"
 alias macbookair="cd $HOME/Dropbox/Private/MacbookAir/"
 alias results="cd ~/Desktop/Results/"
 
