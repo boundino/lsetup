@@ -5,7 +5,7 @@
 (package-initialize)
 
 (setq package-selected-packages '(auto-complete company which-key web-mode helm company-c-headers markdown-mode paren-face))
-                                                ;; lsp-mode dap-mode yasnippet))
+;; lsp-mode dap-mode yasnippet))
 ;; projectile hydra flycheck company avy which-key helm-xref dap-mode))
 
 (when (cl-find-if-not #'package-installed-p package-selected-packages)
@@ -85,8 +85,17 @@
   (setq web-mode-enable-current-element-highlight t
         web-mode-enable-current-column-highlight t)
   (setq web-mode-enable-css-colorization t)
-  (set-face-attribute 'web-mode-html-tag-bracket-face nil :foreground "gray30")
-  (set-face-attribute 'web-mode-function-call-face nil :inherit 'font-lock-warning-face))
+  (set-face-attribute 'web-mode-html-tag-bracket-face nil :foreground "gray50")
+  (set-face-attribute 'web-mode-html-tag-face nil :foreground "gray70")
+  (set-face-attribute 'web-mode-function-call-face nil :inherit 'font-lock-warning-face)
+  (setq web-mode-comment-formats '(("typescript" . "//")
+                                   ("javascript" . "//")
+                                   ("java" . "//"))) ;; https://emacs.stackexchange.com/questions/28204/how-to-set-web-mode-to-use-single-line-comment-style-instead-of-multi-line-for-j
+  ;; (local-unset-key (kbd "\M-;"))
+  )
+(eval-after-load 'web-mode
+  '(progn
+     (define-key web-mode-map (kbd "M-;") nil)))
 (add-hook 'web-mode-hook  'my-web-mode-hook)
 
 ;; markdown-mode
