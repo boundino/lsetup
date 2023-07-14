@@ -42,7 +42,7 @@ export PROMPT_COMMAND='echo -ne "\033]0;${USER}@${PWD##*/}\007"'
 
 function lxplus()
 {
-    ssh -Y wangj@lxplus${1:-9}.cern.ch
+    ssh -Y wangj@lxplus${1:-8}.cern.ch
 }
 export lxplus
 
