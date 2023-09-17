@@ -1,0 +1,4 @@
+
+function dumpjson() {
+    python3 ~/lsetup/toolkit/dumpjson.py $@
+}

@@ -147,6 +147,15 @@ function colort2() {
 }
 export colort
 
+function makecc() {
+    for i in `ls --color=no ${1}*` ; do
+        [[ $i == *.cc || $i == *.C ]] && {
+            dotc=$i
+            g++ $dotc $(root-config --libs --cflags) -I$HOME -g -o ${dotc%%.*}
+        }
+    done
+}
+
 # toolkit
 function cbuildreg() {
     cbuildreg_tmp=root
@@ -168,6 +177,7 @@ alias diffleaf='$HOME/lsetup/toolkit/exec/$(cbuildreg)/diffleaf'
 . $HOME/lsetup/toolkit/mcmlink.shinc
 . $HOME/lsetup/toolkit/makerun.shinc
 . $HOME/lsetup/toolkit/cpdriver.shinc
+. $HOME/lsetup/toolkit/json.shinc
 alias rmbranch='$HOME/lsetup/toolkit/exec/$(cbuildreg)/rmbranch'
 alias addbranch='$HOME/lsetup/toolkit/exec/$(cbuildreg)/addbranch'
 alias typetable='$HOME/lsetup/toolkit/exec/$(cbuildreg)/typetable'
