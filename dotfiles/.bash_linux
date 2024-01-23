@@ -107,6 +107,9 @@ export -f catt
 echoo() { for i in `echo $@` ; do echo $i ; done ; }
 export -f echoo
 
+weather() { curl http://wttr.in/${1:-geneva} ; }
+
+
 # export PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME%%.*}\007"'
 export PROMPT_COMMAND='echo -ne "\033]0;${PWD##*/}@${HOSTNAME%%.*}\007"'
 
