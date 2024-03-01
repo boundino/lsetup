@@ -1,0 +1,77 @@
+:root {
+    /* Primary */
+    --dark-web-1-hex: #455C7B;    --dark-web-1-rgba: rgba(69, 92, 123, 1);
+    --dark-web-2-hex: #405672;    --dark-web-2-rgba: rgba(64, 86, 114, 1);
+    --dark-web-3-hex: #F4E0E5;    --dark-web-3-rgba: rgba(244, 224, 229, 1);
+    --dark-web-4-hex: #FFBC67;    --dark-web-4-rgba: rgba(255, 188, 103, 1);
+    --dark-web-5-hex: #685C79;    --dark-web-5-rgba: rgba(104, 92, 121, 1);
+    --dark-web-6-hex: #CD6BA3;    --dark-web-6-rgba: rgba(205, 107, 163, 1);
+
+    --kopie-copie-1-hex: #FFBC67;    --kopie-copie-1-rgba: rgba(255, 188, 103, 1);
+    --kopie-copie-2-hex: #DA727E;    --kopie-copie-2-rgba: rgba(218, 114, 126, 1);
+    --kopie-copie-3-hex: #AC6C82;    --kopie-copie-3-rgba: rgba(172, 108, 130, 1);
+    --kopie-copie-4-hex: #685C79;    --kopie-copie-4-rgba: rgba(104, 92, 121, 1);
+    --kopie-copie-5-hex: #455C7B;    --kopie-copie-5-rgba: rgba(69, 92, 123, 1);
+
+    --magic-ui-1-hex: #F2AEBB;    --magic-ui-1-rgba: rgba(242, 174, 187, 1);
+    --magic-ui-2-hex: #4B7DBF;    --magic-ui-2-rgba: rgba(75, 125, 191, 1);
+    --magic-ui-3-hex: #F2B33D;    --magic-ui-3-rgba: rgba(242, 179, 61, 1);
+    --magic-ui-4-hex: #F2E1D8;    --magic-ui-4-rgba: rgba(242, 225, 216, 1);
+    --magic-ui-5-hex: #D94E4E;    --magic-ui-5-rgba: rgba(217, 78, 78, 1);
+
+    --innovation-stamp-1-hex: #074A59;    --innovation-stamp-1-rgba: rgba(7, 74, 89, 1);
+    --innovation-stamp-2-hex: #0D7F8C;    --innovation-stamp-2-rgba: rgba(13, 127, 140, 1);
+    --innovation-stamp-3-hex: #F2B544;    --innovation-stamp-3-rgba: rgba(242, 181, 68, 1);
+    --innovation-stamp-4-hex: #F24535;    --innovation-stamp-4-rgba: rgba(242, 69, 53, 1);
+    --innovation-stamp-5-hex: #A64037;    --innovation-stamp-5-rgba: rgba(166, 64, 55, 1);
+
+    --Iconographic-Encyclopædia-1-hex: #8C4A5C;    --Iconographic-Encyclopædia-1-rgba: rgba(140, 74, 91, 1);
+    --Iconographic-Encyclopædia-2-hex: #868C54;    --Iconographic-Encyclopædia-2-rgba: rgba(133, 140, 84, 1);
+    --Iconographic-Encyclopædia-3-hex: #F2F2F0;    --Iconographic-Encyclopædia-3-rgba: rgba(242, 241, 239, 1);
+    --Iconographic-Encyclopædia-4-hex: #D9A036;    --Iconographic-Encyclopædia-4-rgba: rgba(216, 159, 54, 1);
+    --Iconographic-Encyclopædia-5-hex: #BF5D39;    --Iconographic-Encyclopædia-5-rgba: rgba(191, 93, 57, 1);
+
+    /* Double tones */
+    --alcohol-ink-1-hex: #D96690;    --alcohol-ink-1-rgba: rgba(217, 102, 144, 1);
+    --alcohol-ink-2-hex: #F28DB2;    --alcohol-ink-2-rgba: rgba(242, 141, 178, 1);
+    --alcohol-ink-3-hex: #F2C9E0;    --alcohol-ink-3-rgba: rgba(242, 201, 224, 1);
+    --alcohol-ink-4-hex: #89C2D9;    --alcohol-ink-4-rgba: rgba(137, 194, 217, 1);
+    --alcohol-ink-5-hex: #88E8F2;    --alcohol-ink-5-rgba: rgba(136, 232, 242, 1);
+
+    --pinkblue-1-hex: #CD6BA3;    --pinkblue-1-rgba: rgba(205, 107, 163, 1);
+    --pinkblue-2-hex: #DD9AC3;    --pinkblue-2-rgba: rgba(221, 154, 195, 1);
+    --pinkblue-3-hex: #F4E0E5;    --pinkblue-3-rgba: rgba(244, 224, 229, 1);
+    --pinkblue-4-hex: #5083C3;    --pinkblue-4-rgba: rgba(80, 131, 195, 1);
+    --pinkblue-5-hex: #1A3C52;    --pinkblue-5-rgba: rgba(26, 60, 82, 1);
+
+    --vintage-hearts-1-hex: #403D2F;    --vintage-hearts-1-rgba: rgba(64, 61, 47, 1);
+    --vintage-hearts-2-hex: #4A8C7A;    --vintage-hearts-2-rgba: rgba(74, 140, 122, 1);
+    --vintage-hearts-3-hex: #F1E9D5;    --vintage-hearts-3-rgba: rgba(241, 233, 213, 1);
+    --vintage-hearts-4-hex: #F1CBB1;    --vintage-hearts-4-rgba: rgba(241, 203, 177, 1);
+    --vintage-hearts-5-hex: #D96459;    --vintage-hearts-5-rgba: rgba(217, 100, 89, 1);
+
+    --last-summer-day-1-hex: #A7C5C5;    --last-summer-day-1-rgba: rgba(167, 197, 197, 1);
+    --last-summer-day-2-hex: #DEE0D5;    --last-summer-day-2-rgba: rgba(222, 224, 213, 1);
+    --last-summer-day-3-hex: #E2AC48;    --last-summer-day-3-rgba: rgba(226, 172, 72, 1);
+    --last-summer-day-4-hex: #B96028;    --last-summer-day-4-rgba: rgba(185, 96, 40, 1);
+    --last-summer-day-5-hex: #983C2D;    --last-summer-day-5-rgba: rgba(152, 60, 45, 1);
+
+    --paysystems-1-hex: #004F94;    --paysystems-1-rgba: rgba(0, 79, 148, 1);
+    --paysystems-2-hex: #006EB8;    --paysystems-2-rgba: rgba(0, 110, 184, 1);
+    --paysystems-3-hex: #FFFFFF;    --paysystems-3-rgba: rgba(255, 255, 255, 1);
+    --paysystems-4-hex: #FFB300;    --paysystems-4-rgba: rgba(255, 179, 0, 1);
+    --paysystems-5-hex: #F8981E;    --paysystems-5-rgba: rgba(248, 152, 30, 1);
+
+    --cycling-1-hex: #035AA6;    --cycling-1-rgba: rgba(3, 90, 166, 1);
+    --cycling-2-hex: #146EA6;    --cycling-2-rgba: rgba(20, 110, 166, 1);
+    --cycling-3-hex: #F2DFCE;    --cycling-3-rgba: rgba(242, 223, 206, 1);
+    --cycling-4-hex: #F25835;    --cycling-4-rgba: rgba(242, 88, 53, 1);
+    --cycling-5-hex: #A6442E;    --cycling-5-rgba: rgba(166, 68, 46, 1);
+
+    --Virtual-Heritage-1-hex: #2E578C;    --Virtual-Heritage-1-rgba: rgba(46, 87, 140, 1);
+    --Virtual-Heritage-2-hex: #79ACD9;    --Virtual-Heritage-2-rgba: rgba(121, 172, 216, 1);
+    --Virtual-Heritage-3-hex: #E4EBF2;    --Virtual-Heritage-3-rgba: rgba(227, 235, 242, 1);
+    --Virtual-Heritage-4-hex: #D9A362;    --Virtual-Heritage-4-rgba: rgba(216, 163, 97, 1);
+    --Virtual-Heritage-5-hex: #8C5B3E;    --Virtual-Heritage-5-rgba: rgba(140, 90, 61, 1);
+
+}
