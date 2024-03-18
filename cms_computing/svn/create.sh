@@ -3,7 +3,7 @@
 ## lxplus ##
 
 PAPERINDEX="HIN-23-007"
-STYLE="paper" #  an,     paper,   pas
+STYLE="pas" #  an,     paper,   pas
 FOLDER="$PWD"
 DRYRUN=0
 

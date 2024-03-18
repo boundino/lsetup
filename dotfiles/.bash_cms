@@ -12,6 +12,7 @@ export PS4=$'\[\e[38;2;165;255;170;1m\]L${LINENO} + \[\e[0m\]'
 # ====== CMSSW / ROOT ====== #
 
 alias root='root -l'
+alias condorq='condor_q '$USER' | grep Total'
 
 function grid_setup() {
     which grid-proxy-info
@@ -31,6 +32,8 @@ function grid_setup() {
     set -- "${POSITIONAL_ARGS[@]}" # restore positional parameters
 
     [[ $(ls -lt /tmp/ | grep --color=no "$USER " | grep --color=no -m 1 x509)x == x || $FORCE == YES ]] && voms-proxy-init --voms cms --valid 168:00
+    EXISTPROXY=$(ls /tmp/ -lt | grep $USER | grep -m 1 x509 | awk '{print $NF}')
+    cp /tmp/$EXISTPROXY $HOME/
     voms-proxy-info --all
 }
 export -f grid_setup
@@ -69,6 +72,6 @@ alias sitelist='[[ -f ~/.sites ]] && catt ~/.sites'
 
 # toolkit
 . $HOME/lsetup/toolkit/gfalxrd.shinc
-alias daslumi='python $HOME/lsetup/toolkit/daslumi.py'
+alias daslumi='python3 $HOME/lsetup/toolkit/daslumi.py'
 . $HOME/lsetup/toolkit/dassummary.shinc
 . $HOME/lsetup/toolkit/checkproxy.shinc

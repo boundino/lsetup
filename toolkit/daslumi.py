@@ -1,10 +1,12 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 ## Ref: https://twiki.cern.ch/twiki/bin/view/CMSPublic/SWGuideGoodLumiSectionsJSONFile ##
 
 ##
-from CRABClient.UserUtilities import config, getLumiListInValidFiles
-from WMCore.DataStructs.LumiList import LumiList
+# from CRABClient.UserUtilities import config, getLumiListInValidFiles
+from CRABClient.UserUtilities import getLumiListInValidFiles
+import FWCore.PythonUtilities.LumiList as LumiList
+# from FWCore.PythonUtilities import LumiList
 
 import sys
 
@@ -18,14 +20,14 @@ def main():
 	elif len(sys.argv) == 2:
 		argv_a = sys.argv[1]
 	else:
-		print("Usage: python daslumi.py [dataset/json] [dataset/json].\n")
+		print("Usage: python3 daslumi.py [dataset/json] [dataset/json].\n")
 		optyn = ""
 		while (optyn != "y" and optyn != "n"):
-			optyn = raw_input("Would you want to run example [y/n]: ")
+			optyn = input("Would you want to run example [y/n]: ")
 			if optyn == "y":
 				argv_a = "/afs/cern.ch/cms/CAF/CMSCOMM/COMM_DQM/certification/Collisions18/HI/PromptReco/Cert_326381-327564_HI_PromptReco_Collisions18_JSON.txt"
 				argv_b = "/HIDoubleMuonPsiPeri/HIRun2018A-04Apr2019-v1/AOD"
-				commandex = "\n`python daslumi.py " + argv_a + " " + argv_b + "`\n"
+				commandex = "\n`python3 daslumi.py " + argv_a + " " + argv_b + "`\n"
 				print(commandex)
 			else:
 				return
@@ -35,7 +37,7 @@ def main():
 	print(argv_a),
 	print("\033[0m")
 	if (".txt" in argv_a) or (".json" in argv_a) or (".js" in argv_a):
-		lumimask_a = LumiList(filename = argv_a)
+		lumimask_a = LumiList.LumiList(filename = argv_a)
 	else:
 		if ("/USER" in argv_a):
 			lumimask_a = getLumiListInValidFiles(dataset = argv_a, dbsurl = 'phys03')
@@ -52,7 +54,7 @@ def main():
 	print(argv_b),
 	print("\033[0m")
 	if (".txt" in argv_b) or (".json" in argv_b) or (".js" in argv_b):
-		lumimask_b = LumiList(filename = argv_b)
+		lumimask_b = LumiList.LumiList(filename = argv_b)
 	else:
 		if ("/USER" in argv_b):
 			lumimask_b = getLumiListInValidFiles(dataset = argv_b, dbsurl = 'phys03')

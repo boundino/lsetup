@@ -8,11 +8,14 @@ function setupproxy()
 export -f setupproxy
 
 export XRDP=root://cms-xrd-global.cern.ch/
-function xrdrl()
-{
+export MITP=root://xrootd.cmsaf.mit.edu/
+export EOSP=root://eoscms.cern.ch/
+
+function storerl() {
     INPUT=$1
     [[ $1 != /* ]] && INPUT=$PWD/${1}
     SPATH=$INPUT
+
     [[ $INPUT == /mnt/T2_US_MIT/hadoop* ]] && { SPATH=${1#/mnt/T2_US_MIT/hadoop/cms} ; }
     [[ $INPUT == /mnt/hadoop* ]] && { SPATH=${1#/mnt/hadoop/cms} ; }
     # /store/...
@@ -20,15 +23,38 @@ function xrdrl()
     [[ $2 == mit ]] && echo root://xrootd.cmsaf.mit.edu:1094/$SPATH || {
             echo $XRDP$SPATH ;
         }
+
+    [[ $INPUT == */store* ]] && {
+        pref=${INPUT%%/store*}
+        SPATH=${INPUT##$pref}
+        echo $SPATH
+    } || {
+        echo $INPUT
+    }
+    return 0
+}
+export -f storerl
+
+function xrdrl()
+{
+    SPATH=$(storerl $1)
+
+    [[ $SPATH == /store* ]] && {
+        echo $XRDP$SPATH
+    } || {
+        echo $SPATH
+    }
     return 0
 }
 export -f xrdrl
+
 function xrdcpp()
 {
     setupproxy
     SPATH=$(xrdrl $1)
+    echo $SPATH
     [[ $? -eq 0 ]] || { echo $SPATH ; return $?; }
-    [[ $SPATH == *.root ]] && { xrdcp $SPATH $2 ; return 0 ; }
+    [[ $1 == *.* ]] && { xrdcp $SPATH $2 ; return 0 ; }
     DES=""
     mkdir -p $2
     cd $2
@@ -37,6 +63,7 @@ function xrdcpp()
     return 0
 }
 export -f xrdcpp
+
 
 export GFALP=gsiftp://se01.cmsaf.mit.edu:2811/
 function gfalrl()
@@ -55,18 +82,14 @@ function gfalrl()
 }
 export -f gfalrl
 
-
 function gfalcopy()
 {
     setupproxy
     SPATH=$(gfalrl $1)
     DPATH=$(gfalrl $2)
-    # [[ $? -eq 0 ]] || { echo $SPATH ; return $?; }
     [[ $1 == *.* ]] && { gfal-copy -p ${SPATH} ${DPATH} ; return 0 ; }
-    # DES=${1##*/}
     DES=""
     for i in `gfal-ls ${SPATH}` ; do [[ ! -f $DPATH/$DES/$i ]] && { gfal-copy -p ${SPATH}/$i $DPATH/$DES/$i ; } ; done ;
-    # gfal-copy -p -r ${SPATH} $2
     return 0
 }
 export -f gfalcopy

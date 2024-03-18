@@ -56,3 +56,30 @@
 (setq-default indent-tabs-mode nil)
 (add-hook 'bibtex-mode-hook
           (lambda () (setq fill-column 999999)))
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(company-c-headers-path-user '("~" "../includes"))
+ '(company-clang-arguments
+   '("-I\"../includes\"" "-I\"../include\"" "-I/Users/boundin" "-I/Users/boundin/buildroot/include" "-I/afs/cern.ch/user/w/wangj" "-I/usr/include/root"))
+ '(package-selected-packages '(which-key)))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(company-preview ((t (:inherit company-tooltip))))
+ '(company-preview-common ((t (:inherit completions-common-part))))
+ '(company-template-field ((t (:inherit company-tooltip :foreground "wheat1"))))
+ '(company-tooltip ((t (:inherit default :background "gray25"))))
+ '(company-tooltip-annotation ((t (:foreground "lightskyblue2"))))
+ '(company-tooltip-common ((t (:inherit completions-common-part))))
+ '(company-tooltip-scrollbar-thumb ((t (:background "gray50"))))
+ '(company-tooltip-scrollbar-track ((t (:background "gray35"))))
+ '(company-tooltip-selection ((t (:background "gray20"))))
+ '(helm-match ((t (:inherit completions-common-part))))
+ '(helm-source-header ((t (:inherit mode-line))))
+ '(markdown-header-face ((t (:inherit font-lock-function-name-face))))
+ '(markdown-url-face ((t (:inherit font-lock-variable-name-face)))))
