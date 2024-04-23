@@ -14,7 +14,7 @@ export TERM=xterm-24bit
 export CLICOLOR=1
 
 export CURRENTL1=/afs/cern.ch/work/w/wangj/hltl1/runl12023/CMSSW_13_2_5_patch1/src
-export CURRENTWORKDIR=/afs/cern.ch/work/w/wangj/RECO2023/CMSSW_13_2_5_patch1/src/reco2023/lxplus
+export CURRENTWORKDIR=/afs/cern.ch/work/w/wangj/CMSSW_13_2_5_patch1/src/UPCopenHFanalysis/mva/train/
 export CURRENTDOCUMENTDIR=/afs/cern.ch/user/w/wangj/myDir/dNdeta2022/HIN-23-007
 
 # User specific aliases and functions
@@ -26,6 +26,12 @@ alias svmithi='ssh -Y svmithi03'
 # alias mounteos='eosmount eos/; cd ~/eos/cms/store/group/phys_heavyions/wangj'
 alias eosheavyions='cd /eos/cms/store/group/phys_heavyions/wangj/'
 alias eoswangj='cd /eos/user/w/wangj/'
+function eosls() {
+    parm=${1:-$PWD}
+    abspath=`readlink -f $parm`
+    eos ls -lh $abspath
+}
+export -f eosls
 # https://information-technology.web.cern.ch/services/fe/afs/howto/configure-afs-access-rights #
 alias checkafsaccess='fs listacl .'
 alias json='cd /afs/cern.ch/cms/CAF/CMSCOMM/COMM_DQM/certification/'
