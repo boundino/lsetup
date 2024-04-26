@@ -96,6 +96,7 @@
   '(progn
      (define-key web-mode-map (kbd "M-;") nil)))
 (add-hook 'web-mode-hook  'my-web-mode-hook)
+(setq web-mode-engines-alist '(("django" . "\\.html?\\'")))
 
 ;; markdown-mode
 (custom-set-faces
