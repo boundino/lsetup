@@ -74,3 +74,18 @@ function flaskrun() {
     }
 }
 export -f flaskrun
+
+function flaskdb() {
+    [[ $# -gt 0 ]] && {
+        appname=${1%%.py}
+        appname=${appname%%/}
+        flask --app $appname init-db
+    } || {
+        flask init-db
+    }
+}
+export -f flaskdb
+
+alias flaskinit='rm -rf .venv ; python3 -m venv .venv ; . .venv/bin/activate ; pip3 install Flask ;'
+alias flaskactive='. .venv/bin/activate'
+
