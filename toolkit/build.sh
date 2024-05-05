@@ -6,7 +6,7 @@
 
 folder=root
 cmsver=
-if [[ $# -eq 1 ]]
+if [[ $1 == CMSSW_* ]]
 then
     cmsver=$1
     echo
@@ -23,7 +23,7 @@ for i in `echo *.cc *.C` ; do
     extension="."${i##*.}
     e=${i%%$extension}
     echo -e "building $i ... \e[33m=> $e\e[0m"
-    g++ $i $(root-config --libs --cflags) -g -o exec/${folder}/$e
+    g++ $i $(root-config --libs --cflags) -I$HOME -g -o exec/${folder}/$e
 done
 
 [[ x$cmsver == x ]] || rm -rf $cmsver
