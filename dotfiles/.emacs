@@ -16,6 +16,8 @@
 (require 'package-boundin)
 (require 'fontlock-boundin)
 (require 'setkey-boundin)
+(require 'yaml-mode)
+(add-to-list 'auto-mode-alist '("\\.yaml\\'" . yaml-mode))
 
 ;; Set variables ;;
 ;; Highlight parenthese

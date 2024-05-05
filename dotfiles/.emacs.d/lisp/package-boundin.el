@@ -4,7 +4,7 @@
              '("melpa" . "https://melpa.org/packages/") t)
 (package-initialize)
 
-(setq package-selected-packages '(auto-complete company which-key web-mode helm company-c-headers markdown-mode paren-face yaml-mode))
+(setq package-selected-packages '(auto-complete company which-key web-mode helm company-c-headers markdown-mode paren-face))
 ;; lsp-mode dap-mode yasnippet))
 ;; projectile hydra flycheck company avy which-key helm-xref dap-mode))
 
@@ -110,10 +110,6 @@
                                    cider-repl-mode nrepl-mode arc-mode inferior-arc-mode
                                    c++-mode sh-mode))
 (setq paren-face-regexp "[][(),]")
-
-;; yaml-mode
-(web-mode) 
-(add-to-list 'auto-mode-alist '("\\.yaml?\\'" . yaml-mode))
 
 ;; lsp-mode c++ https://emacs-lsp.github.io/lsp-mode/tutorials/CPP-guide/
 ;; https://emacs-lsp.github.io/lsp-mode/tutorials/how-to-turn-off/
