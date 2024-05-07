@@ -109,7 +109,7 @@ function gitlabclonecern() {
     repo=${repo%%.git}
     repodir=${repo##*/}
     
-    git clone --recursive ssh://git@gitlab.cern.ch:7999/tdr/${repo}.git
+    git clone --recursive ssh://git@gitlab.cern.ch:7999/${repo}.git
     cd $repodir
     
         echo '
