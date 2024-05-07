@@ -103,6 +103,23 @@ packf() {
     tar -czvf ${file}.tar.gz $1
 }
 
+# gitlab
+function gitlabclonecern() {
+    repo=$1
+    repo=${repo%%.git}
+    repodir=${repo##*/}
+    
+    git clone --recursive ssh://git@gitlab.cern.ch:7999/tdr/${repo}.git
+    cd $repodir
+    
+        echo '
+    [user]
+        name = wangj
+        email = jing.wang@cern.ch
+' >> .git/config ;
+    cat .git/config
+}
+
 catt() { echo -e $(cat "$@" | sed  's/$/\\n/' | sed 's/ /\\a /g') ; }
 export -f catt
 echoo() { for i in `echo $@` ; do echo $i ; done ; }
