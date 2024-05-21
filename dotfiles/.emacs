@@ -1,5 +1,14 @@
 ;; .emacs
 
+(menu-bar-mode -1) 
+(tool-bar-mode -1)
+;; (setq-default header-line-format mode-line-format)
+(setq-default header-line-format "-- %f")
+;; (setq-default mode-line-buffer-identification
+;;               (list 'buffer-file-name
+;;                     (propertized-buffer-identification "%12f")
+;;                     (propertized-buffer-identification "%12b")))
+
 (add-to-list 'load-path "~/.emacs.d/lisp/")
 
 ;; Set dark theme ;; 
@@ -85,3 +94,4 @@
  '(helm-source-header ((t (:inherit mode-line))))
  '(markdown-header-face ((t (:inherit font-lock-function-name-face))))
  '(markdown-url-face ((t (:inherit font-lock-variable-name-face)))))
+

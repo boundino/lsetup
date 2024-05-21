@@ -129,4 +129,8 @@
 ;;   (yas-global-mode))
 
 ;;
+
+(eval-after-load "sql"
+  '(load-library "sql-indent"))
+
 (provide 'package-boundin)
