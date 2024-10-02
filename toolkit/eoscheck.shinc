@@ -5,10 +5,12 @@ function eoscheck() {
     SHOWDIRCMSSWCREG=$(cbuildreg)
     [[ ! -f $HOME/lsetup/toolkit/exec/$SHOWDIRCMSSWCREG/eossort ]] && return 1
 
-    # EOSADDR=$PWD
-    EOSADDR=/eos/cms/store/group/phys_heavyions
-    [[ $? -ne 0 ]] && EOSADDR=$1
-    
+    EOSADDR=$PWD
+    # EOSADDR=/eos/cms/store/group/phys_heavyions
+    [[ $# -ne 0 ]] && EOSADDR=$1
+    EOSADDR=$(readlink -f $EOSADDR)
+
+    echo $EOSADDR
     eos quota $EOSADDR
     eos ls -lh $EOSADDR > tmp.txt
     $HOME/lsetup/toolkit/exec/$SHOWDIRCMSSWCREG/eossort tmp.txt
