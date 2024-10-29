@@ -79,6 +79,8 @@ alias diffw='diff --report-identical-files --old-group-format=$'"'"'\e[38;2;210;
 alias diffl='diff --report-identical-files --old-group-format=$'"'"'%dn line --@ l %df:\n\e[38;2;210;106;112;1m%<\e[0m'"'"' --new-group-format=$'"'"'%dN line ++@ l %de:\n\e[38;2;132;192;127;1m%>\e[0m'"'"' --unchanged-group-format='"'""'"
 alias difff='diff --report-identical-files --old-group-format=$'"'"'\e[38;2;210;106;112;1m%<\e[0m'"'"' --new-group-format=$'"'"'\e[38;2;132;192;127;1m%>\e[0m'"'"' --unchanged-group-format='"'""'"
 alias diffu='diff --old-group-format=$'"'"'%dn line --@ l %df:\n%<'"'"' --new-group-format=$'"'"'%dN line ++@ l %de:\n%>'"'"' --unchanged-group-format='"'"'%='"'"
+function cdd() { cd $1 || { lpart=${1##*/} ; cd ${1%%$lpart} ; }  }
+export -f cdd
 alias grep='grep --color=no'
 alias grepc='grep --color=yes'
 alias less='less -RMN'
@@ -104,7 +106,13 @@ packf() {
 }
 
 # gitlab
-function gitlabclonecern() {
+function gclone() {
+    git clone git@github.com-work:$1
+}
+function gclonepersonal() {
+    git clone git@github.com-personal:$1
+}
+function gclonecern() {
     repo=$1
     repo=${repo%%.git}
     repodir=${repo##*/}
@@ -130,6 +138,14 @@ weather() { curl http://wttr.in/${1:-geneva} ; }
 
 # export PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME%%.*}\007"'
 export PROMPT_COMMAND='echo -ne "\033]0;${PWD##*/}@${HOSTNAME%%.*}\007"'
+
+function cheatsheet() {
+    list='
+${str##*/}
+${str%%.*}
+'
+    echo "$list"
+}
 
 function colort() {
     for i in {1..9}
