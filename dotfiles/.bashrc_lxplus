@@ -14,7 +14,7 @@ export TERM=xterm-24bit
 export CLICOLOR=1
 
 export CURRENTL1=/afs/cern.ch/work/w/wangj/hltl1/runl12024/CMSSW_14_1_4_patch2/src
-export CURRENTWORKDIR=/afs/cern.ch/work/w/wangj/RECO2024/CMSSW_14_1_4_patch2/src
+export CURRENTWORKDIR=/afs/cern.ch/work/w/wangj/RECO2024/CMSSW_14_1_4_patch5/src
 export CURRENTDOCUMENTDIR=/afs/cern.ch/user/w/wangj/myDir/dNdeta2022/HIN-23-007
 
 # User specific aliases and functions
